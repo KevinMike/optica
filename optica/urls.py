@@ -15,13 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from optica import settings
+admin.site.site_header = "Sistema de Gestion para la Optica LATYNA"
+admin.site.site_title = "Panel de Administracion"
 
-admin.site.site_header = "Optica LATYNA"
-admin.site.site_title = "Sistema de Administracion"
+
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^almacen/',include('apps.almacen.urls',namespace='almacen')),
+    url(r'^admin/', include(admin.site.urls),name="admin"), # admin site
+    url(r'^',include('apps.almacen.urls',namespace='almacen')),
     url(r'^cliente/',include('apps.cliente.urls',namespace='cliente')),
     url(r'^facturacion/',include('apps.facturacion.urls',namespace='facturacion')),
     url(r'^receta/',include('apps.receta.urls',namespace='receta')),
 ]
+
