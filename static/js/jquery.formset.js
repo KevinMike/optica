@@ -166,7 +166,7 @@
                 addButton = buttonRow.find('a');
             } else {
                 // Otherwise, insert it immediately after the last form:
-                $$.filter(':last').after('<a class="' + options.addCssClass + ' btn btn-default" href="javascript:void(0)">' + options.addText + '</a>');
+                $$.filter(':last').after('<a class="' + options.addCssClass + ' btn btn-success" href="javascript:void(0)">' + options.addText + '</a>');
                 addButton = $$.filter(':last').next();
                 if (hideAddButton) addButton.hide();
             }
@@ -196,7 +196,7 @@
         prefix: 'form',                  // The form prefix for your django formset
         formTemplate: null,              // The jQuery selection cloned to generate new form instances
         addText: 'Añadir',          // Text for the add link
-        deleteText: 'remove',            // Text for the delete link
+        deleteText: 'Eliminar Detalle',            // Text for the delete link
         addCssClass: 'add-row',          // CSS class applied to the add link
         deleteCssClass: 'delete-row',    // CSS class applied to the delete link
         formCssClass: 'dynamic-form',    // CSS class applied to each form in a formset

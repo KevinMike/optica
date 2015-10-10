@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'apps.cliente',
     'apps.facturacion',
     'apps.receta',
-
+    'apps.usuarios',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -129,3 +129,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 MEDIA_URL = '/media/'
 
+LOGIN_URL = '/login'
+
+LOGIN_REDIRECT_URL = '/'

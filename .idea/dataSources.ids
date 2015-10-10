@@ -1913,7 +1913,7 @@
     <table name="receta_receta" schema="public" catalog="latyna" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncmVjZXRhX3JlY2V0YV9pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
       <column name="fecha" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
-      <column name="imagen" sqlType="bytea" precision="2147483647" scale="0" nullable="false" jdbcType="-2"/>
+      <column name="imagen" sqlType="varchar" precision="100" scale="0" nullable="false" jdbcType="12"/>
       <column name="dni_cliente_id" sqlType="varchar" precision="8" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="receta_receta_pkey" columns="id"/>
       <foreign-key name="receta_r_dni_cliente_id_5f54c2c0266907e3_fk_cliente_cliente_dni" columns="dni_cliente_id" ref-table="cliente_cliente" ref-schema="public" ref-catalog="" ref-columns="dni" update-rule="3" delete-rule="3" deferrability="1"/>

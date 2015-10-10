@@ -5,7 +5,7 @@
                             <div class="sm-st clearfix">
                                 <span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
                                 <div class="sm-st-info">
-                                    <span>2200</span>
+                                    <span>0</span>
                                     Total de Mensajes
                                 </div>
                             </div>
@@ -14,17 +14,17 @@
                             <div class="sm-st clearfix">
                                 <span class="sm-st-icon st-blue"><i class="fa fa-dollar"></i></span>
                                 <div class="sm-st-info">
-                                    <span>100,320</span>
-                                    Total en Caja
+                                    <span>{{ suma_mes }} soles</span>
+                                    Total en Caja Mensual
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="sm-st clearfix">
-                                <span class="sm-st-icon st-green"><i class="fa fa-paperclip"></i></span>
+                                <span class="sm-st-icon st-green"><i class="fa fa-dollar"></i></span>
                                 <div class="sm-st-info">
-                                    <span>4567</span>
-                                    Total recaudado en el día
+                                    <span>{{ suma_dia }} soles</span>
+                                    Total en caja Diario
                                 </div>
                             </div>
                         </div>
@@ -105,16 +105,9 @@
                                                         </button>
                                                         <strong>Warning!</strong> Best check yo self, you're not looking too good.
                                                     </div>
-
-
-
                                                 </div>
                                         </section>
-
-
-
                       </div>
-
 
                   </div>
                     <div class="row">
@@ -125,12 +118,14 @@
                                 </header>
 
                                 <ul class="list-group teammates">
+                                   {% for cliente in clientes %}
                                     <li class="list-group-item">
-                                        <a href=""><img src="img/26115.jpg" width="50" height="50"></a>
-                                        <span class="pull-right label label-danger inline m-t-15">Admin</span>
-                                        <a href="">Damon Parker</a>
+                                        <a href=""><img src="/media/{{ cliente.foto }}"  width="50" height="50"></a>
+                                        <span class="pull-right label label-danger inline m-t-15">{{ cliente.email }}</span>
+                                        <a href="">{{ cliente.nombre }} {{ cliente.apellido }}</a>
                                     </li>
-                                    <li class="list-group-item">
+                                    {% endfor %}
+                                    {% comment %}<li class="list-group-item">
                                         <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
                                         <span class="pull-right label label-info inline m-t-15">Member</span>
                                         <a href="">Joe Waston</a>
@@ -149,14 +144,14 @@
                                         <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
                                         <span class="pull-right label label-success inline m-t-15">Subscriber</span>
                                         <a href="">Emma Welson</a>
-                                    </li>
+                                    </li>{% endcomment %}
                                 </ul>
                                 <div class="panel-footer bg-white">
                                     <!-- <span class="pull-right badge badge-info">32</span> -->
-                                    <button class="btn btn-primary btn-addon btn-sm">
+{% comment %}                                    <button class="btn btn-primary btn-addon btn-sm">
                                         <i class="fa fa-plus"></i>
                                         Add Teammate
-                                    </button>
+                                    </button>{% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -293,8 +288,35 @@
 
 {% block application_javascript %}
         <script type="text/javascript">
+        function ObtenerEstadistica()
+        {
+            $.ajax({
+                url: "/cliente/buscar-cliente/" +  $("#BuscarCliente").val(),
+                type: "GET",
+                dataType: "json",
+                async: true,
+                success: function (j) {
+                    for(var i = 0; i< j.length; i++)
+                    {
+                        $('#cliente_foto').html(j[i]['foto']);
+                        $('#cliente_nombre').html(j[i]['nombre']);
+                        $('#cliente_telefono').html(j[i]['telefono']);
+                        $('#cliente_email').html(j[i]['email']);
+                        $('#add_cliente').attr('disabled',true);
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                        $('#cliente_foto').html('No existe');
+                        $('#cliente_nombre').html('Cliente no encontrado');
+                        $('#cliente_telefono').html('No existe');
+                        $('#cliente_email').html('No existe');
+                        $('#add_cliente').attr('disabled',false);
+                }
+            });
+        }
+
         $(function() {
-                    "use strict";
+                "use strict";
                     //BAR CHART
                     var data = {
                         labels: ["January", "February", "March", "April", "May", "June", "July"],

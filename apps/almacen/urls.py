@@ -4,8 +4,8 @@ from optica import settings
 
 urlpatterns = patterns('',
 
-    url(r'^$', Index.as_view(),name='index'),
-
+    url(r'^productos$', Productos.as_view(),name='producto'),
+    url(r'^obtener-producto', 'apps.almacen.views.ObtenerProducto',name='ObtenerProducto'),
 )
 if settings.DEBUG:
     urlpatterns += patterns('',

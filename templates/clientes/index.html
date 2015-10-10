@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel general">
+                    <header class="panel-heading tab-bg-dark-navy-blue">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#home">Ventas</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#register">Historia Clinica</a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane active">
+                                <table id="tabla1" class="table table-hover display">
+                                    <thead>
+                                        <th>DNI</th>
+                                        <th>Nombre</th>
+                                        <th>Nro</th>
+                                        <th>Fecha</th>
+                                        <th>Observaciones</th>
+                                        <th>Subtotal</th>
+                                        <th>Total</th>
+                                    </thead>
+                                    {% for venta in ventas %}
+                                    <tr>
+                                        <td>{{ venta.dni_cliente.dni }}</td>
+                                        <td>{{ venta.dni_cliente.nombre_completo }}</td>
+                                        <td>{{ venta.nro }}</td>
+                                        <td>{{ venta.fecha }}</td>
+                                        <td><span class="label label-info">{{ venta.observaciones }}</span></td>
+                                        <td><span class="label label-danger">{{ venta.subtotal }}</span></td>
+                                        <td>{{ venta.total }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <div id="register" class="tab-pane">
+                                    <table id="tabla2" class="table table-hover display">
+                                        <thead>
+                                            <th>DNI</th>
+                                            <th>Nombre</th>
+                                            <th>Edad</th>
+                                            <th>Dirección</th>
+                                            <th>Telefono</th>
+                                            <th>Email</th>
+                                            <th>Ocupación</th>
+                                            <th>Fecha del Exámen</th>
+                                            <th>Receta</th>
+                                        </thead>
+                                        {% load staticfiles %}
+                                        {% for receta in recetas %}
+                                        <tr>
+                                            <td>{{ receta.dni_cliente.dni }}</td>
+                                            <td>{{ receta.dni_cliente.nombre_completo }}</td>
+                                            <td>{{ receta.dni_cliente.edad }}</td>
+                                            <td>{{ receta.dni_cliente.direccion }}</td>
+                                            <td><span class="label label-info">{{ receta.dni_cliente.telefono }}</span></td>
+                                            <td><span class="label label-danger">{{ receta.dni_cliente.email }}</span></td>
+                                            <td>{{ receta.dni_cliente.ocupacion }}</td>
+                                            <td>{{ receta.fecha }}</td>
+                                            <td> <a class="fancybox" rel="group" href="{{ receta.imagen.url }}" title="{{ receta.dni_cliente.nombre_completo }} - {{ receta.fecha }}"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el Examen"></a> </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+{% block application_javascript %}
+    <script>
+    var datatable = {
+
+        "oLanguage": {
+            "oAria": {
+                "sSortAscending": " - ordenar de forma ascendente",
+                "sSortDescending": " - ordenar de forma descendente",
+                "sInfoEmpty": "No hay información para mostrar",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sSearch": "Buscar :",
+                "sZeroRecords": "No hay ningún registro",
+
+            },
+            "oPaginate": {
+                "sFirst": "Primera página",
+                "sLast": "Última página",
+                "sNext": "Página siguiente",
+                "sPrevious": "Página anterior"
+            },
+
+            "sEmptyTable": "Esta tabla no tiene datos",
+            "sInfo": "Mostrando  _START_ - _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 entradas",
+            "sInfoFiltered": "(filtrados de _MAX_  registros en total)",
+            "sLengthMenu": "Motrar _MENU_ registros",
+            "sSearch": "Buscar :",
+            "sZeroRecords": "No se encontraron coincidencias"
+
+        }
+    };
+    $(document).ready(function() {
+        $(".fancybox").fancybox({
+    	openEffect	: 'elastic',
+    	closeEffect	: 'elastic',
+
+    	helpers : {
+    		title : {
+    			type : 'inside'
+    		}
+    	}
+    });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#tabla1').DataTable(datatable);
+        $('#tabla2').DataTable(datatable);
+        $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
+    } );
+    </script>
+{% endblock %}

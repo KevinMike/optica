@@ -35,15 +35,4 @@ class Producto(models.Model):
     class Meta:
         verbose_name_plural = "PRODUCTOS"
 
-# class Almacen(models.Model):
-#     codigo_producto = models.ForeignKey(Producto, blank=True, null=True)
-#     stock = models.IntegerField(blank=True, null=True)
-#     observacion = models.TextField(blank=True, null=True)
-#     class Meta:
-#         verbose_name_plural = "STOCK DE PRODUCTOS"
-
-# class ProductoProveedor(models.Model):
-#     codigo_producto = models.ForeignKey(Producto)
-#     id_proveedor = models.ForeignKey(Proveedor)
-
 

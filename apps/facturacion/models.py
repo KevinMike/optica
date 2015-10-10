@@ -10,8 +10,7 @@ class Venta(models.Model):
     subtotal = models.IntegerField(blank=True, null=True)
     total = models.IntegerField(blank=True, null=True)
     observaciones = models.TextField(blank=True, null=True)
-    def __unicode__(self):
-        return self.nro
+
 
 
 class DetalleVenta(models.Model):

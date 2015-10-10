@@ -1,27 +1,33 @@
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import HttpResponseBadRequest
 from .models import Cliente
+from apps.receta.models import Receta
 from .forms import ClienteForm
 import json
-from django.views.decorators.csrf import csrf_exempt
 from apps.facturacion.forms import *
 # Create your views here.
+class Index(View):
+    template_name = 'clientes/index.html'
+    def get(self,request):
+        ventas = Venta.objects.all()
+        recetas = Receta.objects.all()
+        return render(self.request,self.template_name,locals())
+
+
 @csrf_exempt
 def SaveClient(request):
     print "request nuevo!!!"
     template_name = 'facturacion/index.html'
     if request.method == 'POST':
         if request.is_ajax():
-            print "es ajax yupiii"
             data = json.loads(request.body)
-            # if  data['foto'] == '':
-            #     data['foto'] = 'pic_folder/default_user.png'
-            print data
             cliente_form = ClienteForm(data)
             if (cliente_form.is_valid()):
                 print "formulario valido  :D"
                 cliente_form.save()
-                mensaje = "El cliente fue registrado con exito"
+                mensaje = {'mensaje':'El cliente ' + str(data['nombre']) + ' '+ str(data['apellido']) +' fue registrado con exito','datos': data }
                 return  HttpResponse(json.dumps(mensaje),content_type='application/json')
             else:
                 print "formulario invalido  :("
@@ -29,16 +35,15 @@ def SaveClient(request):
                 if cliente_form.errors:
                     for e in cliente_form.errors:
                         errores[e] = unicode(cliente_form.errors[e])
-                    lista = json.dumps(errores)
-                    print lista
-                    return HttpResponse(lista,content_type='application/json')
+                    mensaje = {'mensaje':'No se pudo registrar al cliente, corrija los errores.','errores':errores }
+                    return HttpResponseBadRequest(json.dumps(mensaje),content_type='application/json')
         else:
             print "Request no ajax :o"
             cliente_form = ClienteForm(request.POST,request.FILES)
             if cliente_form.is_valid():
                 print "formulario valido  :D"
                 cliente_form.save()
-                return redirect('/')
+                return redirect('/facturacion/')
             else:
                 print "formulario invalido  :("
                 return render(request,template_name,locals())

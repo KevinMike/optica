@@ -2163,7 +2163,7 @@ content: '';
   background: transparent url('../img/ajax-loader1.gif') 50% 50% no-repeat;
 }
 
-/*
+/*|
     Component: Buttons
 -------------------------
 */
@@ -4207,9 +4207,7 @@ padding: 6px 10px;
   background-color: #23b7e5;
 }
 #RegistrarVenta{
-  background-color: midnightblue;
-  border-radius: 0.5em;
-  color: white;
+  font-size: large;
   width: 100%;
   height: 100px;
 }

@@ -1,5 +1,5 @@
 from django.db import models
-import os
+import datetime
 # Create your models here.
 class Cliente(models.Model):
     dni = models.CharField(primary_key=True, max_length=8)
@@ -17,9 +17,18 @@ class Cliente(models.Model):
             return "<a href='%s' target='_blank'><img src='%s' width='100'></a>" %(self.foto.url,self.foto.url)
         else:
             return "<strong>No tiene foto</strong>"
+
     fotografia.allow_tags = True
     def __unicode__(self):
         return "%s, %s" %(self.nombre,self.apellido)
+
+    def nombre_completo(self):
+        return "%s %s"  %(self.nombre,self.apellido)
+    def edad(self):
+        if(self.fecha_nacimiento):
+            return (datetime.date.today() - self.fecha_nacimiento).year
+        else:
+            return "No especificado"
 
     class Meta:
         verbose_name_plural = "CLIENTES"

@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.shortcuts import render,redirect
 from django.views.generic import View, ListView, DeleteView
 from apps.cliente.forms import ClienteForm
@@ -27,6 +28,7 @@ class IndexView(View):
                         venta.dni_cliente = cliente
                 venta.save()
                 subtotal = 0
+                print DetalleFormset
                 for item in DetalleFormset:
                     detalle = item.save(commit=False)
                     detalle.nro_venta = venta
@@ -34,11 +36,12 @@ class IndexView(View):
                     subtotal = subtotal + (detalle.precio) * int(detalle.cantidad)
                 venta = Venta.objects.get(pk=venta.nro)
                 venta.subtotal = subtotal
+                venta.total = subtotal
                 venta.save()
-                messages.success(request, 'La venta se registro con exito')
-                cliente_form = ClienteForm()
-                venta_form = VentaForm()
-                DetalleFormSet = DetalleVentaFormSet(prefix='formset')
+                messages.success(request, 'La venta se registro con éxito')
+                self.template_name = 'facturacion/reporte.html'
+                detalles = DetalleVenta.objects.filter(nro_venta=venta)
+                #return render(request,self.template_name,{'messages':messages,'detalles':detalles,'venta':venta})
                 return render(request,self.template_name,locals())
             else:
                 messages.error(request, 'No se pudo registrar la venta, ocurrio un error en el formulario detalles de venta.')
@@ -50,3 +53,16 @@ class IndexView(View):
             DetalleFormSet = DetalleVentaFormSet(request.POST,prefix='formset')
             cliente_form = ClienteForm()
             return render(request,self.template_name,locals())
+
+
+
+def reporte(request,nro):
+    template_name = 'facturacion/reporte.html'
+    venta = Venta.objects.get(pk=nro)
+    detalles = DetalleVenta.objects.filter(nro_venta=nro)
+    return render(request,template_name,locals())
+
+
+def estadisticas(request):
+    venta = Venta.objects.all()
+    pass

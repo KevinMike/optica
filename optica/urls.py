@@ -15,14 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from optica import settings
+from apps.usuarios.views import Login, Logout
+from apps.almacen.views import Index
 admin.site.site_header = "Sistema de Gestion para la Optica LATYNA"
 admin.site.site_title = "Panel de Administracion"
 
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls),name="admin"), # admin site
-    url(r'^',include('apps.almacen.urls',namespace='almacen')),
+    url(r'^$',Index.as_view(),name='index'),
+    url(r'^login/$',Login.as_view(),name="login"),
+    url(r'^logout/$',Logout.as_view(),name="logout"),
+    url(r'^almacen/',include('apps.almacen.urls',namespace='almacen')),
+    url(r'^admin/', include(admin.site.urls),name="admin"),
     url(r'^cliente/',include('apps.cliente.urls',namespace='cliente')),
     url(r'^facturacion/',include('apps.facturacion.urls',namespace='facturacion')),
     url(r'^receta/',include('apps.receta.urls',namespace='receta')),

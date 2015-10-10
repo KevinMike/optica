@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+    {% if messages %}
+        {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                {% endif %}
+        {% endfor %}
+    {% endif %}
+{% block content %}
+    <div class="content" style="background-color: white; border-radius: 0.5em;">
+            <h1><strong>Reporte de Venta</strong></h1>
+            <h3>Venta Número {{ venta.nro }}</h3>
+            <h3>Datos del Cliente</h3>
+                <table class="table-condensed" style="width: 100%">
+                    <tr>
+                        <td><strong>Nombre </strong></td>
+                        <td>{{ venta.dni_cliente.nombre_completo }}</td>
+                        <td><strong>Teléfono </strong></td>
+                        <td>{{ venta.dni_cliente.telefono }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dirección</strong></td>
+                        <td>{{ venta.dni_cliente.direccion }}</td>
+                        <td><strong>Correo Electrónico</strong></td>
+                        <td>{{ venta.dni_cliente.email }}</td>
+                    </tr>
+                </table>
+            <h3>Detalles de Venta</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td><strong>Código</strong></td>
+                            <td><strong>Producto</strong></td>
+                            <td><strong>Precio</strong></td>
+                            <td><strong>Cantidad</strong></td>
+                        </tr>
+                    </thead>
+                    {% for detalle in detalles %}
+                        <tr>
+                            <td>{{ detalle.codigo_producto.codigo }}</td>
+                            <td>{{ detalle.codigo_producto.descripcion }}</td>
+                            <td>{{ detalle.precio }} soles</td>
+                            <td>{{ detalle.cantidad }} unidades</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td rowspan="2" colspan="2"><strong>Observaciones: </strong>{{ venta.observaciones }}</td>
+                        <td><strong>Subtotal</strong></td>
+                        <td>{{ venta.subtotal }} soles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td>{{ venta.total }} soles</td>
+                    </tr>
+               </table>
+    </div>
+
+
+{% endblock %}

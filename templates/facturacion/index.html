@@ -3,19 +3,28 @@
 {% block content %}
     {% if messages %}
         {% for message in messages %}
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ message }} {{msg.level_tag}}
-                </div>
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                {% endif %}
         {% endfor %}
     {% endif %}
 
 <div class="row">
         <form class="form-horizontal" role="form" action="{% url 'facturacion:index' %}" method="POST">{% csrf_token %}
             <div class="col-md-6">
-            <section class="panel">
+            <section class="panel panel-primary">
                 <header class="panel-heading">
                     Cliente
                 </header>
@@ -41,13 +50,13 @@
                                     <td><span class="badge bg-red" id="cliente_email"></span></td>
                                 </tr></tbody>
                             </table>
-                            <button data-toggle="modal" data-target="#cliente-form" class="btn btn-primary btn-large" id="add_cliente">Añadir Cliente</button>
+                            <button data-toggle="modal" data-target="#cliente-modal" class="btn btn-success btn-large" id="add_cliente">Añadir Cliente</button>
                 </div>
             </section>
         </div>
-        <div class="col-lg-6">
+            <div class="col-md-6">
             <!--chat start-->
-            <section class="panel">
+            <section class="panel panel-primary">
                 <header class="panel-heading">
                     Ventas
                 </header>
@@ -70,8 +79,8 @@
                 </div>
             </section>
         </div>
-        <div class="col-lg-12">
-        <section class="panel">
+            <div class="col-lg-12">
+        <section class="panel panel-primary">
             <header class="panel-heading">
                 Detalles
             </header>
@@ -125,14 +134,13 @@
                 </div>
             </section>
         </div>
-        <div class="col-lg-12">
-            <input id="RegistrarVenta" type="submit" value="Registrar Venta"/>
-        </div>
+            <div class="col-lg-12">
+                <input id="RegistrarVenta" type="submit" value="Registrar Venta"/>
+            </div>
         </form>
-
 </div>
 <!-- Modal -->
-    <div id="cliente-form" class="modal fade" role="dialog">
+    <div id="cliente-modal" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -142,62 +150,60 @@
               </div>
               <form id="client-form" class="form-horizontal" role="form" action="{% url 'cliente:GuardarCliente' %}" method="POST" enctype="multipart/form-data">
               <div class="modal-body">
-                  <div class="alert alert-warning" id="msg"></div>
-
+                      <div id="msg">
+                      </div>
                       {% csrf_token %}
                       <div class="form-group">
-                          {{ cliente_form.dni.errors }}
+                          <div id="error_{{ cliente_form.dni.auto_id }}">{{ cliente_form.dni.errors }}</div>
                           <label for="{{ cliente_form.dni.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.dni.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.dni }}
                           </div>
                       </div>
                       <div class="form-group">
-                          {{ cliente_form.nombre.errors }}
+                          <div id="error_{{ cliente_form.nombre.auto_id }}">{{ cliente_form.nombre.errors }}</div>
                           <label for="{{ cliente_form.nombre.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.nombre.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.nombre }}
                           </div>
                       </div>
                       <div class="form-group">
-                          {{ cliente_form.apellido.errors }}
+                          <div id="error_{{ cliente_form.apellido.auto_id }}">{{ cliente_form.apellido.errors }}</div>
                           <label for="{{ cliente_form.apellido.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.apellido.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.apellido }}
                           </div>
                       </div>
                       <div class="form-group">
-                          {{ cliente_form.direccion.errors }}
+                          <div id="error_{{ cliente_form.direccion.auto_id }}">{{ cliente_form.direccion.errors }}</div>
                           <label for="{{ cliente_form.direccion.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.direccion.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.direccion }}
                           </div>
                       </div>
                       <div class="form-group">
-{#                          <div class="alert alert-warning" role="alert">...</div>#}
-                          {{ cliente_form.telefono.errors }}
+                          <div id="error_{{ cliente_form.telefono.auto_id }}">{{ cliente_form.telefono.errors }}</div>
                           <label for="{{ cliente_form.telefono.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.telefono.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.telefono }}
                           </div>
                       </div>
                       <div class="form-group">
-{#                          <div class="alert alert-warning" role="alert">...</div>#}
-                          {{ cliente_form.email.errors }}
+                          <div id="error_{{ cliente_form.email.auto_id }}">{{ cliente_form.email.errors }}</div>
                           <label for="{{ cliente_form.email.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.email.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.email }}
                           </div>
                       </div>
                       <div class="form-group">
-                          {{ cliente_form.ocupacion.errors }}
+                          <div id="error_{{ cliente_form.ocupacion.auto_id }}">{{ cliente_form.ocupacion.errors }}</div>
                           <label for="{{ cliente_form.ocupacion.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.ocupacion.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.ocupacion }}
                           </div>
                       </div>
                       <div class="form-group">
-                          {{ cliente_form.foto.errors }}
+                          <div id="error_{{ cliente_form.foto.auto_id }}">{{ cliente_form.foto.errors }}</div>
                           <label for="{{ cliente_form.foto.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.foto.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.foto }}
@@ -217,7 +223,14 @@
 {% endblock %}
 {% block application_javascript %}
     <script type="application/javascript">
-            //Buscar Cliente
+
+
+
+        function ResetearForm(form_id)
+            {
+                $('#'+form_id)[0].reset();
+            }
+            //Buscar Cliente via ajax
             function search_client(){
                 $.ajax({
                     url: "/cliente/buscar-cliente/" +  $("#BuscarCliente").val(),
@@ -243,6 +256,7 @@
                     }
                 });
             }
+            //Registrar cliente via ajax
             function registrar_cliente()
             {
                 var $inputs = $('#client-form :input');
@@ -251,73 +265,55 @@
                     values[this.name] = $(this).val();
                 });
                 var data = JSON.stringify(values);
-                console.log(data);
                 $.ajax({
                     type: $("#client-form").attr('method'), // GET or POST
                     url: $("#client-form").attr('action'), // the file to call
                     data: data,
                     dataType: "json",
                     success: function(j){
-                        console.log('Errores de Validacion');
-                        var msg =JSON.stringify(j);
-                        $("#msg").html(msg);
-                        //$("#msg").html(msg);
-                        //$("#cliente-form").modal('hide');
+                        $("#msg").html("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + j.mensaje + "</div>");
+                        $("#BuscarCliente").val('');
+                        $("#BuscarCliente").val(j.datos.dni);
+                        search_client();
+                        ResetearForm('client-form');
+                        //Limpiar formulario
+                        $("#error_id_dni").html('');
+                        $("#error_id_nombre").html('');
+                        $("#error_id_apellido").html('');
+                        $("#error_id_direccion").html('');
+                        $("#error_id_telefono").html('');
+                        $("#error_id_email").html('');
+
+                        $("#cliente-modal").modal('hide');
                     },
                     error: function(error){
-                        alert("Ha ocurriso un error");
+                        $("html, #cliente-modal").animate({ scrollTop: 0 }, "slow");
+                        $("#msg").html("<div class='alert alert-danger'>" + error.responseJSON.mensaje + "</div>");
+                        //Limpiar formulario
+                        $("#error_id_dni").html('');
+                        $("#error_id_nombre").html('');
+                        $("#error_id_apellido").html('');
+                        $("#error_id_direccion").html('');
+                        $("#error_id_telefono").html('');
+                        $("#error_id_email").html('');
+                        //Escribir errores en el formualrio
+                        $("#error_id_dni").html(error.responseJSON.errores.dni );
+                        $("#error_id_nombre").html(error.responseJSON.errores.nombre );
+                        $("#error_id_apellido").html(error.responseJSON.errores.apellido );
+                        $("#error_id_direccion").html(error.responseJSON.errores.direccion );
+                        $("#error_id_telefono").html(error.responseJSON.errores.telefono );
+                        $("#error_id_email").html(error.responseJSON.errores.email );
                     }
                 });
             }
             $( document ).ready(function() {
                 $('form .formset').formset();
                 $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
-                // Procesor Añadir Cliente
-{#                $("#client-form").submit(function(){#}
-{#                    alert("Se esta guardando");#}
-{#                    $.ajax({#}
-{#                        type: $(this).attr('method'), // GET or POST#}
-{#                        url: $(this).attr('action'), // the file to call#}
-{#                        data: $(this).serialize(),#}
-{#                        success: function(msg){#}
-{#                            $("#thanks").html(msg)#}
-{#                            $("#form-content").modal('hide');#}
-{#                        },#}
-{#                        error: function(error){#}
-{#                            alert(error);#}
-{#                        }#}
-{#                    });#}
-{#                });#}
-{#                $('#client-form').on('submit', function(event){#}
-{#                    event.preventDefault();#}
-{#                    registrar_cliente();#}
-{#                });#}
-{#                $("#submit_cliente").click(function(){#}
-{#                    var $inputs = $('#client-form :input');#}
-{#                    var values = {};#}
-{#                    $inputs.each(function() {#}
-{#                        values[this.name] = $(this).val();#}
-{#                    });#}
-{#                    var data = JSON.stringify(values);#}
-{#                    console.log(data);#}
-{#                    $.ajax({#}
-{#                        type: $("#client-form").attr('method'), // GET or POST#}
-{#                        url: $("#client-form").attr('action'), // the file to call#}
-{#                        data: data,#}
-{#                        dataType: "json",#}
-{#                        success: function(j){#}
-{#                            console.log('Errores de Validacion');#}
-{#                            var msg =JSON.stringify(j);#}
-{#                            $("#msg").html(msg);#}
-{#                            //$("#msg").html(msg);#}
-{#                            //$("#cliente-form").modal('hide');#}
-{#                        },#}
-{#                        error: function(error){#}
-{#                            alert("Ha ocurriso un error");#}
-{#                        }#}
-{#                    });#}
-{#                });#}
-
+                search_client();
+                $('#client-form').on('submit', function(event){
+                    event.preventDefault();
+                    registrar_cliente();
+                });
             });
     </script>
 {% endblock %}
