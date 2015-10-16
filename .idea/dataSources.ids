@@ -1589,25 +1589,37 @@
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="almacen_producto" schema="public" catalog="latyna" type="TABLE">
-      <column name="codigo" sqlType="varchar" precision="5" scale="0" nullable="false" jdbcType="12"/>
-      <column name="descripcion" sqlType="varchar" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYWxtYWNlbl9wcm9kdWN0b19pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
+      <column name="codigo" sqlType="varchar" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="descripcion" sqlType="varchar" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="marca" sqlType="varchar" precision="30" scale="0" nullable="true" jdbcType="12"/>
       <column name="color" sqlType="varchar" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="categoria_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="longitud" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
       <column name="precio_sugerido" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="stock_minimo" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="categoria_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="stock_actual" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="almacen_producto_pkey" columns="codigo"/>
+      <primary-key name="almacen_producto_pkey" columns="id"/>
       <foreign-key name="almacen_p_categoria_id_5728be79ac381b12_fk_almacen_categoria_id" columns="categoria_id" ref-table="almacen_categoria" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <exported-key name="almacen_producto_id_5d5c7118f326bb43_fk_almacen_producto_codigo" table="almacen_proveedor_productos" schema="public" catalog="latyna" columns="producto_id"/>
-      <exported-key name="codigo_producto_id_362439bb074d619e_fk_almacen_producto_codigo" table="facturacion_detalleventa" schema="public" catalog="latyna" columns="codigo_producto_id"/>
-      <index name="almacen_producto_codigo_7a8acb4cd70b07de_like" unique="false" columns="codigo"/>
+      <exported-key name="almacen_pro_producto_id_5d5c7118f326bb43_fk_almacen_producto_id" table="almacen_proveedor_productos" schema="public" catalog="latyna" columns="producto_id"/>
+      <exported-key name="facturacion_producto_id_78b626b18d007b55_fk_almacen_producto_id" table="facturacion_detalleventa" schema="public" catalog="latyna" columns="producto_id"/>
       <index name="almacen_producto_daf3833b" unique="false" columns="categoria_id"/>
+    </table>
+    <table name="almacen_producto_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="almacen_proveedor" schema="public" catalog="latyna" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYWxtYWNlbl9wcm92ZWVkb3JfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
-      <column name="nombre" sqlType="varchar" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nombre" sqlType="varchar" precision="40" scale="0" nullable="false" jdbcType="12"/>
       <column name="telefono" sqlType="varchar" precision="30" scale="0" nullable="true" jdbcType="12"/>
       <column name="observaciones" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="almacen_proveedor_pkey" columns="id"/>
@@ -1628,14 +1640,13 @@
     <table name="almacen_proveedor_productos" schema="public" catalog="latyna" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYWxtYWNlbl9wcm92ZWVkb3JfcHJvZHVjdG9zX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
       <column name="proveedor_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="producto_id" sqlType="varchar" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="producto_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="almacen_proveedor_productos_pkey" columns="id"/>
-      <foreign-key name="almacen_producto_id_5d5c7118f326bb43_fk_almacen_producto_codigo" columns="producto_id" ref-table="almacen_producto" ref-schema="public" ref-catalog="" ref-columns="codigo" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="almacen_pro_producto_id_5d5c7118f326bb43_fk_almacen_producto_id" columns="producto_id" ref-table="almacen_producto" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="almacen_p_proveedor_id_180c744061464272_fk_almacen_proveedor_id" columns="proveedor_id" ref-table="almacen_proveedor" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <index name="almacen_proveedor_productos_proveedor_id_producto_id_key" unique="true" columns="proveedor_id,producto_id"/>
       <index name="almacen_proveedor_productos_7ac33b97" unique="false" columns="proveedor_id"/>
       <index name="almacen_proveedor_productos_bb91903a" unique="false" columns="producto_id"/>
-      <index name="almacen_proveedor_productos_producto_id_5d5c7118f326bb43_like" unique="false" columns="producto_id"/>
     </table>
     <table name="almacen_proveedor_productos_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
@@ -1884,40 +1895,144 @@
       <index name="django_session_de54fa62" unique="false" columns="expire_date"/>
       <index name="django_session_session_key_461cfeaa630ca218_like" unique="false" columns="session_key"/>
     </table>
-    <table name="facturacion_detalleventa" schema="public" catalog="latyna" type="TABLE">
+    <table name="facturacion_aditivos" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fYWRpdGl2b3NfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="componente" sqlType="varchar" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="facturacion_aditivos_pkey" columns="id"/>
+      <exported-key name="factura_aditivos_id_1511adb4d2498096_fk_facturacion_aditivos_id" table="facturacion_detallelente_complementos" schema="public" catalog="latyna" columns="aditivos_id"/>
+    </table>
+    <table name="facturacion_aditivos_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="facturacion_detallelente" schema="public" catalog="latyna" type="TABLE">
       <column name="nro_venta_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="cantidad" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="codigo_producto_id" sqlType="varchar" precision="5" scale="0" nullable="true" jdbcType="12"/>
-      <column name="id_receta_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="lente_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="precio" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="facturacion_detalleventa_pkey" columns="nro_venta_id"/>
-      <foreign-key name="codigo_producto_id_362439bb074d619e_fk_almacen_producto_codigo" columns="codigo_producto_id" ref-table="almacen_producto" ref-schema="public" ref-catalog="" ref-columns="codigo" update-rule="3" delete-rule="3" deferrability="1"/>
+      <primary-key name="facturacion_detallelente_pkey" columns="nro_venta_id"/>
+      <foreign-key name="facturacion_d_lente_id_44f5296a9b883776_fk_facturacion_lente_id" columns="lente_id" ref-table="facturacion_lente" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="facturac_nro_venta_id_5a4fd22159adb2a2_fk_facturacion_venta_nro" columns="nro_venta_id" ref-table="facturacion_venta" ref-schema="public" ref-catalog="" ref-columns="nro" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="db0788ffca4f143a3d3783344813e1f1" table="facturacion_detallelente_complementos" schema="public" catalog="latyna" columns="detallelente_id"/>
+      <index name="facturacion_detallelente_0269eefc" unique="false" columns="lente_id"/>
+    </table>
+    <table name="facturacion_detallelente_complementos" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fZGV0YWxsZWxlbnRlX2NvbXBsZW1lbnRvc19pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
+      <column name="detallelente_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="aditivos_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="facturacion_detallelente_complementos_pkey" columns="id"/>
+      <foreign-key name="factura_aditivos_id_1511adb4d2498096_fk_facturacion_aditivos_id" columns="aditivos_id" ref-table="facturacion_aditivos" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="db0788ffca4f143a3d3783344813e1f1" columns="detallelente_id" ref-table="facturacion_detallelente" ref-schema="public" ref-catalog="" ref-columns="nro_venta_id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="facturacion_detallelente_comple_detallelente_id_aditivos_id_key" unique="true" columns="detallelente_id,aditivos_id"/>
+      <index name="facturacion_detallelente_complementos_519efdc6" unique="false" columns="aditivos_id"/>
+      <index name="facturacion_detallelente_complementos_cbd64f4a" unique="false" columns="detallelente_id"/>
+    </table>
+    <table name="facturacion_detallelente_complementos_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="facturacion_detalleventa" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fZGV0YWxsZXZlbnRhX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
+      <column name="nro_venta_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="producto_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="precio" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cantidad" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="facturacion_detalleventa_pkey" columns="id"/>
+      <foreign-key name="facturacion_producto_id_78b626b18d007b55_fk_almacen_producto_id" columns="producto_id" ref-table="almacen_producto" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="facturac_nro_venta_id_1bbef5ccb4d09d88_fk_facturacion_venta_nro" columns="nro_venta_id" ref-table="facturacion_venta" ref-schema="public" ref-catalog="" ref-columns="nro" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="facturacion_d_id_receta_id_594e6fd0a8a11a4c_fk_receta_receta_id" columns="id_receta_id" ref-table="receta_receta" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="facturacion_detalleventa_id_receta_id_key" unique="true" columns="id_receta_id"/>
-      <index name="facturacion_detalleven_codigo_producto_id_362439bb074d619e_like" unique="false" columns="codigo_producto_id"/>
-      <index name="facturacion_detalleventa_0ec1da08" unique="false" columns="codigo_producto_id"/>
+      <index name="facturacion_detalleventa_642267fc" unique="false" columns="nro_venta_id"/>
+      <index name="facturacion_detalleventa_bb91903a" unique="false" columns="producto_id"/>
+    </table>
+    <table name="facturacion_detalleventa_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="facturacion_lente" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fbGVudGVfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="tipo_lente" sqlType="varchar" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="facturacion_lente_pkey" columns="id"/>
+      <exported-key name="facturacion_d_lente_id_44f5296a9b883776_fk_facturacion_lente_id" table="facturacion_detallelente" schema="public" catalog="latyna" columns="lente_id"/>
+    </table>
+    <table name="facturacion_lente_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="facturacion_notapedido" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fbm90YXBlZGlkb19pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
+      <column name="venta_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fecha" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
+      <column name="importe" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="saldo" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="facturacion_notapedido_pkey" columns="id"/>
+      <foreign-key name="facturacion__venta_id_46a2945c009a20a2_fk_facturacion_venta_nro" columns="venta_id" ref-table="facturacion_venta" ref-schema="public" ref-catalog="" ref-columns="nro" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="facturacion_notapedido_a3d89257" unique="false" columns="venta_id"/>
+    </table>
+    <table name="facturacion_notapedido_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="facturacion_venta" schema="public" catalog="latyna" type="TABLE">
       <column name="nro" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="fecha" sqlType="date" precision="13" scale="0" nullable="true" jdbcType="91"/>
+      <column name="dni_cliente_id" sqlType="varchar" precision="8" scale="0" nullable="true" jdbcType="12"/>
+      <column name="fecha" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
       <column name="subtotal" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="total" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cancelado" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="observaciones" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
-      <column name="dni_cliente_id" sqlType="varchar" precision="8" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="facturacion_venta_pkey" columns="nro"/>
       <foreign-key name="facturac_dni_cliente_id_3f0e715aa6875954_fk_cliente_cliente_dni" columns="dni_cliente_id" ref-table="cliente_cliente" ref-schema="public" ref-catalog="" ref-columns="dni" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="facturac_nro_venta_id_5a4fd22159adb2a2_fk_facturacion_venta_nro" table="facturacion_detallelente" schema="public" catalog="latyna" columns="nro_venta_id"/>
       <exported-key name="facturac_nro_venta_id_1bbef5ccb4d09d88_fk_facturacion_venta_nro" table="facturacion_detalleventa" schema="public" catalog="latyna" columns="nro_venta_id"/>
+      <exported-key name="facturacion__venta_id_46a2945c009a20a2_fk_facturacion_venta_nro" table="facturacion_notapedido" schema="public" catalog="latyna" columns="venta_id"/>
+      <index name="facturacion_venta_dni_cliente_id_3f0e715aa6875954_like" unique="false" columns="dni_cliente_id"/>
       <index name="facturacion_venta_edb39bd8" unique="false" columns="dni_cliente_id"/>
     </table>
     <table name="receta_receta" schema="public" catalog="latyna" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncmVjZXRhX3JlY2V0YV9pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
+      <column name="dni_cliente_id" sqlType="varchar" precision="8" scale="0" nullable="true" jdbcType="12"/>
       <column name="fecha" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
       <column name="imagen" sqlType="varchar" precision="100" scale="0" nullable="false" jdbcType="12"/>
-      <column name="dni_cliente_id" sqlType="varchar" precision="8" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="receta_receta_pkey" columns="id"/>
       <foreign-key name="receta_r_dni_cliente_id_5f54c2c0266907e3_fk_cliente_cliente_dni" columns="dni_cliente_id" ref-table="cliente_cliente" ref-schema="public" ref-catalog="" ref-columns="dni" update-rule="3" delete-rule="3" deferrability="1"/>
-      <exported-key name="facturacion_d_id_receta_id_594e6fd0a8a11a4c_fk_receta_receta_id" table="facturacion_detalleventa" schema="public" catalog="latyna" columns="id_receta_id"/>
       <index name="receta_receta_dni_cliente_id_5f54c2c0266907e3_like" unique="false" columns="dni_cliente_id"/>
       <index name="receta_receta_edb39bd8" unique="false" columns="dni_cliente_id"/>
     </table>

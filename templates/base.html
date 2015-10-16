@@ -18,7 +18,7 @@
     <!-- Fancyapp -->
     <link rel="stylesheet" href=" {% static 'fancyapps/source/jquery.fancybox.css' %}" type="text/css" media="screen" />
     <!-- Materialize -->
-    <link rel="stylesheet" href="{% static 'css/plugins/materialize.min.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'css/plugins/materialize.min.css' %}">-->
 </head>
 <body class="skin-black">
     <!-- header logo: style can be found in header.less -->
@@ -96,7 +96,6 @@
                             <span>{{ user.username }}<i class="caret"></i></span>
                         </a>
                         <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                            <li class="dropdown-header text-center">Cuenta</li>
                             <li>
                                 <a href="{% url 'logout' %}"><i class="fa fa-ban fa-fw pull-right"></i> Salir</a>
                             </li>
@@ -120,7 +119,7 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li >
-                            <a href="{#  #}">
+                            <a href="{% url 'index' %}">
                                 <i class="fa fa-home "></i> <span>Menú Principal</span>
                             </a>
                         </li>
@@ -178,8 +177,8 @@
     <!-- Director App -->
     <script src="{% static 'js/Director/app.js' %}" type="text/javascript"></script>
     <!-- Formset -->
-    <script src="{% static 'js/plugins/jquery.formset.js' %}" type="text/javascript"></script>
-    <!--<script src="{% static 'js/plugins/jquery.formset.min.js' %}" type="text/javascript"></script>-->
+    <!--<script src="{% static 'js/plugins/jquery.formset.js' %}" type="text/javascript"></script>-->
+    <script src="{% static 'js/plugins/jquery.formset.min.js' %}" type="text/javascript"></script>
     <!-- Choosen -->
     <script src="{% static 'js/plugins/chosen.jquery.min.js' %}" type="text/javascript"></script>
     <!-- DataTable -->
@@ -188,8 +187,15 @@
     <script src="{% static 'js/funciones.js' %}"></script>
     <!-- Fancyapp -->
     <script src="{% static 'fancyapps/source/jquery.fancybox.js' %}"></script>
+    <!-- LeanModal -->
+    <script src="{% static 'js/plugins/jquery.leanModal.min.js' %}"></script>
     <!-- Materialize -->
-    <script src="{% static 'js/plugins/materialize.min.js' %}"></script>
+    <!--<script src="{% static 'js/plugins/materialize.min.js' %}"></script>-->
+    <script>
+        (function(){
+            $('form .formset').formset();
+        })();
+    </script>
 {% block application_javascript %}
 
 {% endblock %}

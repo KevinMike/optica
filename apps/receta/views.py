@@ -6,8 +6,9 @@ from apps.cliente.forms import ClienteForm
 from apps.cliente.models import Cliente
 from django.contrib import messages
 import datetime
+from apps.usuarios.views import LoginRequiredMixin
 # Create your views here.
-class Index(View):
+class Index(LoginRequiredMixin, View):
     template_name = 'receta/index.html'
     def get(self,request):
         form = RecetaForm()

@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'apps.facturacion',
     'apps.receta',
     'apps.usuarios',
+    'multiselectfield'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,13 +102,13 @@ DATABASES = {
 
 LANGUAGE_CODE = 'es-PE'
 
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+# TIME_ZONE = 'UTC'
+#
+# USE_I18N = True
+#
+# USE_L10N = True
+#
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -129,6 +130,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 MEDIA_URL = '/media/'
 
-LOGIN_URL = '/login'
+#LOGIN_URL = '/login'
 
 LOGIN_REDIRECT_URL = '/'

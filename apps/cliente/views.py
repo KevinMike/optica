@@ -7,8 +7,9 @@ from apps.receta.models import Receta
 from .forms import ClienteForm
 import json
 from apps.facturacion.forms import *
+from apps.usuarios.views import LoginRequiredMixin
 # Create your views here.
-class Index(View):
+class Index(LoginRequiredMixin, View):
     template_name = 'clientes/index.html'
     def get(self,request):
         ventas = Venta.objects.all()

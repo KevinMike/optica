@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block content %}
     {% if messages %}
         {% for message in messages %}
@@ -23,20 +23,29 @@
 
 <div class="row">
         <form class="form-horizontal" role="form" action="{% url 'facturacion:index' %}" method="POST">{% csrf_token %}
-            <div class="col-md-6">
-            <section class="panel panel-primary">
-                <header class="panel-heading">
-                    Cliente
+            <div class="col-md-12">
+            <section class="panel panel-default">
+                <header class="panel-heading CabeceraVenta">
+                    Venta
                 </header>
-                <div class="panel-body" >
-                     <div class="form-group">
-                                  {{ cliente_form.dni.errors }}
-                                  <label for="{{ cliente_form.dni.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.dni.label }}</label>
-                                  <div class="col-lg-10">
-                                      <input class="form-control" type="text" id="BuscarCliente" placeholder="D.N.I." maxlength="8" onkeyup="search_client()" name="BuscarCliente">
-                                  </div>
+                <div class="panel-body PanelVenta" >
+                    <div class="col-lg-6 col-sm-12" style="text-align: center">
+                        <div class="col-lg-4">
+                            <img src="{% static 'images/cliente.png' %}" alt="">
+                        </div>
+                        <div class="col-lg-8" style="vertical-align: middle">
+                            <div class="form-group">
+                              {{ cliente_form.dni.errors }}
+                              <label for="{{ cliente_form.dni.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.dni.label }}</label>
+                              <div class="col-lg-10">
+                                  <input class="form-control" type="text" id="BuscarCliente" placeholder="D.N.I." maxlength="8" onkeyup="search_client()" name="BuscarCliente">
                               </div>
-                            <table class="table table-bordered">
+                            </div>
+                            <button data-toggle="modal" data-target="#cliente-modal" class="btn btn-success btn-large" id="add_cliente">Añadir Cliente</button>
+                        </div>
+                        <div class="col-lg-12">
+                            <br>
+                             <table class="table table-bordered">
                                 <tbody><tr>
                                     <th style="width: 100px" >Foto</th>
                                     <th>Nombre</th>
@@ -50,23 +59,34 @@
                                     <td><span class="badge bg-red" id="cliente_email"></span></td>
                                 </tr></tbody>
                             </table>
-                            <button data-toggle="modal" data-target="#cliente-modal" class="btn btn-success btn-large" id="add_cliente">Añadir Cliente</button>
-                </div>
-            </section>
-        </div>
-            <div class="col-md-6">
-            <!--chat start-->
-            <section class="panel panel-primary">
-                <header class="panel-heading">
-                    Ventas
-                </header>
-                <div class="panel-body" >
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                            <fieldset>
+                                    <legend>Modalidades de Pago</legend>
+                                    <table style="text-align: center" width="100%">
+                                        <tr>
+                                            <td><label>
+                                            <input type="radio" name="color" value="azul" checked> Boleta de Venta
+                                            </label></td>
+                                            <td><label>
+                                            <input type="radio" name="color" value="negro"> Nota de Pedido
+                                            </label></td>
+                                        </tr>
+                                    </table>
+                            </fieldset>
                           <div class="form-group">
-
                               <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.nro.label }}</strong></div>
                               <div class="col-lg-8">
                                   {{ venta_form.nro.errors }}
                                   {{ venta_form.nro }}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.importe.label }}</strong></div>
+                              <div class="col-lg-8">
+                                  {{ venta_form.importe.errors }}
+                                  {{ venta_form.importe }}
                               </div>
                           </div>
                           <div class="form-group">
@@ -76,66 +96,108 @@
                                 {{ venta_form.observaciones }}
                               </div>
                           </div>
+
+                    </div>
                 </div>
             </section>
-        </div>
-            <div class="col-lg-12">
-        <section class="panel panel-primary">
-            <header class="panel-heading">
-                Detalles
-            </header>
-            <div class="panel-body">
-                        <div id="form">
-                            {% for form in DetalleFormSet %}
-                            <div class="formset">
-                                <div class=" col-sm-4 col-xs-12">
-                                    <div class="form-group ">
-                                        <div class="no-padding-top form-field col-sm-11">
-                                            {{ form.codigo_producto.errors }}
-                                            <div class="input-group">
-                                                <span class="input-group-addon glyphicon glyphicon-plus-sign " ></span>
-                                                {{ form.codigo_producto}}
+            </div>
+            <div class="col-md-12">
+            <section class="panel panel-default">
+                <header class="panel-heading CabeceraVenta">DETALLES DE VENTA - Productos
+                </header>
+                <div class="panel-body PanelVenta">
+                            <div id="form">
+                                {% for form in DetalleFormSet %}
+                                <div class="formset">
+                                    <div class=" col-sm-4 col-xs-12">
+                                        <div class="form-group ">
+                                            <div class="no-padding-top form-field col-sm-11">
+                                                {{ form.codigo_producto.errors }}
+                                                <div class="input-group">
+                                                    <span class="input-group-addon " >Producto</span>
+                                                    {{ form.codigo_producto}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-4 col-xs-12">
+                                    <div class="col-sm-4 col-xs-12">
 
-                                    <div class="form-group ">
-                                        <div class="no-padding-top form-field col-sm-11">
-                                            {{ form.precio.errors }}
-                                            <div class="input-group">
-                                                <span class="input-group-addon glyphicon glyphicon-usd " ></span>
-                                                {{ form.precio}}
+                                        <div class="form-group ">
+                                            <div class="no-padding-top form-field col-sm-11">
+                                                {{ form.precio.errors }}
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon3">Precio</span>
+                                                    {{ form.precio}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                               <div class="col-sm-4 col-xs-12">
-                                    <div class="form-group ">
-                                        <div class="no-padding-top form-field col-sm-11">
-                                            {{ form.cantidad.errors }}
-                                            <div class="input-group">
-                                                <span class="input-group-addon glyphicon glyphicon-asterisk " ></span>
-                                                {{ form.cantidad}}
+                                   <div class="col-sm-4 col-xs-12">
+
+                                       <div class="form-group ">
+                                            <div class="no-padding-top form-field col-sm-11">
+                                                {{ form.cantidad.errors }}
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon3">Cantidad</span>
+                                                    {{ form.cantidad}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
+                                {% endfor %}
 
                             </div>
-
-                            {% endfor %}
-
+                        {{ DetalleFormSet.management_form }}
+                    </div>
+                </section>
+            <section class="panel panel-default">
+                <header class="panel-heading CabeceraVenta">
+                    DETALLES DE VENTA - Lentes
+                </header>
+                <div class="panel-body PanelVenta">
+                    <div class=" col-sm-4 col-xs-12">
+                        <div class="form-group ">
+                            <div class="no-padding-top form-field col-sm-11">
+                                {{ LenteForm.lente.errors }}
+                                <div class="input-group">
+                                    <span class="input-group-addon" >Tipo de Lente</span>
+                                    {{ LenteForm.lente}}
+                                </div>
+                            </div>
                         </div>
-                    {{ DetalleFormSet.management_form }}
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="form-group ">
+                            <div class="no-padding-top form-field col-sm-11">
+                                {{ LenteForm.complementos.errors }}
+                                <div class="input-group">
+                                    <span class="input-group-addon">Aditivos</span>
+                                    {{ LenteForm.complementos}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="col-sm-4 col-xs-12">
+                       <div class="form-group ">
+                            <div class="no-padding-top form-field col-sm-11">
+                                {{ LenteForm.precio.errors }}
+                                <div class="input-group">
+                                    <span class="input-group-addon">Precio</span>
+                                    {{ LenteForm.precio}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
             <div class="col-lg-12">
-                <input id="RegistrarVenta" type="submit" value="Registrar Venta"/>
+                <input class="btn btn-success" id="RegistrarVenta" type="submit" value="Registrar Venta"/>
             </div>
         </form>
 </div>
@@ -223,9 +285,6 @@
 {% endblock %}
 {% block application_javascript %}
     <script type="application/javascript">
-
-
-
         function ResetearForm(form_id)
             {
                 $('#'+form_id)[0].reset();
@@ -307,7 +366,6 @@
                 });
             }
             $( document ).ready(function() {
-                $('form .formset').formset();
                 $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
                 search_client();
                 $('#client-form').on('submit', function(event){

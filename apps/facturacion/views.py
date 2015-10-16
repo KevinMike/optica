@@ -2,17 +2,19 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View, ListView, DeleteView
 from apps.cliente.forms import ClienteForm
-from .forms import VentaForm,DetalleVentaForm,DetalleVentaFormSet
+from .forms import VentaForm,DetalleVentaFormSet,DetalleLenteForm
 from .models import *
 from django.contrib import messages
 import datetime
+from apps.usuarios.views import LoginRequiredMixin
 # Create your views here.
-class IndexView(View):
+class IndexView(LoginRequiredMixin, View):
     template_name= "facturacion/index.html"
     def get(self,request):
         cliente_form = ClienteForm()
         venta_form = VentaForm()
         DetalleFormSet = DetalleVentaFormSet(prefix='formset')
+        LenteForm = DetalleLenteForm()
         return render(request,self.template_name,locals())
     def post(self,request):
         venta_form = VentaForm(request.POST)

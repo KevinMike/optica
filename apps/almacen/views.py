@@ -23,7 +23,7 @@ class Index(LoginRequiredMixin,View):
         clientes = Cliente.objects.all()
         return render(request,self.template_name,{'clientes':clientes,'suma_mes':suma_mes,'suma_dia':suma_dia,})
 
-class Productos(View):
+class Productos(LoginRequiredMixin,View):
     template_name = 'productos/index.html'
     def get(self,request):
         productos = Producto.objects.all()

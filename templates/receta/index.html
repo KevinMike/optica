@@ -23,12 +23,12 @@
     <div class="row">
         <form action="{% url 'receta:index' %}" method="post" role="form" class="form-horizontal" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="col-sm-12 col-md-6">
-                    <section class="panel panel-primary">
+            <div class="col-sm-12 col-lg-6">
+                    <section class="panel panel-default ">
                         <header class="panel-heading">
                             Cliente
                         </header>
-                        <div class="panel-body" >
+                        <div class="panel-body " >
                                 <div class="form-group">
                                       {{ form.dni_cliente.error }}
                                       <label for="{{ form.dni_cliente.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ form.dni_cliente.label }}</label>
@@ -53,7 +53,9 @@
                                 <button data-toggle="modal" data-target="#cliente-modal" class="btn btn-success btn-large" id="add_cliente">Añadir Cliente</button>
                         </div>
                     </section>
-                   <section class="panel panel-primary">
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                 <section class="panel panel-default">
                         <header class="panel-heading">
                             Cargar Imagen de la Historia Clinica
                         </header>
@@ -68,13 +70,61 @@
                         </div>
                     </section>
             </div>
-            <div class="col-sm-12 col-md-6">
-                   <section class="panel panel-primary">
+            <div class="col-sm-12 col-md-12">
+                   <section class="panel panel-default">
                         <header class="panel-heading">
                             Mediciones de Graduación
                         </header>
                         <div class="panel-body" >
-                            Aca va el formulario que sugiero
+                            <strong>REFRACCIÓN</strong>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th></th>
+                                    <th width="10px">ESF.</th>
+                                    <th>CIL.</th>
+                                    <th>EJE.</th>
+                                    <th>DIP</th>
+                                    <th>AV. SC</th>
+                                    <th>AV. CC</th>
+                                </tr>
+                                <tr>
+                                    <th>OD</th>
+                                    <th><input type="text" name="" width="10px"></th>
+                                    <th><input type="text" name=""></th>
+                                    <th><input type="text" name=""></th>
+                                    <th><input type="text" name=""></th>
+                                    <th><input type="text" name=""></th>
+                                    <th><input type="text" name=""></th>
+                                </tr>
+                                    <tr>
+                                    <th>OI</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </table>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label for="email">ADD</label>
+                                <input type="text" class="form-control" >
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label for="email">Patología:</label>
+                                <input type="text" class="form-control" >
+                              </div>
+                            </div>
+                            <strong>TIPO DE LENTE</strong>
+                            <fieldset>
+                                <input type="radio" name="animal" value="Cat" />MONOFOCAL<br />
+                                <input type="radio" name="animal" value="Dog" />BIFOCAL<br />
+                                <input type="radio" name="animal" value="Bird" />MULTIFOCAL<br />
+                                <input type="radio" name="animal" value="Bird" />LENTE DE CONTACTO<br />
+                            </fieldset>
                         </div>
                     </section>
             </div>

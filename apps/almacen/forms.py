@@ -9,16 +9,16 @@ class IngresarProductoForm(forms.Form):
     cantidad = forms.IntegerField(initial=0,label="Cantidad",widget=forms.NumberInput(attrs={'class':'form-control','min':'0','required':'true',}))
 
 class ProductoForm(forms.ModelForm):
-    codigo = forms.CharField(max_length=5,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Código','required':'true',}),label="Código")
-    descripcion = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Descripción','required':'true',}),label="Descripción")
-    marca = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Marca','required':'true',}),label="Marca")
-    color = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Color','required':'true',}),label="Color")
+    codigo = forms.CharField(max_length=5,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Código',}),label="Código",required=False,)
+    descripcion = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Descripción','required':'true'}),label="Descripción")
+    marca = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Marca',}),label="Marca",required=False,)
+    color = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Color',}),label="Color",required=False,)
     categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(),
                                         widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),
                                         label="Categoría",empty_label="Seleccione una Categoria")
-    longitud = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Longitud',}),label="Longitud")
-    precio_sugerido = forms.IntegerField(initial=0,label="Precio Sugerido",widget=forms.NumberInput(attrs={'class':'form-control','min':'0','required':'true',}))
-    stock_minimo = forms.IntegerField(initial=0,label="Stock Mínimo",widget=forms.NumberInput(attrs={'class':'form-control','min':'0','required':'true',}))
+    longitud = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Longitud',}),label="Longitud",required=False,)
+    precio_sugerido = forms.IntegerField(initial=0,label="Precio Sugerido",widget=forms.NumberInput(attrs={'class':'form-control','min':'0',}))
+    stock_minimo = forms.IntegerField(initial=0,label="Stock Mínimo",widget=forms.NumberInput(attrs={'class':'form-control','min':'0',}))
     stock_actual = forms.IntegerField(initial=0,label="Stock Actual",widget=forms.NumberInput(attrs={'class':'form-control','min':'0'}))
 
     class Meta:
