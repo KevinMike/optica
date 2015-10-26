@@ -24,112 +24,122 @@
         <form action="{% url 'receta:index' %}" method="post" role="form" class="form-horizontal" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="col-sm-12 col-lg-6">
-                    <section class="panel panel-default ">
+                <section class="panel panel-primary col-lg-12">
+                    <header class="panel-heading">
+                        Cliente
+                    </header>
+                    <div class="panel-body " >
+                        <div class="col-lg-8 col-md-4 col-sm-4" style="vertical-align: middle">
+                            <div class="form-group">
+                                <label for="BuscarCliente" class=" control-label col-sm-2">DNI</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" id="BuscarCliente" placeholder="D.N.I." maxlength="8" onkeyup="search_client()" name="BuscarCliente">
+                                </div>
+                            </div>
+                        </div>
+                        <button data-toggle="modal" data-target="#cliente-modal" class=" col-lg-4 btn btn-success btn-large" id="add_cliente">Añadir Cliente</button>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th id="cliente_foto" rowspan="3">No Especificado</th>
+                                <th>Nombre</th>
+                                <th id="cliente_nombre">No Especificado</th>
+                            </tr>
+                            <tr>
+                                <td>Telefono</td>
+                                <td id="cliente_telefono">No Especificado</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><span class="badge bg-red" id="cliente_email">No Especificado</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    </section>
+                <section class="panel panel-primary col-lg-12">
                         <header class="panel-heading">
-                            Cliente
+                              Tipo de Lente
                         </header>
-                        <div class="panel-body " >
-                                <div class="form-group">
-                                      {{ form.dni_cliente.error }}
-                                      <label for="{{ form.dni_cliente.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ form.dni_cliente.label }}</label>
-                                      <div class="col-lg-10">
-                                            {{ form.dni_cliente }}
-                                      </div>
+                        <div class="panel-body" >
+                            <div class="form-group">
+                                  {{ form.lente.error }}
+                                  <label for="{{ form.lente.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ form.lente.label }}</label>
+                                  <div class="col-lg-10">
+                                        {{ form.lente }}
                                   </div>
-                                <table class="table table-bordered">
-                                    <tbody><tr>
-                                        <th style="width: 100px" >Foto</th>
-                                        <th>Nombre</th>
-                                        <th>Telefono</th>
-                                        <th style="width: 40px">Email</th>
-                                    </tr>
-                                    <tr>
-                                        <td id="cliente_foto"></td>
-                                        <td id="cliente_nombre"></td>
-                                        <td id="cliente_telefono"></td>
-                                        <td><span class="badge bg-red" id="cliente_email"></span></td>
-                                    </tr></tbody>
-                                </table>
-                                <button data-toggle="modal" data-target="#cliente-modal" class="btn btn-success btn-large" id="add_cliente">Añadir Cliente</button>
+                            </div>
+                            <div class="form-group">
+                                  {{ form.complementos.error }}
+                                  <label for="{{ form.complementos.auto_id }}" class="col-lg-2 col-sm-2 control-label">Aditivo</label>
+                                  <div class="col-lg-10">
+                                        {{ form.complementos }}
+                                  </div>
+                            </div>
+                            <div class="form-group">
+                                  {{ form.imagen.error }}
+                                  <label for="{{ form.imagen.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ form.imagen.label }}</label>
+                                  <div class="col-lg-10">
+                                        {{ form.imagen }}
+                                  </div>
+                            </div>
                         </div>
                     </section>
             </div>
             <div class="col-sm-12 col-lg-6">
-                 <section class="panel panel-default">
+                <section class="panel panel-primary col-lg-12">
                         <header class="panel-heading">
-                            Cargar Imagen de la Historia Clinica
-                        </header>
-                        <div class="panel-body" >
-                                  <div class="form-group">
-                                      {{ form.imagen.error }}
-                                      <label for="{{ form.imagen.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ form.imagen.label }}</label>
-                                      <div class="col-lg-10">
-                                            {{ form.imagen }}
-                                      </div>
-                                  </div>
-                        </div>
-                    </section>
-            </div>
-            <div class="col-sm-12 col-md-12">
-                   <section class="panel panel-default">
-                        <header class="panel-heading">
-                            Mediciones de Graduación
-                        </header>
-                        <div class="panel-body" >
                             <strong>REFRACCIÓN</strong>
+                        </header>
+                        <div class="panel-body" >
                             <table class="table table-bordered">
                                 <tr>
                                     <th></th>
-                                    <th width="10px">ESF.</th>
-                                    <th>CIL.</th>
-                                    <th>EJE.</th>
-                                    <th>DIP</th>
-                                    <th>AV. SC</th>
-                                    <th>AV. CC</th>
+                                    <th>Ojo Izquierdo</th>
+                                    <th>Ojo Derecho</th>
                                 </tr>
                                 <tr>
-                                    <th>OD</th>
-                                    <th><input type="text" name="" width="10px"></th>
-                                    <th><input type="text" name=""></th>
-                                    <th><input type="text" name=""></th>
-                                    <th><input type="text" name=""></th>
-                                    <th><input type="text" name=""></th>
-                                    <th><input type="text" name=""></th>
+                                    <td>ESF.</td>
+                                    <td>{{ form.oi_esf }}</td>
+                                    <td>{{ form.od_esf }}</td>
                                 </tr>
-                                    <tr>
-                                    <th>OI</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                <tr>
+                                    <td>CIL.</td>
+                                    <td>{{ form.oi_cil }}</td>
+                                    <td>{{ form.od_cil }}</td>
+                                </tr>
+                                <tr>
+                                    <td>EJE.</td>
+                                    <td>{{ form.oi_eje }}</td>
+                                    <td>{{ form.od_eje }}</td>
+                                </tr>
+                                <tr>
+                                    <td>DIP.</td>
+                                    <td>{{ form.oi_dip }}</td>
+                                    <td>{{ form.od_dip }}</td>
+                                </tr>
+                                <tr>
+                                    <td>AV. SC.</td>
+                                    <td>{{ form.oi_avsc }}</td>
+                                    <td>{{ form.od_avsc }}</td>
+                                </tr>
+                                <tr>
+                                    <td>AV. CC.</td>
+                                    <td>{{ form.oi_esf }}</td>
+                                    <td>{{ form.od_esf }}</td>
                                 </tr>
                             </table>
-                            <div class="col-lg-6">
                               <div class="form-group">
-                                <label for="email">ADD</label>
-                                <input type="text" class="form-control" >
+                                <label for="add">ADD</label>
+                                    {{ form.add }}
                               </div>
-                            </div>
-                            <div class="col-lg-6">
                               <div class="form-group">
-                                <label for="email">Patología:</label>
-                                <input type="text" class="form-control" >
+                                  <label for="patologia">Patología</label>
+                                {{ form.patologia }}
                               </div>
-                            </div>
-                            <strong>TIPO DE LENTE</strong>
-                            <fieldset>
-                                <input type="radio" name="animal" value="Cat" />MONOFOCAL<br />
-                                <input type="radio" name="animal" value="Dog" />BIFOCAL<br />
-                                <input type="radio" name="animal" value="Bird" />MULTIFOCAL<br />
-                                <input type="radio" name="animal" value="Bird" />LENTE DE CONTACTO<br />
-                            </fieldset>
                         </div>
                     </section>
             </div>
             <div class="col-lg-12">
-                    <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success enviar_formulario">Registrar Medición</button>
             </div>
         </form>
     </div>
@@ -218,11 +228,11 @@
 {% endblock %}
 {% block application_javascript %}
     <script type="application/javascript">
-            document.getElementById("id_dni_cliente").addEventListener("onchange",search_client);
+            document.getElementById("BuscarCliente").addEventListener("onchange",search_client);
             //Buscar Cliente via ajax
             function search_client(){
                 $.ajax({
-                    url: "/cliente/buscar-cliente/" +  $("#id_dni_cliente").val(),
+                    url: "/cliente/buscar-cliente/" +  $("#BuscarCliente").val(),
                     type: "GET",
                     dataType: "json",
                     async: true,
@@ -296,7 +306,6 @@
             }
             $( document ).ready(function() {
                 $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
-                search_client();
                 $('#client-form').on('submit', function(event){
                     event.preventDefault();
                     registrar_cliente();

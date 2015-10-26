@@ -2,13 +2,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import HttpResponseBadRequest
-from .models import Cliente
+from apps.usuarios.views import LoginRequiredMixin
 from apps.receta.models import Receta
+from apps.facturacion.models import Venta
+from .models import Cliente
 from .forms import ClienteForm
 import json
-from apps.facturacion.forms import *
-from apps.usuarios.views import LoginRequiredMixin
 # Create your views here.
+
 class Index(LoginRequiredMixin, View):
     template_name = 'clientes/index.html'
     def get(self,request):

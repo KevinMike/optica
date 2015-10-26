@@ -1,7 +1,8 @@
 from django.contrib import admin
 from .models import *
+from apps.almacen.models import *
 # Register your models here.
-@admin.register(Aditivos)
+
 class AditivosAdmin(admin.ModelAdmin):
     model = Aditivos
     list_display =  ('componente',)
@@ -10,10 +11,24 @@ class DetalleVentaInline(admin.TabularInline):
     model = DetalleVenta
     extra = 1
 
-@admin.register(Venta)
+class DetalleLenteInline(admin.TabularInline):
+    model = DetalleLente
+    extra = 1
+
 class VentaAdmin(admin.ModelAdmin):
+    list_display = ('nro','dni_cliente','fecha','importe','total','cancelado','observaciones',)
+    fieldsets = (
+        ('Cliente', {'fields': ('dni_cliente',)}),
+        ('Venta', {'fields': ('nro','observaciones' )}),
+    )
     model = Venta
-    inline = [DetalleVentaInline,]
+    inlines = [DetalleVentaInline,DetalleLenteInline,]
 
+class NotaPeridoAdmin(admin.ModelAdmin):
+    model = NotaPedido
+    list_display = ('venta','fecha','importe','saldo',)
+    search_fields = ('venta','fecha',)
 
+admin.site.register(Venta,VentaAdmin)
+admin.site.register(NotaPedido,NotaPeridoAdmin)
 

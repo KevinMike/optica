@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel general">
+                    <header class="panel-heading">
+                        <strong>Notas de Pedido</strong>
+                    </header>
+                    <div class="panel-body">
+                        <table id="Tabla1" class="table table-hover display">
+                            <thead>
+                                <th>Nota de Pedido</th>
+                                <th>DNI</th>
+                                <th>Nombre</th>
+                                <th>Fecha</th>
+                                <th>Importe</th>
+                                <th>Saldo</th>
+                                <th>Cancelado</th>
+                                <th>Venta</th>
+                            </thead>
+                            {% for item in notas %}
+                                <tr>
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.venta.dni_cliente.dni }}</td>
+                                    <td>{{ item.venta.dni_cliente.nombre_completo }}</td>
+                                    <td>{{ item.venta.fecha }}</td>
+                                    <td>{{ item.importe }}</td>
+                                    <td>{{ item.saldo}}</td>
+                                    <td>
+                                        {% if item.venta.cancelado %}
+                                            <img src="{% static 'images/check.png' %}" width="25" height="25" data-toggle="tooltip" title="Venta Cancelada">
+                                        {% else %}
+                                            <a href="{% url 'facturacion:cancelar_nota_pedido' item.id %}" target="_blank"><img src="{% static 'images/pay.png' %}" width="25" height="25" data-toggle="tooltip" title="Pagar"></a>
+                                        {% endif %}
+                                    </td>
+                                    <td><a href="{% url 'facturacion:reporte' item.venta.nro %}" target="_blank"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el reporte"></a></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                     </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+{% block application_javascript %}
+    <script>
+    var datatable = {
+
+        "oLanguage": {
+            "oAria": {
+                "sSortAscending": " - ordenar de forma ascendente",
+                "sSortDescending": " - ordenar de forma descendente",
+                "sInfoEmpty": "No hay información para mostrar",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sSearch": "Buscar :",
+                "sZeroRecords": "No hay ningún registro",
+
+            },
+            "oPaginate": {
+                "sFirst": "Primera página",
+                "sLast": "Última página",
+                "sNext": "Página siguiente",
+                "sPrevious": "Página anterior"
+            },
+
+            "sEmptyTable": "Esta tabla no tiene datos",
+            "sInfo": "Mostrando  _START_ - _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 entradas",
+            "sInfoFiltered": "(filtrados de _MAX_  registros en total)",
+            "sLengthMenu": "Motrar _MENU_ registros",
+            "sSearch": "Buscar :",
+            "sZeroRecords": "No se encontraron coincidencias"
+
+        }
+    };
+    $(document).ready(function() {
+        $(".fancybox").fancybox({
+    	openEffect	: 'elastic',
+    	closeEffect	: 'elastic',
+
+    	helpers : {
+    		title : {
+    			type : 'inside'
+    		}
+    	}
+        });
+        $('#Tabla1').DataTable(datatable);
+    } );
+    </script>
+{% endblock %}

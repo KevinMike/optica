@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic import View
 from .forms import RecetaForm
+from .models import Receta
 from apps.cliente.forms import ClienteForm
 from apps.cliente.models import Cliente
 from django.contrib import messages
@@ -15,15 +16,14 @@ class Index(LoginRequiredMixin, View):
         cliente_form = ClienteForm
         return render(self.request,self.template_name,locals())
     def post(self,request):
-
         try:
-            cliente = Cliente.objects.get(dni=request.POST['dni_cliente'])
+            cliente_instance = Cliente.objects.get(dni=request.POST['BuscarCliente'])
             form = RecetaForm(request.POST,request.FILES)
             if form.is_valid():
-                form.dni_cliente = cliente
                 receta = form.save(commit=False)
-                receta.fecha = datetime.date.today()
+                receta.cliente = cliente_instance
                 receta.save()
+                form.save_m2m()
                 form = RecetaForm()
                 cliente_form = ClienteForm()
                 messages.success(request, 'La medición se registro con éxito.')
@@ -38,3 +38,21 @@ class Index(LoginRequiredMixin, View):
             form = RecetaForm()
             cliente_form = ClienteForm
             return render(self.request,self.template_name,locals())
+
+class EditarView(View):
+    template_name = 'receta/editar.html'
+    def get(self,request,nro):
+        receta = Receta.objects.get(pk=nro)
+        form = RecetaForm(instance=receta)
+        return render(request,self.template_name,locals())
+    def post(self,request,nro):
+        receta = Receta.objects.get(pk=nro)
+        form = RecetaForm(request.POST,instance=receta)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.save()
+            form.save_m2m()
+            return redirect("/cliente/")
+        else:
+            messages.error(request,"No se pudo registrar la medición, existen errores en el formulario.")
+            return render(request,self.template_name,locals())

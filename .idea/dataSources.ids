@@ -5,8 +5,806 @@
       <identifier-quote-string>&quot;</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
+    <schema name="information_schema" catalog="latyna"/>
     <schema name="pg_catalog" catalog="latyna"/>
     <schema name="public" catalog="latyna"/>
+    <table name="_pg_foreign_data_wrappers" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="oid" sqlType="oid" precision="10" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="fdwowner" sqlType="oid" precision="10" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="fdwoptions" sqlType="_text" precision="2147483647" scale="0" nullable="true" jdbcType="2003"/>
+      <column name="foreign_data_wrapper_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="authorization_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_language" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="_pg_foreign_servers" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="oid" sqlType="oid" precision="10" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="srvoptions" sqlType="_text" precision="2147483647" scale="0" nullable="true" jdbcType="2003"/>
+      <column name="foreign_server_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_version" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="authorization_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="_pg_foreign_table_columns" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="nspname" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="relname" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="attname" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="attfdwoptions" sqlType="_text" precision="2147483647" scale="0" nullable="true" jdbcType="2003"/>
+    </table>
+    <table name="_pg_foreign_tables" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="foreign_table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_table_schema" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="foreign_table_name" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ftoptions" sqlType="_text" precision="2147483647" scale="0" nullable="true" jdbcType="2003"/>
+      <column name="foreign_server_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="authorization_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="_pg_user_mappings" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="oid" sqlType="oid" precision="10" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="umoptions" sqlType="_text" precision="2147483647" scale="0" nullable="true" jdbcType="2003"/>
+      <column name="umuser" sqlType="oid" precision="10" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="authorization_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="srvowner" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="administrable_role_authorizations" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="role_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="applicable_roles" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="role_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="attributes" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="attribute_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordinal_position" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="attribute_default" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_nullable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_maximum_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_octet_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="datetime_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="attribute_udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="attribute_udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="attribute_udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="maximum_cardinality" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_derived_reference_attribute" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="character_sets" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_repertoire" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="form_of_use" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="default_collate_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="default_collate_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="default_collate_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="check_constraint_routine_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="check_constraints" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="check_clause" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="collation_character_set_applicability" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="collations" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="pad_attribute" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="column_domain_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="domain_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="column_options" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="table_name" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="column_name" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="option_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="option_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="column_privileges" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="column_udt_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="columns" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordinal_position" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_default" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_nullable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_maximum_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_octet_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="datetime_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="maximum_cardinality" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_self_referencing" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_identity" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="identity_generation" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="identity_start" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="identity_increment" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="identity_maximum" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="identity_minimum" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="identity_cycle" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_generated" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="generation_expression" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_updatable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="constraint_column_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="constraint_table_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="data_type_privileges" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="object_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="domain_constraints" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_deferrable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="initially_deferred" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="domain_udt_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="domains" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="domain_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_maximum_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_octet_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="datetime_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_default" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="maximum_cardinality" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="element_types" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="object_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collection_type_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_maximum_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_octet_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="datetime_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="domain_default" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="maximum_cardinality" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="enabled_roles" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="role_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="foreign_data_wrapper_options" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="foreign_data_wrapper_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="option_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="option_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="foreign_data_wrappers" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="foreign_data_wrapper_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="authorization_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="library_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_language" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="foreign_server_options" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="foreign_server_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="option_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="option_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="foreign_servers" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="foreign_server_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_data_wrapper_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_version" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="authorization_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="foreign_table_options" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="foreign_table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_table_schema" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="foreign_table_name" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="option_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="option_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="foreign_tables" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="foreign_table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_table_schema" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="foreign_table_name" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="foreign_server_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="information_schema_catalog_name" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="catalog_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="key_column_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordinal_position" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="position_in_unique_constraint" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="parameters" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="specific_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordinal_position" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="parameter_mode" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_result" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="as_locator" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="parameter_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_maximum_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_octet_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="datetime_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="maximum_cardinality" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="parameter_default" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="referential_constraints" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="unique_constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="unique_constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="unique_constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="match_option" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="update_rule" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="delete_rule" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="role_column_grants" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="role_routine_grants" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="role_table_grants" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="with_hierarchy" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="role_udt_grants" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="role_usage_grants" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="routine_privileges" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="routines" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="specific_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="module_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="module_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="module_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_maximum_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_octet_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="datetime_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="type_udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="type_udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="type_udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="scope_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="maximum_cardinality" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_body" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="routine_definition" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="external_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="external_language" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="parameter_style" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_deterministic" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_data_access" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_null_call" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_path" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="schema_level_routine" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="max_dynamic_result_sets" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_user_defined_cast" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_implicitly_invocable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="security_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="to_sql_specific_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="to_sql_specific_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="to_sql_specific_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="as_locator" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="created" sqlType="time_stamp" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="last_altered" sqlType="time_stamp" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="new_savepoint_level" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_udt_dependent" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_from_data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_as_locator" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_char_max_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_char_octet_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_char_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_char_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_datetime_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_interval_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_interval_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_type_udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_type_udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_type_udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_scope_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_scope_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_scope_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_maximum_cardinality" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="result_cast_dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="schemata" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="catalog_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="schema_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="schema_owner" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="default_character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="default_character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="default_character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_path" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="sequences" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="sequence_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sequence_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sequence_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="start_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="minimum_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="maximum_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="increment" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="cycle_option" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="sql_features" schema="information_schema" catalog="latyna" type="SYSTEM TABLE">
+      <column name="feature_id" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="feature_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sub_feature_id" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sub_feature_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_supported" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_verified_by" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="comments" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="sql_implementation_info" schema="information_schema" catalog="latyna" type="SYSTEM TABLE">
+      <column name="implementation_info_id" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="implementation_info_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="integer_value" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="comments" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="sql_languages" schema="information_schema" catalog="latyna" type="SYSTEM TABLE">
+      <column name="sql_language_source" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_language_year" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_language_conformance" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_language_integrity" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_language_implementation" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_language_binding_style" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sql_language_programming_language" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="sql_packages" schema="information_schema" catalog="latyna" type="SYSTEM TABLE">
+      <column name="feature_id" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="feature_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_supported" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_verified_by" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="comments" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="sql_parts" schema="information_schema" catalog="latyna" type="SYSTEM TABLE">
+      <column name="feature_id" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="feature_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_supported" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_verified_by" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="comments" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="sql_sizing" schema="information_schema" catalog="latyna" type="SYSTEM TABLE">
+      <column name="sizing_id" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sizing_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="supported_value" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="comments" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="sql_sizing_profiles" schema="information_schema" catalog="latyna" type="SYSTEM TABLE">
+      <column name="sizing_id" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="sizing_name" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="profile_id" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="required_value" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="comments" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="table_constraints" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="constraint_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="constraint_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_deferrable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="initially_deferred" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="table_privileges" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="with_hierarchy" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="tables" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="self_referencing_column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="reference_generation" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="user_defined_type_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="user_defined_type_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="user_defined_type_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_insertable_into" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_typed" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="commit_action" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="triggered_update_columns" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="trigger_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="trigger_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="trigger_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="event_object_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="event_object_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="event_object_table" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="event_object_column" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="triggers" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="trigger_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="trigger_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="trigger_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="event_manipulation" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="event_object_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="event_object_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="event_object_table" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_order" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_condition" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_statement" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_orientation" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_timing" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_reference_old_table" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_reference_new_table" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_reference_old_row" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="action_reference_new_row" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="created" sqlType="time_stamp" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="udt_privileges" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="udt_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="usage_privileges" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="grantor" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="grantee" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="object_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="privilege_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_grantable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="user_defined_types" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="user_defined_type_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="user_defined_type_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="user_defined_type_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="user_defined_type_category" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_instantiable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_final" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordering_form" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordering_category" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordering_routine_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordering_routine_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ordering_routine_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="reference_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="data_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_maximum_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_octet_length" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="character_set_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="collation_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_precision_radix" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="numeric_scale" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="datetime_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_type" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="interval_precision" sqlType="cardinal_number" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="source_dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="ref_dtd_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="user_mapping_options" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="authorization_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="option_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="option_value" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="user_mappings" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="authorization_identifier" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="foreign_server_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="view_column_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="view_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="view_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="view_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="column_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="view_routine_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="specific_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="view_table_usage" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="view_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="view_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="view_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
+    <table name="views" schema="information_schema" catalog="latyna" type="SYSTEM VIEW">
+      <column name="table_catalog" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_schema" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="table_name" sqlType="sql_identifier" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="view_definition" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="check_option" sqlType="character_data" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_updatable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_insertable_into" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_trigger_updatable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_trigger_deletable" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+      <column name="is_trigger_insertable_into" sqlType="yes_or_no" precision="2147483647" scale="0" nullable="true" jdbcType="2001"/>
+    </table>
     <table name="pg_aggregate" schema="pg_catalog" catalog="latyna" type="SYSTEM TABLE">
       <column name="aggfnoid" sqlType="regproc" precision="2147483647" scale="0" nullable="false" jdbcType="1111"/>
       <column name="aggkind" sqlType="char" precision="1" scale="0" nullable="false" jdbcType="1"/>
@@ -1569,6 +2367,25 @@
       <column name="viewowner" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="definition" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
     </table>
+    <table name="almacen_aditivos" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYWxtYWNlbl9hZGl0aXZvc19pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
+      <column name="componente" sqlType="varchar" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="almacen_aditivos_pkey" columns="id"/>
+      <exported-key name="facturacion_aditivos_id_1511adb4d2498096_fk_almacen_aditivos_id" table="facturacion_detallelente_complementos" schema="public" catalog="latyna" columns="aditivos_id"/>
+      <exported-key name="receta_rece_aditivos_id_72361e84fe405737_fk_almacen_aditivos_id" table="receta_receta_complementos" schema="public" catalog="latyna" columns="aditivos_id"/>
+    </table>
+    <table name="almacen_aditivos_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
     <table name="almacen_categoria" schema="public" catalog="latyna" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYWxtYWNlbl9jYXRlZ29yaWFfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
       <column name="nombre" sqlType="varchar" precision="20" scale="0" nullable="false" jdbcType="12"/>
@@ -1588,6 +2405,49 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
+    <table name="almacen_ingresoproductos" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYWxtYWNlbl9pbmdyZXNvcHJvZHVjdG9zX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
+      <column name="producto_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="proveedor_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fecha" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
+      <column name="cantidad" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="almacen_ingresoproductos_pkey" columns="id"/>
+      <foreign-key name="almacen_ing_producto_id_687f73332ad3f9b6_fk_almacen_producto_id" columns="producto_id" ref-table="almacen_producto" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="almacen_i_proveedor_id_65c40a85e1cf4d9f_fk_almacen_proveedor_id" columns="proveedor_id" ref-table="almacen_proveedor" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="almacen_ingresoproductos_7ac33b97" unique="false" columns="proveedor_id"/>
+      <index name="almacen_ingresoproductos_bb91903a" unique="false" columns="producto_id"/>
+    </table>
+    <table name="almacen_ingresoproductos_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="almacen_lente" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYWxtYWNlbl9sZW50ZV9pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
+      <column name="tipo_lente" sqlType="varchar" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="almacen_lente_pkey" columns="id"/>
+      <exported-key name="facturacion_detal_lente_id_44f5296a9b883776_fk_almacen_lente_id" table="facturacion_detallelente" schema="public" catalog="latyna" columns="lente_id"/>
+      <exported-key name="receta_receta_lente_id_22b26ea250290993_fk_almacen_lente_id" table="receta_receta" schema="public" catalog="latyna" columns="lente_id"/>
+    </table>
+    <table name="almacen_lente_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
     <table name="almacen_producto" schema="public" catalog="latyna" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYWxtYWNlbl9wcm9kdWN0b19pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
       <column name="codigo" sqlType="varchar" precision="5" scale="0" nullable="true" jdbcType="12"/>
@@ -1596,11 +2456,12 @@
       <column name="color" sqlType="varchar" precision="20" scale="0" nullable="true" jdbcType="12"/>
       <column name="categoria_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="longitud" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
-      <column name="precio_sugerido" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="stock_minimo" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="stock_actual" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="precio_sugerido" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="stock_minimo" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="stock_actual" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="almacen_producto_pkey" columns="id"/>
       <foreign-key name="almacen_p_categoria_id_5728be79ac381b12_fk_almacen_categoria_id" columns="categoria_id" ref-table="almacen_categoria" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="almacen_ing_producto_id_687f73332ad3f9b6_fk_almacen_producto_id" table="almacen_ingresoproductos" schema="public" catalog="latyna" columns="producto_id"/>
       <exported-key name="almacen_pro_producto_id_5d5c7118f326bb43_fk_almacen_producto_id" table="almacen_proveedor_productos" schema="public" catalog="latyna" columns="producto_id"/>
       <exported-key name="facturacion_producto_id_78b626b18d007b55_fk_almacen_producto_id" table="facturacion_detalleventa" schema="public" catalog="latyna" columns="producto_id"/>
       <index name="almacen_producto_daf3833b" unique="false" columns="categoria_id"/>
@@ -1623,6 +2484,7 @@
       <column name="telefono" sqlType="varchar" precision="30" scale="0" nullable="true" jdbcType="12"/>
       <column name="observaciones" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="almacen_proveedor_pkey" columns="id"/>
+      <exported-key name="almacen_i_proveedor_id_65c40a85e1cf4d9f_fk_almacen_proveedor_id" table="almacen_ingresoproductos" schema="public" catalog="latyna" columns="proveedor_id"/>
       <exported-key name="almacen_p_proveedor_id_180c744061464272_fk_almacen_proveedor_id" table="almacen_proveedor_productos" schema="public" catalog="latyna" columns="proveedor_id"/>
     </table>
     <table name="almacen_proveedor_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
@@ -1817,7 +2679,7 @@
       <column name="foto" sqlType="varchar" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="cliente_cliente_pkey" columns="dni"/>
       <exported-key name="facturac_dni_cliente_id_3f0e715aa6875954_fk_cliente_cliente_dni" table="facturacion_venta" schema="public" catalog="latyna" columns="dni_cliente_id"/>
-      <exported-key name="receta_r_dni_cliente_id_5f54c2c0266907e3_fk_cliente_cliente_dni" table="receta_receta" schema="public" catalog="latyna" columns="dni_cliente_id"/>
+      <exported-key name="receta_recet_cliente_id_54133d983f23e5f1_fk_cliente_cliente_dni" table="receta_receta" schema="public" catalog="latyna" columns="cliente_id"/>
       <index name="cliente_cliente_dni_64944e355d1b2081_like" unique="false" columns="dni"/>
     </table>
     <table name="django_admin_log" schema="public" catalog="latyna" type="TABLE">
@@ -1895,32 +2757,16 @@
       <index name="django_session_de54fa62" unique="false" columns="expire_date"/>
       <index name="django_session_session_key_461cfeaa630ca218_like" unique="false" columns="session_key"/>
     </table>
-    <table name="facturacion_aditivos" schema="public" catalog="latyna" type="TABLE">
-      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fYWRpdGl2b3NfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
-      <column name="componente" sqlType="varchar" precision="30" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="facturacion_aditivos_pkey" columns="id"/>
-      <exported-key name="factura_aditivos_id_1511adb4d2498096_fk_facturacion_aditivos_id" table="facturacion_detallelente_complementos" schema="public" catalog="latyna" columns="aditivos_id"/>
-    </table>
-    <table name="facturacion_aditivos_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
-      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
-      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
-    </table>
     <table name="facturacion_detallelente" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fZGV0YWxsZWxlbnRlX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
       <column name="nro_venta_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="lente_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="precio" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="facturacion_detallelente_pkey" columns="nro_venta_id"/>
-      <foreign-key name="facturacion_d_lente_id_44f5296a9b883776_fk_facturacion_lente_id" columns="lente_id" ref-table="facturacion_lente" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <primary-key name="facturacion_detallelente_pkey" columns="id"/>
+      <foreign-key name="facturacion_detal_lente_id_44f5296a9b883776_fk_almacen_lente_id" columns="lente_id" ref-table="almacen_lente" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="facturac_nro_venta_id_5a4fd22159adb2a2_fk_facturacion_venta_nro" columns="nro_venta_id" ref-table="facturacion_venta" ref-schema="public" ref-catalog="" ref-columns="nro" update-rule="3" delete-rule="3" deferrability="1"/>
-      <exported-key name="db0788ffca4f143a3d3783344813e1f1" table="facturacion_detallelente_complementos" schema="public" catalog="latyna" columns="detallelente_id"/>
+      <exported-key name="detallelente_id_74da7817d147056_fk_facturacion_detallelente_id" table="facturacion_detallelente_complementos" schema="public" catalog="latyna" columns="detallelente_id"/>
+      <index name="facturacion_detallelente_nro_venta_id_key" unique="true" columns="nro_venta_id"/>
       <index name="facturacion_detallelente_0269eefc" unique="false" columns="lente_id"/>
     </table>
     <table name="facturacion_detallelente_complementos" schema="public" catalog="latyna" type="TABLE">
@@ -1928,8 +2774,8 @@
       <column name="detallelente_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="aditivos_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="facturacion_detallelente_complementos_pkey" columns="id"/>
-      <foreign-key name="factura_aditivos_id_1511adb4d2498096_fk_facturacion_aditivos_id" columns="aditivos_id" ref-table="facturacion_aditivos" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="db0788ffca4f143a3d3783344813e1f1" columns="detallelente_id" ref-table="facturacion_detallelente" ref-schema="public" ref-catalog="" ref-columns="nro_venta_id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="facturacion_aditivos_id_1511adb4d2498096_fk_almacen_aditivos_id" columns="aditivos_id" ref-table="almacen_aditivos" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="detallelente_id_74da7817d147056_fk_facturacion_detallelente_id" columns="detallelente_id" ref-table="facturacion_detallelente" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <index name="facturacion_detallelente_comple_detallelente_id_aditivos_id_key" unique="true" columns="detallelente_id,aditivos_id"/>
       <index name="facturacion_detallelente_complementos_519efdc6" unique="false" columns="aditivos_id"/>
       <index name="facturacion_detallelente_complementos_cbd64f4a" unique="false" columns="detallelente_id"/>
@@ -1946,19 +2792,7 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
-    <table name="facturacion_detalleventa" schema="public" catalog="latyna" type="TABLE">
-      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fZGV0YWxsZXZlbnRhX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
-      <column name="nro_venta_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="producto_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="precio" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="cantidad" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="facturacion_detalleventa_pkey" columns="id"/>
-      <foreign-key name="facturacion_producto_id_78b626b18d007b55_fk_almacen_producto_id" columns="producto_id" ref-table="almacen_producto" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="facturac_nro_venta_id_1bbef5ccb4d09d88_fk_facturacion_venta_nro" columns="nro_venta_id" ref-table="facturacion_venta" ref-schema="public" ref-catalog="" ref-columns="nro" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="facturacion_detalleventa_642267fc" unique="false" columns="nro_venta_id"/>
-      <index name="facturacion_detalleventa_bb91903a" unique="false" columns="producto_id"/>
-    </table>
-    <table name="facturacion_detalleventa_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+    <table name="facturacion_detallelente_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -1970,13 +2804,19 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
-    <table name="facturacion_lente" schema="public" catalog="latyna" type="TABLE">
-      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fbGVudGVfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
-      <column name="tipo_lente" sqlType="varchar" precision="30" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="facturacion_lente_pkey" columns="id"/>
-      <exported-key name="facturacion_d_lente_id_44f5296a9b883776_fk_facturacion_lente_id" table="facturacion_detallelente" schema="public" catalog="latyna" columns="lente_id"/>
+    <table name="facturacion_detalleventa" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZmFjdHVyYWNpb25fZGV0YWxsZXZlbnRhX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
+      <column name="nro_venta_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="producto_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="precio" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cantidad" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="facturacion_detalleventa_pkey" columns="id"/>
+      <foreign-key name="facturacion_producto_id_78b626b18d007b55_fk_almacen_producto_id" columns="producto_id" ref-table="almacen_producto" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="facturac_nro_venta_id_1bbef5ccb4d09d88_fk_facturacion_venta_nro" columns="nro_venta_id" ref-table="facturacion_venta" ref-schema="public" ref-catalog="" ref-columns="nro" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="facturacion_detalleventa_642267fc" unique="false" columns="nro_venta_id"/>
+      <index name="facturacion_detalleventa_bb91903a" unique="false" columns="producto_id"/>
     </table>
-    <table name="facturacion_lente_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+    <table name="facturacion_detalleventa_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -2014,7 +2854,8 @@
       <column name="nro" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="dni_cliente_id" sqlType="varchar" precision="8" scale="0" nullable="true" jdbcType="12"/>
       <column name="fecha" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
-      <column name="subtotal" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="importe" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="saldo" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="total" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="cancelado" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="observaciones" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
@@ -2028,13 +2869,54 @@
     </table>
     <table name="receta_receta" schema="public" catalog="latyna" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncmVjZXRhX3JlY2V0YV9pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
-      <column name="dni_cliente_id" sqlType="varchar" precision="8" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cliente_id" sqlType="varchar" precision="8" scale="0" nullable="true" jdbcType="12"/>
+      <column name="od_esf" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="oi_esf" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="od_cil" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="oi_cil" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="od_eje" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="oi_eje" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="od_dip" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="oi_dip" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="od_avsc" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="oi_avsc" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="od_avcc" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="oi_avcc" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="add" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="patologia" sqlType="varchar" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lente_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="fecha" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
-      <column name="imagen" sqlType="varchar" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="imagen" sqlType="varchar" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="receta_receta_pkey" columns="id"/>
-      <foreign-key name="receta_r_dni_cliente_id_5f54c2c0266907e3_fk_cliente_cliente_dni" columns="dni_cliente_id" ref-table="cliente_cliente" ref-schema="public" ref-catalog="" ref-columns="dni" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="receta_receta_dni_cliente_id_5f54c2c0266907e3_like" unique="false" columns="dni_cliente_id"/>
-      <index name="receta_receta_edb39bd8" unique="false" columns="dni_cliente_id"/>
+      <foreign-key name="receta_receta_lente_id_22b26ea250290993_fk_almacen_lente_id" columns="lente_id" ref-table="almacen_lente" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="receta_recet_cliente_id_54133d983f23e5f1_fk_cliente_cliente_dni" columns="cliente_id" ref-table="cliente_cliente" ref-schema="public" ref-catalog="" ref-columns="dni" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="receta_receta_co_receta_id_340eb33a31a9e88c_fk_receta_receta_id" table="receta_receta_complementos" schema="public" catalog="latyna" columns="receta_id"/>
+      <index name="receta_receta_0269eefc" unique="false" columns="lente_id"/>
+      <index name="receta_receta_4a860110" unique="false" columns="cliente_id"/>
+      <index name="receta_receta_cliente_id_54133d983f23e5f1_like" unique="false" columns="cliente_id"/>
+    </table>
+    <table name="receta_receta_complementos" schema="public" catalog="latyna" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncmVjZXRhX3JlY2V0YV9jb21wbGVtZW50b3NfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="receta_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="aditivos_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="receta_receta_complementos_pkey" columns="id"/>
+      <foreign-key name="receta_rece_aditivos_id_72361e84fe405737_fk_almacen_aditivos_id" columns="aditivos_id" ref-table="almacen_aditivos" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="receta_receta_co_receta_id_340eb33a31a9e88c_fk_receta_receta_id" columns="receta_id" ref-table="receta_receta" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="receta_receta_complementos_receta_id_aditivos_id_key" unique="true" columns="receta_id,aditivos_id"/>
+      <index name="receta_receta_complementos_519efdc6" unique="false" columns="aditivos_id"/>
+      <index name="receta_receta_complementos_b81fb5e8" unique="false" columns="receta_id"/>
+    </table>
+    <table name="receta_receta_complementos_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="receta_receta_id_seq" schema="public" catalog="latyna" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
@@ -2048,6 +2930,90 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
+    <procedure name="_pg_char_max_length" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="typid" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="1" index="1"/>
+        <parameter name="typmod" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_char_octet_length" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="typid" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="1" index="1"/>
+        <parameter name="typmod" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_datetime_precision" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="typid" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="1" index="1"/>
+        <parameter name="typmod" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_expandarray" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="" sqlType="anyarray" precision="0" scale="0" nullable="true" jdbcType="1111" type="1" index="1"/>
+        <parameter name="x" sqlType="anyelement" precision="0" scale="0" nullable="true" jdbcType="1111" type="4" index="2"/>
+        <parameter name="n" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="4" index="3"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_index_position" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="$1" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="1" index="1"/>
+        <parameter name="$2" sqlType="int2" precision="0" scale="0" nullable="true" jdbcType="5" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_interval_type" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="typid" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="1" index="1"/>
+        <parameter name="mod" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="text" precision="0" scale="0" nullable="true" jdbcType="12" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_keysequal" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="$1" sqlType="_int2" precision="0" scale="0" nullable="true" jdbcType="2003" type="1" index="1"/>
+        <parameter name="$2" sqlType="_int2" precision="0" scale="0" nullable="true" jdbcType="2003" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="bool" precision="0" scale="0" nullable="true" jdbcType="-7" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_numeric_precision" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="typid" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="1" index="1"/>
+        <parameter name="typmod" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_numeric_precision_radix" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="typid" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="1" index="1"/>
+        <parameter name="typmod" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_numeric_scale" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="typid" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="1" index="1"/>
+        <parameter name="typmod" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_truetypid" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="$1" sqlType="pg_attribute" precision="0" scale="0" nullable="true" jdbcType="2002" type="1" index="1"/>
+        <parameter name="$2" sqlType="pg_type" precision="0" scale="0" nullable="true" jdbcType="2002" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="oid" precision="0" scale="0" nullable="true" jdbcType="-5" type="5" index="0"/>
+      </prototype>
+    </procedure>
+    <procedure name="_pg_truetypmod" schema="information_schema" catalog="latyna" type="2">
+      <prototype>
+        <parameter name="$1" sqlType="pg_attribute" precision="0" scale="0" nullable="true" jdbcType="2002" type="1" index="1"/>
+        <parameter name="$2" sqlType="pg_type" precision="0" scale="0" nullable="true" jdbcType="2002" type="1" index="2"/>
+        <parameter name="returnValue" sqlType="int4" precision="0" scale="0" nullable="true" jdbcType="4" type="5" index="0"/>
+      </prototype>
+    </procedure>
     <procedure name="RI_FKey_cascade_del" schema="pg_catalog" catalog="latyna" type="2" remarks="cmVmZXJlbnRpYWwgaW50ZWdyaXR5IE9OIERFTEVURSBDQVNDQURF">
       <prototype>
         <parameter name="returnValue" sqlType="trigger" precision="0" scale="0" nullable="true" jdbcType="1111" type="5" index="0"/>

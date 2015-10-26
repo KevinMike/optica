@@ -8,9 +8,9 @@ class ClienteForm(forms.ModelForm):
     direccion = forms.CharField(widget = forms.Textarea(attrs={'class':'form-control','rows':2,}),required=False,)
     telefono = forms.CharField(max_length=15,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Telefono'}),label="Telefono",required=False,)
     email = forms.EmailField(max_length=30,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Correo Electronico'}),label="Email",required=False,)
-    # fecha_nacimiento = forms.DateField(initial=datetime.date.today,widget=forms.DateInput(attrs={'class':'form-control',}),label="Fecha de Nacimiento")
-    # ocupacion = forms.CharField(max_length=50,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Ocupacion'}),label="Ocupacion")
-    # foto = forms.ImageField()
+    fecha_nacimiento = forms.DateField(widget=forms.DateInput(attrs={'class':'form-control',}),label="Fecha de Nacimiento",required=False,)
+    ocupacion = forms.CharField(max_length=50,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Ocupacion'}),label="Ocupacion",required=False,)
+    foto = forms.ImageField(required=False,)
 
     class Meta:
         model = Cliente

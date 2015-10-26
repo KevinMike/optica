@@ -20,9 +20,8 @@
     {% endif %}
 {% block content %}
     <div class="content" style="background-color: white; border-radius: 0.5em;">
-            <h1><strong>Reporte de Venta</strong></h1>
-            <h3>Venta Número {{ venta.nro }}</h3>
-            <h3>Datos del Cliente</h3>
+            <h1><strong>Reporte de Venta Número {{ venta.nro }}</strong></h1>
+            <h3><legend>Datos del Cliente</legend></h3>
                 <table class="table-condensed" style="width: 100%">
                     <tr>
                         <td><strong>Nombre </strong></td>
@@ -37,7 +36,7 @@
                         <td>{{ venta.dni_cliente.email }}</td>
                     </tr>
                 </table>
-            <h3>Detalles de Venta</h3>
+                <h3><legend>Detalles de la venta</legend></h3>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -49,16 +48,36 @@
                     </thead>
                     {% for detalle in detalles %}
                         <tr>
-                            <td>{{ detalle.codigo_producto.codigo }}</td>
-                            <td>{{ detalle.codigo_producto.descripcion }}</td>
+                            <td>{{ detalle.producto.codigo }}</td>
+                            <td>{{ detalle.producto.descripcion }}</td>
                             <td>{{ detalle.precio }} soles</td>
                             <td>{{ detalle.cantidad }} unidades</td>
                         </tr>
                     {% endfor %}
+                    {% for item in lentes %}
+                        {{ item.lente }}
+                        {% if item.precio != "Ninguno" %}
+                        <tr>
+                            <td>  </td>
+                            <td>{{ item.lente }} [
+                                {% for tag in item.complementos.all %}
+                                    {{ tag.complement }},
+                                {% endfor %}
+                                ]
+                            </td>
+                            <td>{{ item.precio }} soles</td>
+                            <td>1 unidades</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
                     <tr>
-                        <td rowspan="2" colspan="2"><strong>Observaciones: </strong>{{ venta.observaciones }}</td>
-                        <td><strong>Subtotal</strong></td>
-                        <td>{{ venta.subtotal }} soles</td>
+                        <td rowspan="3" colspan="2"><strong>Observaciones: </strong>{{ venta.observaciones }}</td>
+                        <td><strong>Importe</strong></td>
+                        <td>{{ venta.importe }} soles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Saldo</strong></td>
+                        <td>{{ venta.saldo }} soles</td>
                     </tr>
                     <tr>
                         <td><strong>Total</strong></td>

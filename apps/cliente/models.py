@@ -31,4 +31,5 @@ class Cliente(models.Model):
             return "No especificado"
 
     class Meta:
-        verbose_name_plural = "CLIENTES"
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes'

@@ -26,44 +26,18 @@
                     <header class="panel-heading tab-bg-dark-navy-blue">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a data-toggle="tab" href="#home">LISTA DE PRODUCTOS</a>
+                                <a data-toggle="tab" href="#home">INGRESAR PRODUCTOS</a>
                             </li>
                             <li class="">
-                                <a data-toggle="tab" href="#register">INGRESAR PRODUCTOS</a>
+                                <a data-toggle="tab" href="#register">LISTA DE PRODUCTOS</a>
                             </li>
                         </ul>
                     </header>
                     <div class="panel-body">
                         <div class="tab-content">
                             <div id="home" class="tab-pane active">
-                                <table id="tabla" class="table table-hover display">
-                        <thead>
-                            <th>Código</th>
-                            <th>Descripción</th>
-                            <th>Marca</th>
-                            <th>Color</th>
-                            <th>Categoria</th>
-                            <th>Longitud</th>
-                            <th>Stock Mínimo</th>
-                            <th>Stock Actual</th>
-                        </thead>
-                        {% for producto in productos %}
-                        <tr>
-                            <td>{{ producto.codigo }}</td>
-                            <td>{{ producto.descripcion }}</td>
-                            <td>{{ producto.marca }}</td>
-                            <td>{{ producto.color }}</td>
-                            <td><span class="label label-success">{{ producto.categoria }}</span></td>
-                            <td><span class="label label-info">{{ producto.longitud }}</span></td>
-                            <td><span class="label label-danger">{{ producto.stock_minimo }}</span></td>
-                            <td>{{ producto.stock_actual }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                            </div>
-                            <div id="register" class="tab-pane">
-                                <div class="col-md-6">
-                                    <form action="{% url 'almacen:producto' %}" method="POST">{% csrf_token %}
+                         <div class="col-md-6">
+                                <form action="{% url 'almacen:producto' %}" method="POST">{% csrf_token %}
                                     <div class="panel panel-primary">
 
                                             <div class="panel-heading">Nuevo Producto</div>
@@ -75,22 +49,50 @@
                                                     <button class="btn btn-danger" type="reset" value="Reset">Limpiar</button>
                                           </div>
                                     </div>
-                                    </form>
+                                </form>
                                 </div>
                                 <div class="col-md-6">
-                                    <form action="" method="POST">{% csrf_token %}
-                                    <div class="panel panel-primary">
-                                          <div class="panel-heading">Ingresar producto</div>
-                                          <div class="panel-body">
-                                                {{ ingreso_form.as_p }}
-                                          </div>
-                                          <div class="panel-footer">
-                                              <button class="btn btn-success" type="submit" value="Submit">Ingresar</button>
-                                              <button class="btn btn-danger" type="reset" value="Reset">Limpiar</button>
-                                          </div>
-                                    </div>
-                                    </form>
+                                   {% if request.user.is_staff %}
+                                        <form action="" method="POST">{% csrf_token %}
+                                        <div class="panel panel-primary">
+                                              <div class="panel-heading">Lista de Productos</div>
+                                              <div class="panel-body">
+                                                    {{ ingreso_form.as_p }}
+                                              </div>
+                                              <div class="panel-footer">
+                                                  <button class="btn btn-success" type="submit" value="Submit">Ingresar</button>
+                                                  <button class="btn btn-danger" type="reset" value="Reset">Limpiar</button>
+                                              </div>
+                                        </div>
+                                        </form>
+                                    {% endif %}
                                 </div>
+                            </div>
+                            <div id="register" class="tab-pane">
+                                <table id="tabla" class="table table-hover display">
+                                    <thead>
+                                        <th>Código</th>
+                                        <th>Descripción</th>
+                                        <th>Marca</th>
+                                        <th>Color</th>
+                                        <th>Categoria</th>
+                                        <th>Longitud</th>
+                                        <th>Stock Mínimo</th>
+                                        <th>Stock Actual</th>
+                                    </thead>
+                                    {% for producto in productos %}
+                                    <tr>
+                                        <td>{{ producto.codigo }}</td>
+                                        <td>{{ producto.descripcion }}</td>
+                                        <td>{{ producto.marca }}</td>
+                                        <td>{{ producto.color }}</td>
+                                        <td>{{ producto.categoria }}</td>
+                                        <td>{{ producto.longitud }}</td>
+                                        <td>{{ producto.stock_minimo }}</td>
+                                        <td>{{ producto.stock_actual }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
                             </div>
                         </div>
                     </div>

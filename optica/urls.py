@@ -13,10 +13,11 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from apps.usuarios.views import Login, Logout
 from apps.almacen.views import Index
+from optica import settings
 admin.site.site_header = "Sistema de Gestion para la Optica LATYNA"
 admin.site.site_title = "Panel de Administracion"
 
@@ -32,3 +33,7 @@ urlpatterns = [
     url(r'^receta/',include('apps.receta.urls',namespace='receta')),
 ]
 
+if settings.DEBUG:
+    urlpatterns += patterns('django.views.static',
+        (r'media/(?P<path>.*)', 'serve', {'document_root': settings.MEDIA_ROOT}),
+    )

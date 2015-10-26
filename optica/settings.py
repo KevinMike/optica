@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'apps.facturacion',
     'apps.receta',
     'apps.usuarios',
-    'multiselectfield'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -128,8 +128,10 @@ SUIT_CONFIG = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+
 MEDIA_URL = '/media/'
 
-#LOGIN_URL = '/login'
+LOGIN_URL = '/login'
 
-LOGIN_REDIRECT_URL = '/'
+#LOGIN_REDIRECT_URL = '/'
+

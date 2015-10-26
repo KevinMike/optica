@@ -4,8 +4,6 @@
     <data-source name="Django default" uuid="5fb1901f-1062-474e-ad78-b28eb92818e9">
       <user-name>postgres</user-name>
       <user-password>df9ddf9edf9fdf9fdf98df98</user-password>
-      <schema-pattern>latyna.pg_catalog latyna.public</schema-pattern>
-      <default-schemas>latyna.pg_catalog latyna.public</default-schemas>
     </data-source>
   </component>
 </project>

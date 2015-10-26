@@ -4206,7 +4206,7 @@ padding: 6px 10px;
 .st-blue {
   background-color: #23b7e5;
 }
-#RegistrarVenta{
+.enviar_formulario{
   font-size: large;
   font-weight: bold;
   width: 100%;
@@ -4224,10 +4224,6 @@ padding: 6px 10px;
 }
 
 #NroFacturacion{
-  background-color: black;
-  border: 2px solid #23ad44;
-  color: #23ad44;
-  font-size: 1em;
   font-weight: bold;
   text-align: center;
 }
@@ -4241,6 +4237,23 @@ padding: 6px 10px;
   background-color: #fcfcfc ;
   font-size: large bold;
 }
-#HabilitarLente{
-  /*float: right;*/
+@font-face {
+    font-family: "digital";
+    src: url(../fonts/digital-7.ttf);
+}
+.DetailTable{
+  background-color: #23ad44;
+  border: blue dotted 1px;
+  font-family: digital;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+#Total{
+  background-color: white;
+  font-family: digital;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
 }

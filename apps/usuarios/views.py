@@ -14,27 +14,31 @@ class LoginRequiredMixin(object):
         return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
 
 class Login(View):
+
     form_class = LoginForm
     template_name = 'login/login.html'
+    user_check_failure_path = '/login'
+
     def get(self, request):
         if request.user.is_authenticated():
             return redirect('/')
-        else:
-            form = self.form_class()
-            return render(request, self.template_name, {'form':form })
+        form = self.form_class()
+        return render(request, self.template_name, {'form':form })
 
     def post(self,request):
         form = self.form_class(request.POST)
+
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user:
             if user.is_active:
                 login(request, user)
                 if request.GET:
-                    return redirect('almacen/')
+                    return redirect(request.GET['next'])
                 return redirect('/')
             return render(request, self.template_name, {'form': form, 'error': 'La cuenta esta deshabilitada'})
+
         else:
-            return render(request, self.template_name, {'form':form})
+            return render(request, self.template_name, {'form': form, 'error': 'Verifique los datos ingresados'})
 
 
 class Logout(View):

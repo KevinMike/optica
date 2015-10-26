@@ -22,58 +22,56 @@
     {% endif %}
 
 <div class="row">
-        <form class="form-horizontal" role="form" action="{% url 'facturacion:index' %}" method="POST">{% csrf_token %}
+        <form id="venta_form" class="form-horizontal" role="form" action="{% url 'facturacion:index' %}" method="POST">{% csrf_token %}
             <div class="col-md-12">
             <section class="panel panel-default">
                 <header class="panel-heading CabeceraVenta">
                     Venta
                 </header>
                 <div class="panel-body PanelVenta" >
-                    <div class="col-lg-6 col-sm-12" style="text-align: center">
-                        <div class="col-lg-4">
-                            <img src="{% static 'images/cliente.png' %}" alt="">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <legend>Cliente</legend>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <img src="{% static 'images/cliente.png' %}" width="100px" >
                         </div>
-                        <div class="col-lg-8" style="vertical-align: middle">
+                        <div class="col-lg-8 col-md-4 col-sm-4" style="vertical-align: middle">
                             <div class="form-group">
-                              {{ cliente_form.dni.errors }}
-                              <label for="{{ cliente_form.dni.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.dni.label }}</label>
-                              <div class="col-lg-10">
-                                  <input class="form-control" type="text" id="BuscarCliente" placeholder="D.N.I." maxlength="8" onkeyup="search_client()" name="BuscarCliente">
-                              </div>
-                            </div>
+                                <label for="BuscarCliente" class=" control-label col-sm-2">DNI</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" id="BuscarCliente" placeholder="D.N.I." maxlength="8" onkeyup="search_client()" name="BuscarCliente">
+                                </div>
+                                </div>
                             <button data-toggle="modal" data-target="#cliente-modal" class="btn btn-success btn-large" id="add_cliente">Añadir Cliente</button>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
                             <br>
-                             <table class="table table-bordered">
-                                <tbody><tr>
-                                    <th style="width: 100px" >Foto</th>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th id="cliente_foto" rowspan="3">No Especificado</th>
                                     <th>Nombre</th>
-                                    <th>Telefono</th>
-                                    <th style="width: 40px">Email</th>
+                                    <th id="cliente_nombre">No Especificado</th>
                                 </tr>
                                 <tr>
-                                    <td id="cliente_foto"></td>
-                                    <td id="cliente_nombre"></td>
-                                    <td id="cliente_telefono"></td>
-                                    <td><span class="badge bg-red" id="cliente_email"></span></td>
-                                </tr></tbody>
+                                    <td>Telefono</td>
+                                    <td id="cliente_telefono">No Especificado</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td><span class="badge bg-red" id="cliente_email">No Especificado</span></td>
+                                </tr>
                             </table>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                             <fieldset>
                                     <legend>Modalidades de Pago</legend>
-                                    <table style="text-align: center" width="100%">
-                                        <tr>
-                                            <td><label>
-                                            <input type="radio" name="color" value="azul" checked> Boleta de Venta
-                                            </label></td>
-                                            <td><label>
-                                            <input type="radio" name="color" value="negro"> Nota de Pedido
-                                            </label></td>
-                                        </tr>
-                                    </table>
+                                      <div class="form-group">
+                                          <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.nro.label }}</strong></div>
+                                          <div class="col-lg-8">
+                                              {{ venta_form.tipo_recibo.errors }}
+                                              {{ venta_form.tipo_recibo }}
+                                          </div>
+                                      </div>
                             </fieldset>
                           <div class="form-group">
                               <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.nro.label }}</strong></div>
@@ -96,26 +94,40 @@
                                 {{ venta_form.observaciones }}
                               </div>
                           </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>Total</strong></div>
+                              <div class="col-lg-8">
+                                    <button type="button" class="float-left btn btn-default" id="calcular">Calcular el Total</button>
+                              </div>
+                          </div>
+                          <fieldset>
+                              <table class="DetailTable">
+                                  <tr>
+                                      <td id="Total">No Calculado</td>
+                                  </tr>
+                              </table>
 
+                          </fieldset>
                     </div>
                 </div>
             </section>
             </div>
             <div class="col-md-12">
             <section class="panel panel-default">
-                <header class="panel-heading CabeceraVenta">DETALLES DE VENTA - Productos
+                <header class="panel-heading CabeceraVenta">Productos
                 </header>
                 <div class="panel-body PanelVenta">
-                            <div id="form">
+
+                        <div id="form_detalles">
                                 {% for form in DetalleFormSet %}
                                 <div class="formset">
                                     <div class=" col-sm-4 col-xs-12">
                                         <div class="form-group ">
                                             <div class="no-padding-top form-field col-sm-11">
-                                                {{ form.codigo_producto.errors }}
+                                                {{ form.producto.errors }}
                                                 <div class="input-group">
                                                     <span class="input-group-addon " >Producto</span>
-                                                    {{ form.codigo_producto}}
+                                                    {{ form.producto}}
                                                 </div>
                                             </div>
                                         </div>
@@ -148,56 +160,64 @@
                                     </div>
 
                                 </div>
-
                                 {% endfor %}
-
                             </div>
+
                         {{ DetalleFormSet.management_form }}
                     </div>
                 </section>
             <section class="panel panel-default">
                 <header class="panel-heading CabeceraVenta">
-                    DETALLES DE VENTA - Lentes
+                    Lunas Oftálmicas
                 </header>
                 <div class="panel-body PanelVenta">
-                    <div class=" col-sm-4 col-xs-12">
-                        <div class="form-group ">
-                            <div class="no-padding-top form-field col-sm-11">
-                                {{ LenteForm.lente.errors }}
-                                <div class="input-group">
-                                    <span class="input-group-addon" >Tipo de Lente</span>
-                                    {{ LenteForm.lente}}
+                    <div id="form_lentes">
+                        {% for form in LenteFormSet %}
+                            <br>
+                        <div class="formset">
+                            <br>
+                            <div class=" col-sm-4 col-xs-12">
+                                <div class="form-group ">
+                                    <div class="no-padding-top form-field col-sm-11">
+                                        {{ form.lente.errors }}
+                                        <div class="input-group">
+                                            <span class="input-group-addon " >Producto</span>
+                                            {{ form.lente}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-sm-4 col-xs-12">
+                                <div class="form-group ">
+                                    <div class="no-padding-top form-field col-sm-11">
+                                        {{ form.complementos.errors }}
+                                        <div class="input-group">
+                                            <span class="input-group-addon " >Producto</span>
+                                            {{ form.complementos}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           <div class=" col-sm-4 col-xs-12">
+                                <div class="form-group ">
+                                    <div class="no-padding-top form-field col-sm-11">
+                                        {{ form.precio.errors }}
+                                        <div class="input-group">
+                                            <span class="input-group-addon " >Producto</span>
+                                            {{ form.precio}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    <div class="col-sm-4 col-xs-12">
-                        <div class="form-group ">
-                            <div class="no-padding-top form-field col-sm-11">
-                                {{ LenteForm.complementos.errors }}
-                                <div class="input-group">
-                                    <span class="input-group-addon">Aditivos</span>
-                                    {{ LenteForm.complementos}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   <div class="col-sm-4 col-xs-12">
-                       <div class="form-group ">
-                            <div class="no-padding-top form-field col-sm-11">
-                                {{ LenteForm.precio.errors }}
-                                <div class="input-group">
-                                    <span class="input-group-addon">Precio</span>
-                                    {{ LenteForm.precio}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{ LenteFormSet.management_form }}
                 </div>
             </section>
-        </div>
+            </div>
             <div class="col-lg-12">
-                <input class="btn btn-success" id="RegistrarVenta" type="submit" value="Registrar Venta"/>
+                <input class="btn btn-success enviar_formulario"  type="submit" value="Registrar Venta"/>
             </div>
         </form>
 </div>
@@ -277,7 +297,7 @@
                     <input class="btn btn-success" type="submit" value="Añadir" id="submit_cliente">
                     <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
                   </div>
-                  </form>
+              </form>
             </div>
           </div>
     </div>
@@ -285,10 +305,38 @@
 {% endblock %}
 {% block application_javascript %}
     <script type="application/javascript">
-        function ResetearForm(form_id)
-            {
-                $('#'+form_id)[0].reset();
-            }
+            document.getElementById("calcular").addEventListener("click", function(event){
+                var numero_productos = parseFloat($("#id_formset_producto-TOTAL_FORMS").val());
+                var total = 0;
+                for(var x = 0;x<numero_productos;x++)
+                {
+                    if( parseFloat($("#id_formset_producto-"+x+"-precio").val()) >= 0 &&  parseInt($("#id_formset_producto-"+x+"-cantidad").val()) >= 0)
+                    {
+
+                        total = total +  parseFloat($("#id_formset_producto-"+x+"-precio").val())*parseInt($("#id_formset_producto-"+x+"-cantidad").val());
+                    }
+                    else
+                    {
+                        total = "ERROR";
+                        break;
+                    }
+                }
+                var numero_lentes = parseInt( $("#id_formset_lente-TOTAL_FORMS").val() );
+                for(var i = 0 ; i< numero_lentes; i++)
+                {
+                    if(parseFloat($("#id_formset_lente-"+i+"-precio").val())>=0)
+                    {
+                        total = total + parseFloat($("#id_formset_lente-"+i+"-precio").val());
+                    }
+                    else
+                    {
+                        total = "ERROR";
+                        break
+                    }
+                }
+                document.getElementById("Total").textContent = total;
+            });
+
             //Buscar Cliente via ajax
             function search_client(){
                 $.ajax({
@@ -366,8 +414,15 @@
                 });
             }
             $( document ).ready(function() {
+                $('#form_detalles .formset').formset({
+                   prefix: '{{ DetalleFormSet.prefix }}',
+                   formCssClass: 'dynamic-formset1'
+               });
+                $('#form_lentes .formset').formset({
+                   prefix: '{{ LenteFormSet.prefix }}',
+                   formCssClass: 'dynamic-formset2'
+                });
                 $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
-                search_client();
                 $('#client-form').on('submit', function(event){
                     event.preventDefault();
                     registrar_cliente();
