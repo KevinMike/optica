@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row" style="margin-bottom:5px;">
+                      {% if request.user.is_staff %}
+                        <div class="col-md-4">
+                            <div class="sm-st clearfix">
+                                <span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
+                                <div class="sm-st-info">
+                                    <span>{{ numero_mensaje }}</span>
+                                    Total de Mensajes
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="sm-st clearfix">
+                                <span class="sm-st-icon st-blue"><i class="fa fa-dollar"></i></span>
+                                <div class="sm-st-info">
+                                    <span>{{ suma_mes }} soles</span>
+                                    Total en Caja Mensual
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="sm-st clearfix">
+                                <span class="sm-st-icon st-green"><i class="fa fa-dollar"></i></span>
+                                <div class="sm-st-info">
+                                    <span>{{ suma_dia }} soles</span>
+                                    Total en caja Diario
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+                    <!-- Main row -->
+                    <div class="row">
+
+                        <div class="col-md-8">
+                            <!--earning graph start-->
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    Ventas y Ganancias
+                                </header>
+                                <div class="panel-body">
+                                    <canvas id="linechart" width="600" height="330"></canvas>
+                                </div>
+                                        </section>
+                                        <!--earning graph end-->
+
+                                    </div>
+                                    <div class="col-lg-4">
+
+                                        <!--chat start-->
+                                        <section class="panel">
+                                            <header class="panel-heading">
+                                                Proveedores
+                                            </header>
+                                                <div class="panel-body" id="noti-box">
+                                                    {% for proveedor in proveedores %}
+                                                        <div class= "alert alert-block alert-info">
+                                                            <button data-dismiss="alert" class="close close-sm" type="button">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                            <strong>{{ proveedor.nombre }}</strong> Telefono: {{ proveedor.telefono }}
+                                                        </div>
+                                                    {% endfor %}
+{% comment %}                                                    <div class="alert alert-success">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Well done!</strong> You successfully read this important alert message.
+                                                    </div>
+                                                    <div class="alert alert-info">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+                                                    </div>
+                                                    <div class="alert alert-warning">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Warning!</strong> Best check yo self, you're not looking too good.
+                                                    </div>
+
+
+                                                    <div class="alert alert-block alert-danger">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                                                    </div>
+                                                    <div class="alert alert-success">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Well done!</strong> You successfully read this important alert message.
+                                                    </div>
+                                                    <div class="alert alert-info">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+                                                    </div>
+                                                    <div class="alert alert-warning">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Warning!</strong> Best check yo self, you're not looking too good.
+                                                    </div>
+                                                </div>{% endcomment %}
+                                        </section>
+                      </div>
+
+                  </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="panel">
+                                <header class="panel-heading">
+                                    Clientes que estan de cumpleaños
+                                </header>
+
+                                <ul class="list-group teammates">
+                                   {% for cliente in clientes %}
+                                    <li class="list-group-item">
+                                        <a href=""><img src="/media/{{ cliente.foto }}"  width="50" height="50"></a>
+                                        <span class="pull-right label label-danger inline m-t-15">{{ cliente.email }}</span>
+                                        <a href="">{{ cliente.nombre }} {{ cliente.apellido }}</a>
+                                    </li>
+                                    {% endfor %}
+                                    {% comment %}<li class="list-group-item">
+                                        <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
+                                        <span class="pull-right label label-info inline m-t-15">Member</span>
+                                        <a href="">Joe Waston</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
+                                        <span class="pull-right label label-warning inline m-t-15">Editor</span>
+                                        <a href="">Jannie Dvis</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
+                                        <span class="pull-right label label-warning inline m-t-15">Editor</span>
+                                        <a href="">Emma Welson</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
+                                        <span class="pull-right label label-success inline m-t-15">Subscriber</span>
+                                        <a href="">Emma Welson</a>
+                                    </li>{% endcomment %}
+                                </ul>
+                                <div class="panel-footer bg-white">
+                                    <!-- <span class="pull-right badge badge-info">32</span> -->
+{% comment %}                                    <button class="btn btn-primary btn-addon btn-sm">
+                                        <i class="fa fa-plus"></i>
+                                        Add Teammate
+                                    </button>{% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                          <section class="panel tasks-widget">
+                              <header class="panel-heading">
+                                  Recordatorios de Meciciones
+                            </header>
+                            <div class="panel-body">
+                               <ul class="list-group teammates">
+                                   {% for item in receta %}
+                                    <li class="list-group-item">
+                                        <a href=""><img src="/media/{{ item.cliente.foto }}"  width="50" height="50"></a>
+                                        <span class="pull-right label label-danger inline m-t-15">{{ item.cliente.email }}</span>
+                                        <a href="">{{ item.cliente.nombre }} {{ item.cliente.apellido }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="panel-footer bg-white">
+                                </div>
+                          </div>
+                        </section>
+                  </div>
+              </div>
+              <!-- row end -->
+{% endblock %}
+
+{% block application_javascript %}
+        <script type="text/javascript">
+        function ObtenerEstadistica()
+        {
+            $.ajax({
+                url: "/cliente/buscar-cliente/" +  $("#BuscarCliente").val(),
+                type: "GET",
+                dataType: "json",
+                async: true,
+                success: function (j) {
+                    for(var i = 0; i< j.length; i++)
+                    {
+                        $('#cliente_foto').html(j[i]['foto']);
+                        $('#cliente_nombre').html(j[i]['nombre']);
+                        $('#cliente_telefono').html(j[i]['telefono']);
+                        $('#cliente_email').html(j[i]['email']);
+                        $('#add_cliente').attr('disabled',true);
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                        $('#cliente_foto').html('No existe');
+                        $('#cliente_nombre').html('Cliente no encontrado');
+                        $('#cliente_telefono').html('No existe');
+                        $('#cliente_email').html('No existe');
+                        $('#add_cliente').attr('disabled',false);
+                }
+            });
+        }
+
+        $(function() {
+                "use strict";
+                    //BAR CHART
+                    var data = {
+                        labels: ["January", "February", "March", "April", "May", "June", "July"],
+                        datasets: [
+                            {
+                                label: "My First dataset",
+                                fillColor: "rgba(220,220,220,0.2)",
+                                strokeColor: "rgba(220,220,220,1)",
+                                pointColor: "rgba(220,220,220,1)",
+                                pointStrokeColor: "#fff",
+                                pointHighlightFill: "#fff",
+                                pointHighlightStroke: "rgba(220,220,220,1)",
+                                data: [65, 59, 80, 81, 56, 55, 40]
+                            },
+                            {
+                                label: "My Second dataset",
+                                fillColor: "rgba(151,187,205,0.2)",
+                                strokeColor: "rgba(151,187,205,1)",
+                                pointColor: "rgba(151,187,205,1)",
+                                pointStrokeColor: "#fff",
+                                pointHighlightFill: "#fff",
+                                pointHighlightStroke: "rgba(151,187,205,1)",
+                                data: [28, 48, 40, 19, 86, 27, 90]
+                            }
+                        ]
+                    };
+                new Chart(document.getElementById("linechart").getContext("2d")).Line(data,{
+                    responsive : true,
+                    maintainAspectRatio: false,
+                });
+
+        });
+                // Chart.defaults.global.responsive = true;
+    </script>
+{% endblock %}

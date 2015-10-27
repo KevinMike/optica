@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel general">
+                <header class="panel-heading">
+                    <strong>Historial de Clientes</strong>
+                </header>
+                <div class="panel-body">
+                    <table id="tabla2" class="table table-hover display">
+                        <thead>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Fecha del Exámen</th>
+                            <th>Prueba</th>
+                            <th>Editar</th>
+                        </thead>
+                        {% load staticfiles %}
+                        {% for receta in recetas %}
+                        <tr>
+                            <td>{{ receta.cliente.dni }}</td>
+                            <td>{{ receta.cliente.nombre_completo }}</td>
+                            <td>{{ receta.fecha }}</td>
+                            <td> <a class="fancybox" rel="group" href="{{ receta.imagen.url }}" title="{{ receta.dni_cliente.nombre_completo }} - {{ receta.fecha }}"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el Examen"></a> </td>
+                            <td> <a href="{% url 'receta:editar' receta.id %}"><img src="{% static 'images/editar.ico' %}" width="25" height="25" data-toggle="tooltip" title="Editar"></a> </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                     </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+{% block application_javascript %}
+    <script>
+    var datatable = {
+
+        "oLanguage": {
+            "oAria": {
+                "sSortAscending": " - ordenar de forma ascendente",
+                "sSortDescending": " - ordenar de forma descendente",
+                "sInfoEmpty": "No hay información para mostrar",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sSearch": "Buscar :",
+                "sZeroRecords": "No hay ningún registro",
+
+            },
+            "oPaginate": {
+                "sFirst": "Primera página",
+                "sLast": "Última página",
+                "sNext": "Página siguiente",
+                "sPrevious": "Página anterior"
+            },
+
+            "sEmptyTable": "Esta tabla no tiene datos",
+            "sInfo": "Mostrando  _START_ - _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 entradas",
+            "sInfoFiltered": "(filtrados de _MAX_  registros en total)",
+            "sLengthMenu": "Motrar _MENU_ registros",
+            "sSearch": "Buscar :",
+            "sZeroRecords": "No se encontraron coincidencias"
+
+        }
+    };
+    $(document).ready(function() {
+        $(".fancybox").fancybox({
+    	openEffect	: 'elastic',
+    	closeEffect	: 'elastic',
+
+    	helpers : {
+    		title : {
+    			type : 'inside'
+    		}
+    	}
+    });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#tabla1').DataTable(datatable);
+        $('#tabla2').DataTable(datatable);
+        $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
+    } );
+    </script>
+{% endblock %}
