@@ -168,3 +168,7 @@ LOGIN_URL = '/login'
 #     'apps.almacen.context_processors.stock_minimo',
 #
 # )
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
