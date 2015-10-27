@@ -17,6 +17,7 @@ from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from apps.usuarios.views import Login, Logout
 from apps.almacen.views import Index
+from django.conf.urls.static import static
 from optica import settings
 admin.site.site_header = "Sistema de Gestion para la Optica LATYNA"
 admin.site.site_title = "Panel de Administracion"
@@ -31,7 +32,7 @@ urlpatterns = [
     url(r'^cliente/',include('apps.cliente.urls',namespace='cliente')),
     url(r'^facturacion/',include('apps.facturacion.urls',namespace='facturacion')),
     url(r'^receta/',include('apps.receta.urls',namespace='receta')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',
