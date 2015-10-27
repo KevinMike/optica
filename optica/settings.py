@@ -100,10 +100,19 @@ WSGI_APPLICATION = 'optica.wsgi.application'
 
 
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+# import dj_database_url
+# DATABASES['default'] =  dj_database_url.config()
 
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd6rssviaog0un9',
+        'USER': 'zklcgclmwjfmrg',
+        'PASSWORD': '12wmPryGDxFT_pCNu8q3yfC8Nj',
+        'HOST': 'ec2-107-21-219-235.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 
 
