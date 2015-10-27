@@ -130,16 +130,6 @@ LANGUAGE_CODE = 'es-PE'
 # USE_TZ = True
 
 
-
-# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# STATIC_ROOT = 'staticfiles'
-# STATIC_URL = '/static/'
-#
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
@@ -149,7 +139,7 @@ STATIC_ROOT = 'staticfiles'
 
 STATICFILES_DIRS = (
      os.path.join(BASE_DIR, "static"),
- )
+)
 
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Sistema de Gestion para la Optica LATYNA'
@@ -157,18 +147,19 @@ SUIT_CONFIG = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/login'
 
 #LOGIN_REDIRECT_URL = '/'
+
+
 # from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 # TEMPLATE_CONTEXT_PROCESSORS = TCP + (
 #     'apps.almacen.context_processors.stock_minimo',
 #
 # )
 
-#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
