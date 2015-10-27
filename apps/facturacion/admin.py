@@ -20,32 +20,32 @@ class VentaAdmin(admin.ModelAdmin):
     list_display = ('nro','dni_cliente','fecha','importe','total','cancelado','observaciones',)
     fieldsets = (
         ('Cliente', {'fields': ('dni_cliente',)}),
-        ('Venta', {'fields': ('nro','importe','observaciones' )}),
+        ('Venta', {'fields': ('nro','importe','total','saldo','cancelado','observaciones' )}),
     )
     model = Venta
     inlines = [DetalleVentaInline,DetalleLenteInline,]
-    def save_model(self, request, obj, form, change):
-        if change:
-            productos = DetalleVenta.objects.filter(nro_venta=obj.nro)
-            lentes = DetalleLente.objects.filter(nro_venta=obj.nro)
-            print request.POST['importe']
-            obj.save()
-        else:
-            obj.save()
+    # def save_model(self, request, obj, form, change):
+    #     if change:
+    #         productos = DetalleVenta.objects.filter(nro_venta=obj.nro)
+    #         lentes = DetalleLente.objects.filter(nro_venta=obj.nro)
+    #         print request.POST['importe']
+    #         obj.save()
+    #     else:
+    #         obj.save()
 
 
 class NotaPeridoAdmin(admin.ModelAdmin):
     model = NotaPedido
     list_display = ('venta','fecha','importe','saldo',)
     search_fields = ('venta','fecha',)
-    def save_model(self, request, obj, form, change):
-        if change:
-            productos = DetalleVenta.objects.filter(venta=obj.nro)
-            print "detalles"
-            print productos
-            obj.save()
-        else:
-            obj.save()
+    # def save_model(self, request, obj, form, change):
+    #     if change:
+    #         productos = DetalleVenta.objects.filter(venta=obj.nro)
+    #         print "detalles"
+    #         print productos
+    #         obj.save()
+    #     else:
+    #         obj.save()
 
 admin.site.register(Venta,VentaAdmin)
 admin.site.register(NotaPedido,NotaPeridoAdmin)
