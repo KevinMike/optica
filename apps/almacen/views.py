@@ -3,25 +3,39 @@ from django.shortcuts import render,redirect, HttpResponse
 from django.views.generic import View, ListView, DeleteView
 from apps.cliente.models import Cliente
 from apps.facturacion.models import Venta
-from .models import Producto
+from apps.receta.models import Receta
+from .models import Producto,Proveedor
 from .forms import ProductoForm,IngresoProductosForm
 from django.contrib import messages
 from apps.usuarios.views import LoginRequiredMixin
-import datetime
+from decimal import Decimal
+
+
 
 class Index(LoginRequiredMixin,View):
     template_name = 'index.html'
     def get(self,request):
+        import datetime
+        datetime.date.today()
+        proveedores = Proveedor.objects.all()
+        #receta = Receta.objects.all().order_by('-fecha').distinct("cliente")
+        receta = Receta.objects.all().order_by('-fecha')
+        lista = []
+        for item in receta:
+            diff = (datetime.date.today() - item.fecha).days
+            if(int(diff/30) >= 8):
+                lista.append(item)
+        receta = lista
         ventas = Venta.objects.all()
-        suma_mes = 0
-        suma_dia = 0
-     #   for item in ventas:
-           # if item.fecha == datetime.date.today():
-                #suma_dia = suma_dia + item.total
-            #if item.fecha.month == datetime.datetime.now().month:
-             #   suma_mes = suma_mes + item.total
-        clientes = Cliente.objects.all()
-        return render(request,self.template_name,{'clientes':clientes,'suma_mes':suma_mes,'suma_dia':suma_dia,})
+        suma_mes = Decimal(0)
+        suma_dia = Decimal(0)
+        for item in ventas:
+            if item.fecha == datetime.date.today():
+                suma_dia = suma_dia + Decimal(item.importe)
+            if item.fecha.month == datetime.date.today().month:
+                suma_mes = suma_mes + Decimal(item.importe)
+        clientes = Cliente.objects.filter(fecha_nacimiento__month=datetime.date.today().month, fecha_nacimiento__day=datetime.date.today().day)
+        return render(request,self.template_name,locals())
 
 class Productos(LoginRequiredMixin,View):
     template_name = 'productos/index.html'

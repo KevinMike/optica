@@ -145,7 +145,7 @@
     </div>
 
 <!-- Modal -->
-    <div id="cliente-modal" class="modal fade" role="dialog">
+ <div id="cliente-modal" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -201,6 +201,13 @@
                           </div>
                       </div>
                       <div class="form-group">
+                          <div id="error_{{ cliente_form.fecha_nacimiento.auto_id }}">{{ cliente_form.fecha_nacimiento.errors }}</div>
+                          <label for="{{ cliente_form.fecha_nacimiento.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.fecha_nacimiento.label }}</label>
+                          <div class="col-lg-10">
+                                {{ cliente_form.fecha_nacimiento }}
+                          </div>
+                      </div>
+                      <div class="form-group">
                           <div id="error_{{ cliente_form.ocupacion.auto_id }}">{{ cliente_form.ocupacion.errors }}</div>
                           <label for="{{ cliente_form.ocupacion.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.ocupacion.label }}</label>
                           <div class="col-lg-10">
@@ -220,7 +227,7 @@
                     <input class="btn btn-success" type="submit" value="Añadir" id="submit_cliente">
                     <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
                   </div>
-                  </form>
+              </form>
             </div>
           </div>
     </div>
@@ -229,7 +236,7 @@
 {% block application_javascript %}
     <script type="application/javascript">
             document.getElementById("BuscarCliente").addEventListener("onchange",search_client);
-            //Buscar Cliente via ajax
+                    //Buscar Cliente via ajax
             function search_client(){
                 $.ajax({
                     url: "/cliente/buscar-cliente/" +  $("#BuscarCliente").val(),
@@ -258,21 +265,19 @@
             //Registrar cliente via ajax
             function registrar_cliente()
             {
-                var $inputs = $('#client-form :input');
-                var values = {};
-                $inputs.each(function() {
-                    values[this.name] = $(this).val();
-                });
-                var data = JSON.stringify(values);
+                var formulario = new FormData( $("#client-form").get(0) );
                 $.ajax({
                     type: $("#client-form").attr('method'), // GET or POST
                     url: $("#client-form").attr('action'), // the file to call
-                    data: data,
-                    dataType: "json",
+                    data: formulario,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     success: function(j){
                         $("#msg").html("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + j.mensaje + "</div>");
-                        $("#id_dni_cliente").val('');
-                        $("#id_dni_cliente").val(j.datos.dni);
+                        $("#BuscarCliente").val('');
+                        $("#BuscarCliente").val(j.datos.dni);
+                        $('#client-form')[0].reset();
                         search_client();
                         //Limpiar formulario
                         $("#error_id_dni").html('');
@@ -281,12 +286,15 @@
                         $("#error_id_direccion").html('');
                         $("#error_id_telefono").html('');
                         $("#error_id_email").html('');
-
+                        $("#error_id_fecha_nacimiento").html('');
+                        $("#error_id_ocupacion").html('');
+                        $("#error_id_foto").html('');
                         $("#cliente-modal").modal('hide');
                     },
                     error: function(error){
                         $("html, #cliente-modal").animate({ scrollTop: 0 }, "slow");
                         $("#msg").html("<div class='alert alert-danger'>" + error.responseJSON.mensaje + "</div>");
+                        console.log(error)
                         //Limpiar formulario
                         $("#error_id_dni").html('');
                         $("#error_id_nombre").html('');
@@ -294,6 +302,9 @@
                         $("#error_id_direccion").html('');
                         $("#error_id_telefono").html('');
                         $("#error_id_email").html('');
+                        $("#error_id_fecha_nacimiento").html('');
+                        $("#error_id_ocupacion").html('');
+                        $("#error_id_foto").html('');
                         //Escribir errores en el formualrio
                         $("#error_id_dni").html(error.responseJSON.errores.dni );
                         $("#error_id_nombre").html(error.responseJSON.errores.nombre );
@@ -301,11 +312,28 @@
                         $("#error_id_direccion").html(error.responseJSON.errores.direccion );
                         $("#error_id_telefono").html(error.responseJSON.errores.telefono );
                         $("#error_id_email").html(error.responseJSON.errores.email );
+                        $("#error_id_fecha_nacimiento").html(error.responseJSON.errores.fecha_nacimiento );
+                        $("#error_id_ocupacion").html(error.responseJSON.errores.ocupacion );
+                        $("#error_id_foto").html(error.responseJSON.errores.foto );
                     }
                 });
             }
             $( document ).ready(function() {
                 $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
+                $("#add_cliente").click(function(event)
+                  {
+                    event.preventDefault(); // cancel default behavior
+
+                    //... rest of add logic
+                  });
+                $("#id_fecha_nacimiento").datepicker({
+                  changeMonth: true,
+                  changeYear: true,
+                  yearRange: '-100:+0',
+                  dateFormat: 'yy-mm-dd'
+                });
+
+
                 $('#client-form').on('submit', function(event){
                     event.preventDefault();
                     registrar_cliente();

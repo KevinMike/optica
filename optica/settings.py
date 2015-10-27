@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 "django.core.context_processors.request",
                 'django.core.context_processors.media',
+                'apps.almacen.context_processors.stock_minimo',
             ],
         },
     },
@@ -134,4 +135,8 @@ MEDIA_URL = '/media/'
 LOGIN_URL = '/login'
 
 #LOGIN_REDIRECT_URL = '/'
-
+# from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+# TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+#     'apps.almacen.context_processors.stock_minimo',
+#
+# )

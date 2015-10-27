@@ -71,7 +71,7 @@
                     </tr>
                 </table>
                 <h3><legend>Detalles de la venta</legend></h3>
-                <table class="table table-bordered">
+                    <table class="table table-bordered">
                     <thead>
                         <tr>
                             <td><strong>Código</strong></td>
@@ -88,14 +88,14 @@
                             <td>{{ detalle.cantidad }} unidades</td>
                         </tr>
                     {% endfor %}
+
                     {% for item in lentes %}
-                        {{ item.lente }}
-                        {% if item.precio != "Ninguno" %}
+                        {% if item.lente.tipo_lente != "Ninguno" %}
                         <tr>
                             <td>  </td>
                             <td>{{ item.lente }} [
                                 {% for tag in item.complementos.all %}
-                                    {{ tag.complement }},
+                                    {{ tag.componente }},
                                 {% endfor %}
                                 ]
                             </td>
@@ -104,6 +104,7 @@
                         </tr>
                         {% endif %}
                     {% endfor %}
+
                     <tr>
                         <td rowspan="3" colspan="2"><strong>Observaciones: </strong>{{ venta.observaciones }}</td>
                         <td><strong>Importe</strong></td>

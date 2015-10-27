@@ -1,5 +1,6 @@
+# -*- encoding: utf-8 -*-
 from django.db import models
-import datetime
+from datetime import datetime
 # Create your models here.
 class Cliente(models.Model):
     dni = models.CharField(primary_key=True, max_length=8)
@@ -19,16 +20,21 @@ class Cliente(models.Model):
             return "<strong>No tiene foto</strong>"
 
     fotografia.allow_tags = True
-    def __unicode__(self):
-        return "%s, %s" %(self.nombre,self.apellido)
 
     def nombre_completo(self):
         return "%s %s"  %(self.nombre,self.apellido)
+
     def edad(self):
+        import datetime
         if(self.fecha_nacimiento):
-            return (datetime.date.today() - self.fecha_nacimiento).year
+           diff = (datetime.date.today() - self.fecha_nacimiento).days
+           years = str(int(diff/365))
+           return unicode(years)
         else:
             return "No especificado"
+
+    def __unicode__(self):
+        return "%s, %s" %(self.nombre,self.apellido)
 
     class Meta:
         verbose_name = 'Cliente'

@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <style>
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    </style>
     {% if messages %}
         {% for message in messages %}
                 {% if message.tags == 'error' %}
@@ -69,7 +76,7 @@
                                 </div>
                             </div>
                             <div id="register" class="tab-pane">
-                                <table id="tabla" class="table table-hover display">
+                                <table id="tabla1" class="display" cellspacing="0" width="100%">
                                     <thead>
                                         <th>Código</th>
                                         <th>Descripción</th>
@@ -80,18 +87,30 @@
                                         <th>Stock Mínimo</th>
                                         <th>Stock Actual</th>
                                     </thead>
-                                    {% for producto in productos %}
-                                    <tr>
-                                        <td>{{ producto.codigo }}</td>
-                                        <td>{{ producto.descripcion }}</td>
-                                        <td>{{ producto.marca }}</td>
-                                        <td>{{ producto.color }}</td>
-                                        <td>{{ producto.categoria }}</td>
-                                        <td>{{ producto.longitud }}</td>
-                                        <td>{{ producto.stock_minimo }}</td>
-                                        <td>{{ producto.stock_actual }}</td>
-                                    </tr>
-                                    {% endfor %}
+                                    <tfoot>
+                                        <th>Código</th>
+                                        <th>Descripción</th>
+                                        <th>Marca</th>
+                                        <th>Color</th>
+                                        <th>Categoria</th>
+                                        <th>Longitud</th>
+                                        <th>Stock Mínimo</th>
+                                        <th>Stock Actual</th>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for producto in productos %}
+                                        <tr>
+                                            <td>{{ producto.codigo }}</td>
+                                            <td>{{ producto.descripcion }}</td>
+                                            <td>{{ producto.marca }}</td>
+                                            <td>{{ producto.color }}</td>
+                                            <td>{{ producto.categoria }}</td>
+                                            <td>{{ producto.longitud }}</td>
+                                            <td>{{ producto.stock_minimo }}</td>
+                                            <td>{{ producto.stock_actual }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -132,7 +151,27 @@
         }
     };
     $(document).ready(function() {
-        $('#tabla').DataTable(datatable);
+                 // Setup - add a text input to each footer cell
+        $('#tabla1 tfoot th').each( function () {
+            var title = $('#tabla1 thead th').eq( $(this).index() ).text();
+            $(this).html( '<input type="text" placeholder="'+title+'" />' );
+        } );
+
+        // DataTable
+        var table = $('#tabla1').DataTable(datatable);
+
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
         $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
     } );
     </script>

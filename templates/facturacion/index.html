@@ -192,7 +192,7 @@
                                     <div class="no-padding-top form-field col-sm-11">
                                         {{ form.complementos.errors }}
                                         <div class="input-group">
-                                            <span class="input-group-addon " >Producto</span>
+                                            <span class="input-group-addon " >Aditivos</span>
                                             {{ form.complementos}}
                                         </div>
                                     </div>
@@ -203,7 +203,7 @@
                                     <div class="no-padding-top form-field col-sm-11">
                                         {{ form.precio.errors }}
                                         <div class="input-group">
-                                            <span class="input-group-addon " >Producto</span>
+                                            <span class="input-group-addon " >Precio</span>
                                             {{ form.precio}}
                                         </div>
                                     </div>
@@ -275,6 +275,13 @@
                           <label for="{{ cliente_form.email.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.email.label }}</label>
                           <div class="col-lg-10">
                               {{ cliente_form.email }}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div id="error_{{ cliente_form.fecha_nacimiento.auto_id }}">{{ cliente_form.fecha_nacimiento.errors }}</div>
+                          <label for="{{ cliente_form.fecha_nacimiento.auto_id }}" class="col-lg-2 col-sm-2 control-label">{{ cliente_form.fecha_nacimiento.label }}</label>
+                          <div class="col-lg-10">
+                                {{ cliente_form.fecha_nacimiento }}
                           </div>
                       </div>
                       <div class="form-group">
@@ -366,23 +373,30 @@
             //Registrar cliente via ajax
             function registrar_cliente()
             {
-                var $inputs = $('#client-form :input');
+                var formulario = new FormData( $("#client-form").get(0) );
+                //console.log(field.files[0] || "u.u");
+                //formulario.append('foto', file);
+        /*        var $inputs = $('#client-form :input');
                 var values = {};
                 $inputs.each(function() {
                     values[this.name] = $(this).val();
                 });
-                var data = JSON.stringify(values);
+                var data = JSON.stringify(values);*/
                 $.ajax({
                     type: $("#client-form").attr('method'), // GET or POST
                     url: $("#client-form").attr('action'), // the file to call
-                    data: data,
-                    dataType: "json",
+                    //data: data,
+                    data: formulario,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    //dataType: "json",
                     success: function(j){
                         $("#msg").html("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" + j.mensaje + "</div>");
                         $("#BuscarCliente").val('');
                         $("#BuscarCliente").val(j.datos.dni);
+                        $('#client-form')[0].reset();
                         search_client();
-                        ResetearForm('client-form');
                         //Limpiar formulario
                         $("#error_id_dni").html('');
                         $("#error_id_nombre").html('');
@@ -390,12 +404,15 @@
                         $("#error_id_direccion").html('');
                         $("#error_id_telefono").html('');
                         $("#error_id_email").html('');
-
+                        $("#error_id_fecha_nacimiento").html('');
+                        $("#error_id_ocupacion").html('');
+                        $("#error_id_foto").html('');
                         $("#cliente-modal").modal('hide');
                     },
                     error: function(error){
                         $("html, #cliente-modal").animate({ scrollTop: 0 }, "slow");
                         $("#msg").html("<div class='alert alert-danger'>" + error.responseJSON.mensaje + "</div>");
+                        console.log(error)
                         //Limpiar formulario
                         $("#error_id_dni").html('');
                         $("#error_id_nombre").html('');
@@ -403,6 +420,9 @@
                         $("#error_id_direccion").html('');
                         $("#error_id_telefono").html('');
                         $("#error_id_email").html('');
+                        $("#error_id_fecha_nacimiento").html('');
+                        $("#error_id_ocupacion").html('');
+                        $("#error_id_foto").html('');
                         //Escribir errores en el formualrio
                         $("#error_id_dni").html(error.responseJSON.errores.dni );
                         $("#error_id_nombre").html(error.responseJSON.errores.nombre );
@@ -410,6 +430,9 @@
                         $("#error_id_direccion").html(error.responseJSON.errores.direccion );
                         $("#error_id_telefono").html(error.responseJSON.errores.telefono );
                         $("#error_id_email").html(error.responseJSON.errores.email );
+                        $("#error_id_fecha_nacimiento").html(error.responseJSON.errores.fecha_nacimiento );
+                        $("#error_id_ocupacion").html(error.responseJSON.errores.ocupacion );
+                        $("#error_id_foto").html(error.responseJSON.errores.foto );
                     }
                 });
             }
@@ -426,6 +449,12 @@
                 $('#client-form').on('submit', function(event){
                     event.preventDefault();
                     registrar_cliente();
+                });
+                $("#id_fecha_nacimiento").datepicker({
+                  changeMonth: true,
+                  changeYear: true,
+                  yearRange: '-100:+0',
+                  dateFormat: 'yy-mm-dd'
                 });
             });
     </script>

@@ -5,8 +5,8 @@ from apps.cliente.forms import ClienteForm
 from .forms import VentaForm,DetalleVentaFormSet,DetalleLenteFormSet,PagarNota
 from .models import *
 from django.contrib import messages
-import datetime
 from apps.usuarios.views import LoginRequiredMixin
+from decimal import Decimal
 # Create your views here.
 class IndexView(LoginRequiredMixin, View):
     template_name= "facturacion/index.html"
@@ -28,26 +28,28 @@ class IndexView(LoginRequiredMixin, View):
                     if cliente:
                         venta.dni_cliente = cliente
                 venta.save()
-                total = 0 #variable para calcular el subtotal
+                total = 0.00 #variable para calcular el total
                 for item in DetalleFormSet: #Guardar Detalles Productos
                     detalle = item.save(commit=False)
+                    producto = Producto.objects.get(pk=detalle.producto.id)
+                    producto.stock_actual = producto.stock_actual - int(detalle.cantidad)
+                    producto.save()
                     detalle.nro_venta = venta
                     detalle.save()
-                    total = total + (detalle.precio)*int(detalle.cantidad)
+                    total = Decimal(total) + Decimal(detalle.precio)*Decimal(detalle.cantidad)
                 for item in LenteFormSet: #Guardar Detalles Lentes
                     detalle = item.save(commit=False)
-                    detalle.nro_venta = venta
-                    detalle.save()
-                    total = total + (detalle.precio)
-                    item.save_m2m()
+                    if(detalle.lente != "Ninguno"):
+                        detalle.nro_venta = venta
+                        detalle.save()
+                        total = total + Decimal(detalle.precio)
+                        item.save_m2m()
                 venta = Venta.objects.get(pk=venta.nro) #Actualizar venta
-                print type(request.POST['tipo_recibo'])
                 flag = str(request.POST['tipo_recibo'])
                 if flag == "True": #Boleta de Venta
-                    if ( float(request.POST['importe']) >= float(total) ):
-                        print "importe correcto"
+                    if ( Decimal(request.POST['importe']) >= Decimal(total) ):#importe correcto
                         venta.cancelado = True
-                        venta.importe = float(request.POST['importe'])
+                        venta.importe = Decimal(request.POST['importe'])
                         venta.total = total
                         venta.saldo = total-venta.importe
                         venta.save()
@@ -59,12 +61,11 @@ class IndexView(LoginRequiredMixin, View):
                 else:   #Nota de Pedido
                     nota = NotaPedido()
                     nota.venta = venta
-                    nota.importe = int(request.POST['importe'])
-                    nota.saldo = float(total) - float(request.POST['importe'])
+                    nota.importe = Decimal(request.POST['importe'])
+                    nota.saldo = Decimal(total) - Decimal(request.POST['importe'])
                     nota.save()
-                    print "Nota de pedido"
                     venta.cancelado = False
-                    venta.importe = int(request.POST['importe'])
+                    venta.importe = Decimal(request.POST['importe'])
                     venta.total = total
                     venta.saldo = total-venta.importe
                     venta.save()

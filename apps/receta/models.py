@@ -3,6 +3,7 @@ from django.db import models
 from apps.cliente.models import Cliente
 from apps.almacen.models import Lente,Aditivos
 from django.utils import timezone
+import datetime
 # Create your models here.
 
 class Receta(models.Model):
@@ -27,8 +28,19 @@ class Receta(models.Model):
     imagen = models.ImageField(upload_to = 'recetas/',default = 'recetas/default.jpg',blank=True,null=True)
 
     def __unicode__(self):
-        return  "%s - %d" (self.dni_cliente,self.fecha)
+        return  "%s - %s" %(self.cliente,self.fecha)
 
     class Meta:
         verbose_name = 'Atención Médica'
         verbose_name_plural = 'Historias Clínicas'
+
+
+class RecetaMananger(models.Manager):
+    def recordar(self):
+        lista = []
+        recetas = Receta.objects.all()
+        for item in recetas:
+            diff = (datetime.date.today()-item.fecha).month
+            if(int(diff) >= 8):
+                lista.append(item)
+        return lista

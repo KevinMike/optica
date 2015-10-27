@@ -20,16 +20,21 @@ class Index(LoginRequiredMixin, View):
 
 @csrf_exempt
 def SaveClient(request):
-    print "request nuevo!!!"
     template_name = 'facturacion/index.html'
     if request.method == 'POST':
         if request.is_ajax():
-            data = json.loads(request.body)
-            cliente_form = ClienteForm(data)
+            #data = json.loads(request.body)
+            #cliente_form = ClienteForm(data)
+            cliente_form = ClienteForm(request.POST,request.FILES)
             if (cliente_form.is_valid()):
                 print "formulario valido  :D"
-                cliente_form.save()
-                mensaje = {'mensaje':'El cliente ' + str(data['nombre']) + ' '+ str(data['apellido']) +' fue registrado con exito','datos': data }
+                print request.POST
+                print request.FILES
+                cliente = cliente_form.save(commit=False)
+                #cliente.foto = request.FILES['foto']
+                cliente.save()
+                #mensaje = {'mensaje':'El cliente ' + str(data['nombre']) + ' '+ str(data['apellido']) +' fue registrado con exito','datos': data }
+                mensaje = {'mensaje':'El cliente ' + request.POST['nombre'] + ' '+ request.POST['apellido'] +' fue registrado con exito','datos':{'dni':request.POST['dni']}}
                 return  HttpResponse(json.dumps(mensaje),content_type='application/json')
             else:
                 print "formulario invalido  :("

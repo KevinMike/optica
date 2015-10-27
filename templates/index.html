@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row" style="margin-bottom:5px;">
+                      {% if request.user.is_staff %}
                         <div class="col-md-4">
                             <div class="sm-st clearfix">
                                 <span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
                                 <div class="sm-st-info">
-                                    <span>0</span>
+                                    <span>{{ numero_mensaje }}</span>
                                     Total de Mensajes
                                 </div>
                             </div>
@@ -28,8 +29,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    {% endif %}
                     <!-- Main row -->
                     <div class="row">
 
@@ -51,9 +52,36 @@
                                         <!--chat start-->
                                         <section class="panel">
                                             <header class="panel-heading">
-                                                Notificaciones
+                                                Proveedores
                                             </header>
                                                 <div class="panel-body" id="noti-box">
+                                                    {% for proveedor in proveedores %}
+                                                        <div class= "alert alert-block alert-info">
+                                                            <button data-dismiss="alert" class="close close-sm" type="button">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
+                                                            <strong>{{ proveedor.nombre }}</strong> Telefono: {{ proveedor.telefono }}
+                                                        </div>
+                                                    {% endfor %}
+{% comment %}                                                    <div class="alert alert-success">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Well done!</strong> You successfully read this important alert message.
+                                                    </div>
+                                                    <div class="alert alert-info">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+                                                    </div>
+                                                    <div class="alert alert-warning">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong>Warning!</strong> Best check yo self, you're not looking too good.
+                                                    </div>
+
 
                                                     <div class="alert alert-block alert-danger">
                                                         <button data-dismiss="alert" class="close close-sm" type="button">
@@ -79,33 +107,7 @@
                                                         </button>
                                                         <strong>Warning!</strong> Best check yo self, you're not looking too good.
                                                     </div>
-
-
-                                                    <div class="alert alert-block alert-danger">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                                                    </div>
-                                                    <div class="alert alert-success">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Well done!</strong> You successfully read this important alert message.
-                                                    </div>
-                                                    <div class="alert alert-info">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-                                                    </div>
-                                                    <div class="alert alert-warning">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Warning!</strong> Best check yo self, you're not looking too good.
-                                                    </div>
-                                                </div>
+                                                </div>{% endcomment %}
                                         </section>
                       </div>
 
@@ -114,7 +116,7 @@
                         <div class="col-md-5">
                             <div class="panel">
                                 <header class="panel-heading">
-                                    Ultimos Clientes
+                                    Clientes que estan de cumpleaños
                                 </header>
 
                                 <ul class="list-group teammates">
@@ -158,127 +160,20 @@
                         <div class="col-md-7">
                           <section class="panel tasks-widget">
                               <header class="panel-heading">
-                                  Todo list
+                                  Recordatorios de Meciciones
                             </header>
                             <div class="panel-body">
-
-                              <div class="task-content">
-
-                                  <ul class="task-list">
-                                      <li>
-                                          <div class="task-checkbox">
-                                              <!-- <input type="checkbox" class="list-child" value=""  /> -->
-                                              <input type="checkbox" class="flat-grey list-child"/>
-                                              <!-- <input type="checkbox" class="square-grey"/> -->
-                                          </div>
-                                          <div class="task-title">
-                                              <span class="task-title-sp">Director is Modern Dashboard</span>
-                                              <span class="label label-success">2 Days</span>
-                                              <div class="pull-right hidden-phone">
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <div class="task-checkbox">
-                                              <!-- <input type="checkbox" class="list-child" value=""  /> -->
-                                              <input type="checkbox" class="flat-grey"/>
-                                          </div>
-                                          <div class="task-title">
-                                              <span class="task-title-sp">Fully Responsive & Bootstrap 3.0.2 Compatible</span>
-                                              <span class="label label-danger">Done</span>
-                                              <div class="pull-right hidden-phone">
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <div class="task-checkbox">
-                                              <!-- <input type="checkbox" class="list-child" value=""  /> -->
-                                              <input type="checkbox" class="flat-grey"/>
-                                          </div>
-                                          <div class="task-title">
-                                              <span class="task-title-sp">Latest Design Concept</span>
-                                              <span class="label label-warning">Company</span>
-                                              <div class="pull-right hidden-phone">
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <div class="task-checkbox">
-                                              <!-- <input type="checkbox" class="list-child" value=""  /> -->
-                                              <input type="checkbox" class="flat-grey"/>
-                                          </div>
-                                          <div class="task-title">
-                                              <span class="task-title-sp">Write well documentation for this theme</span>
-                                              <span class="label label-primary">3 Days</span>
-                                              <div class="pull-right hidden-phone">
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <div class="task-checkbox">
-                                              <!-- <input type="checkbox" class="list-child" value=""  /> -->
-                                              <input type="checkbox" class="flat-grey"/>
-                                          </div>
-                                          <div class="task-title">
-                                              <span class="task-title-sp">Don't bother to download this Dashbord</span>
-                                              <span class="label label-inverse">Now</span>
-                                              <div class="pull-right">
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <div class="task-checkbox">
-                                              <!-- <input type="checkbox" class="list-child" value=""  /> -->
-                                              <input type="checkbox" class="flat-grey"/>
-                                          </div>
-                                          <div class="task-title">
-                                              <span class="task-title-sp">Give feedback for the template</span>
-                                              <span class="label label-success">2 Days</span>
-                                              <div class="pull-right hidden-phone">
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </div>
-                                      </li>
-                                      <li>
-                                          <div class="task-checkbox">
-                                              <!-- <input type="checkbox" class="list-child" value=""  /> -->
-                                              <input type="checkbox" class="flat-grey"/>
-                                          </div>
-                                          <div class="task-title">
-                                              <span class="task-title-sp">Tell your friends about this admin template</span>
-                                              <span class="label label-danger">Now</span>
-                                              <div class="pull-right hidden-phone">
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-check"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
-                                                  <button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
-                                              </div>
-                                          </div>
-                                      </li>
-
-                                  </ul>
-                              </div>
-
-                              <div class=" add-task-row">
-                                  <a class="btn btn-success btn-sm pull-left" href="#">Add New Tasks</a>
-                                  <a class="btn btn-default btn-sm pull-right" href="#">See All Tasks</a>
-                              </div>
+                               <ul class="list-group teammates">
+                                   {% for item in receta %}
+                                    <li class="list-group-item">
+                                        <a href=""><img src="/media/{{ item.cliente.foto }}"  width="50" height="50"></a>
+                                        <span class="pull-right label label-danger inline m-t-15">{{ item.cliente.email }}</span>
+                                        <a href="">{{ item.cliente.nombre }} {{ item.cliente.apellido }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="panel-footer bg-white">
+                                </div>
                           </div>
                         </section>
                   </div>
