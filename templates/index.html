@@ -31,7 +31,7 @@
                         </div>
 
                     {% endif %}
-                    <!-- Main row -->
+                <section class="content">
                     <div class="row">
 
                         <div class="col-md-8">
@@ -47,138 +47,71 @@
                                         <!--earning graph end-->
 
                                     </div>
-                                    <div class="col-lg-4">
+                        <div class="col-lg-4">
 
-                                        <!--chat start-->
-                                        <section class="panel">
-                                            <header class="panel-heading">
-                                                Proveedores
-                                            </header>
-                                                <div class="panel-body" id="noti-box">
-                                                    {% for proveedor in proveedores %}
-                                                        <div class= "alert alert-block alert-info">
-                                                            <button data-dismiss="alert" class="close close-sm" type="button">
-                                                                <i class="fa fa-times"></i>
-                                                            </button>
-                                                            <strong>{{ proveedor.nombre }}</strong> Telefono: {{ proveedor.telefono }}
-                                                        </div>
-                                                    {% endfor %}
-{% comment %}                                                    <div class="alert alert-success">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Well done!</strong> You successfully read this important alert message.
-                                                    </div>
-                                                    <div class="alert alert-info">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-                                                    </div>
-                                                    <div class="alert alert-warning">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Warning!</strong> Best check yo self, you're not looking too good.
-                                                    </div>
-
-
-                                                    <div class="alert alert-block alert-danger">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
-                                                    </div>
-                                                    <div class="alert alert-success">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Well done!</strong> You successfully read this important alert message.
-                                                    </div>
-                                                    <div class="alert alert-info">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-                                                    </div>
-                                                    <div class="alert alert-warning">
-                                                        <button data-dismiss="alert" class="close close-sm" type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        <strong>Warning!</strong> Best check yo self, you're not looking too good.
-                                                    </div>
-                                                </div>{% endcomment %}
-                                        </section>
-                      </div>
-
-                  </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="panel">
+                            <!--chat start-->
+                            <section class="panel panel-warning">
                                 <header class="panel-heading">
-                                    Clientes que estan de cumpleaños
+                                    Notificaciones
                                 </header>
-
-                                <ul class="list-group teammates">
-                                   {% for cliente in clientes %}
-                                    <li class="list-group-item">
-                                        <a href=""><img src="/media/{{ cliente.foto }}"  width="50" height="50"></a>
-                                        <span class="pull-right label label-danger inline m-t-15">{{ cliente.email }}</span>
-                                        <a href="">{{ cliente.nombre }} {{ cliente.apellido }}</a>
-                                    </li>
-                                    {% endfor %}
-                                    {% comment %}<li class="list-group-item">
-                                        <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
-                                        <span class="pull-right label label-info inline m-t-15">Member</span>
-                                        <a href="">Joe Waston</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
-                                        <span class="pull-right label label-warning inline m-t-15">Editor</span>
-                                        <a href="">Jannie Dvis</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
-                                        <span class="pull-right label label-warning inline m-t-15">Editor</span>
-                                        <a href="">Emma Welson</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href=""><img src="img/26115.jpg"  width="50" height="50"></a>
-                                        <span class="pull-right label label-success inline m-t-15">Subscriber</span>
-                                        <a href="">Emma Welson</a>
-                                    </li>{% endcomment %}
-                                </ul>
-                                <div class="panel-footer bg-white">
-                                    <!-- <span class="pull-right badge badge-info">32</span> -->
-{% comment %}                                    <button class="btn btn-primary btn-addon btn-sm">
-                                        <i class="fa fa-plus"></i>
-                                        Add Teammate
-                                    </button>{% endcomment %}
-                                </div>
-                            </div>
+                                    <div class="panel-body" id="noti-box">
+                                        {% for proveedor in proveedores %}
+                                            <div class= "alert alert-block alert-info">
+                                                <button data-dismiss="alert" class="close close-sm" type="button">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                                <strong>{{ proveedor.nombre }}</strong> Telefono: {{ proveedor.telefono }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                            </section>
                         </div>
-                        <div class="col-md-7">
-                          <section class="panel tasks-widget">
-                              <header class="panel-heading">
-                                  Recordatorios de Meciciones
+                  </div>
+                </section><!-- /.content -->
+
+
+
+ <section class="content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-success">
+                            <header class="panel-heading">
+                                Clientes que estan de cumpleaños
                             </header>
-                            <div class="panel-body">
-                               <ul class="list-group teammates">
-                                   {% for item in receta %}
-                                    <li class="list-group-item">
-                                        <a href=""><img src="/media/{{ item.cliente.foto }}"  width="50" height="50"></a>
-                                        <span class="pull-right label label-danger inline m-t-15">{{ item.cliente.email }}</span>
-                                        <a href="">{{ item.cliente.nombre }} {{ item.cliente.apellido }}</a>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                                <div class="panel-footer bg-white">
-                                </div>
-                          </div>
-                        </section>
+
+                            <ul class="list-group teammates">
+                               {% for cliente in clientes %}
+                                <li class="list-group-item">
+                                    <a href=""><img src="/media/{{ cliente.foto }}"  width="50" height="50"></a>
+                                    <span class="pull-right label label-danger inline m-t-15">{{ cliente.email }}</span>
+                                    <a href="">{{ cliente.nombre }} {{ cliente.apellido }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <section class="panel panel-info tasks-widget">
+                          <header class="panel-heading">
+                              Recordatorios de Meciciones
+                        </header>
+                        <div class="panel-body">
+                           <ul class="list-group teammates">
+                               {% for item in receta %}
+                                <li class="list-group-item">
+                                    <a href=""><img src="/media/{{ item.cliente.foto }}"  width="50" height="50"></a>
+                                    <span class="pull-right label label-danger inline m-t-15">{{ item.cliente.email }}</span>
+                                    <a href="">{{ item.cliente.nombre }} {{ item.cliente.apellido }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+
+                      </div>
+                    </section>
                   </div>
               </div>
               <!-- row end -->
+    </section>
 {% endblock %}
 
 {% block application_javascript %}

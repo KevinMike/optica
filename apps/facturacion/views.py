@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.views.generic import View, ListView, DeleteView
 from apps.cliente.forms import ClienteForm
 from .forms import VentaForm,DetalleVentaFormSet,DetalleLenteFormSet,PagarNota
@@ -27,6 +27,7 @@ class IndexView(LoginRequiredMixin, View):
                     cliente = Cliente.objects.get(pk=request.POST['BuscarCliente'])
                     if cliente:
                         venta.dni_cliente = cliente
+                        venta.bloque = 1
                 venta.save()
                 total = 0.00 #variable para calcular el total
                 for item in DetalleFormSet: #Guardar Detalles Productos
@@ -42,9 +43,10 @@ class IndexView(LoginRequiredMixin, View):
                     if(detalle.lente != "Ninguno"):
                         detalle.nro_venta = venta
                         detalle.save()
-                        total = total + Decimal(detalle.precio)
+                        total = Decimal(total) + Decimal(detalle.precio)
                         item.save_m2m()
-                venta = Venta.objects.get(pk=venta.nro) #Actualizar venta
+                venta = Venta.objects.get(pk=venta.id) #Actualizar venta
+                venta.nro = request.POST['nro']
                 flag = str(request.POST['tipo_recibo'])
                 if flag == "True": #Boleta de Venta
                     if ( Decimal(request.POST['importe']) >= Decimal(total) ):#importe correcto
@@ -60,6 +62,7 @@ class IndexView(LoginRequiredMixin, View):
                         return render(request,self.template_name,locals())
                 else:   #Nota de Pedido
                     nota = NotaPedido()
+                    nota.nro = request.POST['nro_pedido']
                     nota.venta = venta
                     nota.importe = Decimal(request.POST['importe'])
                     nota.saldo = Decimal(total) - Decimal(request.POST['importe'])
@@ -80,6 +83,7 @@ class IndexView(LoginRequiredMixin, View):
             DetalleFormSet = DetalleVentaFormSet(request.POST,prefix='formset')
             cliente_form = ClienteForm()
             return render(request,self.template_name,locals())
+
 
 class HistorialView(LoginRequiredMixin,View):
     template_name = 'facturacion/historial_ventas.html'
@@ -122,7 +126,25 @@ def reporte(request,nro):
     lentes = DetalleLente.objects.filter(nro_venta=nro)
     return render(request,template_name,locals())
 
+import json
+from django.views.decorators.csrf import csrf_exempt
 
-def estadisticas(request):
-    venta = Venta.objects.all()
-    pass
+#Obtiene el ultimo numero de pedido
+def get_nota_pedido(request):
+    try:
+        ultima_venta = NotaPedido.objects.latest('nro')
+        nro = ultima_venta.nro + 1
+        return HttpResponse(json.dumps({"nro":nro}),content_type='application/json')
+    except NotaPedido.DoesNotExist:
+        return HttpResponse(json.dumps({"nro":1}),content_type='application/json')
+
+#Obtiene el ultimo numero de venta
+def get_venta(request):
+    try:
+        ultima_venta = Venta.objects.latest('nro')
+        nro = ultima_venta.nro + 1
+        return HttpResponse(json.dumps({"nro":nro}),content_type='application/json')
+    except Venta.DoesNotExist:
+        return HttpResponse(json.dumps({"nro":1}),content_type='application/json')
+
+

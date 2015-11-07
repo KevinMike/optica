@@ -62,7 +62,7 @@
                                    {% if request.user.is_staff %}
                                         <form action="" method="POST">{% csrf_token %}
                                         <div class="panel panel-primary">
-                                              <div class="panel-heading">Lista de Productos</div>
+                                              <div class="panel-heading">Ingreso de Productos</div>
                                               <div class="panel-body">
                                                     {{ ingreso_form.as_p }}
                                               </div>

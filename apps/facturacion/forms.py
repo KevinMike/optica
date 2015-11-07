@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.formsets import formset_factory
 from apps.almacen.models import Categoria
-from .models import Venta,DetalleVenta,Producto,DetalleLente,Aditivos,Lente
+from .models import Venta,DetalleVenta,Producto,DetalleLente,Aditivos,Lente,NotaPedido
 from django.core.exceptions import ValidationError
 
 class VentaForm(forms.ModelForm):
@@ -16,9 +16,15 @@ class VentaForm(forms.ModelForm):
             return ultima_venta.nro + 1
         except Venta.DoesNotExist:
             return 1
-
-    nro = forms.IntegerField(initial=get_nro,label="Numero de Venta",widget=forms.NumberInput(attrs={'id':'NroFacturacion','class':'form-control','min':'0','required':'true'}))
-    importe = forms.DecimalField(label="Importe del Cliente",widget=forms.NumberInput(attrs={'class':'form-control','min':'0','required':'true','step': '0.1'}),)
+    def get_nota_pedido():
+        try:
+            ultima_venta = NotaPedido.objects.latest('nro')
+            return ultima_venta.nro + 1
+        except NotaPedido.DoesNotExist:
+            return 1
+    nro = forms.IntegerField(initial=get_nro,label="Numero de Venta",widget=forms.NumberInput(attrs={'id':'NroFacturacion','class':'form-control facturacion','min':'1','required':'true'}))
+    nro_nota_pedido = forms.IntegerField(initial=get_nota_pedido,label="Nota de Pedido",widget=forms.NumberInput(attrs={'id':'NroPedido','class':'form-control facturacion','min':'1','required':'true','disabled':'true','name':'nro_pedido'}))
+    importe = forms.DecimalField(label="Importe del Cliente",widget=forms.NumberInput(attrs={'class':'form-control','min':'0.1','required':'true','step': '0.1'}),)
     observaciones = forms.CharField(widget = forms.Textarea(attrs={'class':'form-control','rows':'2'}),required=False,)
     tipo_recibo = forms.ChoiceField(label="Tipo de Pago",widget=forms.Select(attrs={'class':'form-control','required':'true',}),choices=tipo_pagos)
     class Meta:
@@ -55,7 +61,7 @@ class DetalleVentaForm(forms.ModelForm):
         fields = ('producto','precio','cantidad',)
 
 
-DetalleVentaFormSet =formset_factory(DetalleVentaForm, extra=1,can_delete=True)
+DetalleVentaFormSet =formset_factory(DetalleVentaForm, extra=5,can_delete=True)
 
 class DetalleLenteForm(forms.ModelForm):
     lente = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),
@@ -66,7 +72,7 @@ class DetalleLenteForm(forms.ModelForm):
         model = DetalleLente
         fields = ('lente','complementos','precio',)
 
-DetalleLenteFormSet =formset_factory(DetalleLenteForm, extra=1,can_delete=True)
+DetalleLenteFormSet =formset_factory(DetalleLenteForm, extra=5,can_delete=True)
 
 class PagarNota(forms.Form):
     pago = forms.BooleanField(initial=False,widget=forms.CheckboxInput(attrs={'class':'form-control','required':'true',}),label="El cliente ha cancelado su deuda pendiente...")

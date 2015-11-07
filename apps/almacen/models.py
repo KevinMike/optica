@@ -34,7 +34,7 @@ class Producto(models.Model):
     color = models.CharField(max_length=20, blank=True, null=True)
     categoria = models.ForeignKey(Categoria)
     longitud = models.CharField(max_length=15, blank=True, null=True)
-    precio_sugerido = models.IntegerField(default=0)
+    precio_sugerido = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
     stock_minimo = models.IntegerField(default=0)
     stock_actual = models.IntegerField(default=0)
 

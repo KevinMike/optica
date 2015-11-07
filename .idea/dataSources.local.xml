@@ -2,8 +2,8 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="Django default" uuid="5fb1901f-1062-474e-ad78-b28eb92818e9">
-      <user-name>zklcgclmwjfmrg</user-name>
-      <user-password>df9bdf98dfdddfc7dffadfd8dfd3dfeddfeedfd2dfecdffedff5dfdadfe9dfe4dfdfdf92dfdbdf99dfd3dfccdfe9df92dfe4dfc0</user-password>
+      <user-name>postgres</user-name>
+      <user-password>df9ddf9edf9fdf9fdf98df98</user-password>
     </data-source>
   </component>
 </project>

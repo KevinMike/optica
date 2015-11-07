@@ -66,7 +66,7 @@
                             <fieldset>
                                     <legend>Modalidades de Pago</legend>
                                       <div class="form-group">
-                                          <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.nro.label }}</strong></div>
+                                          <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.tipo_recibo.label }}</strong></div>
                                           <div class="col-lg-8">
                                               {{ venta_form.tipo_recibo.errors }}
                                               {{ venta_form.tipo_recibo }}
@@ -78,6 +78,13 @@
                               <div class="col-lg-8">
                                   {{ venta_form.nro.errors }}
                                   {{ venta_form.nro }}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.nro_nota_pedido.label }}</strong></div>
+                              <div class="col-lg-8">
+                                  {{ venta_form.nro_nota_pedido.errors }}
+                                  {{ venta_form.nro_nota_pedido }}
                               </div>
                           </div>
                           <div class="form-group">
@@ -173,7 +180,7 @@
                 <div class="panel-body PanelVenta">
                     <div id="form_lentes">
                         {% for form in LenteFormSet %}
-                            <br>
+                        <br>
                         <div class="formset">
                             <br>
                             <div class=" col-sm-4 col-xs-12">
@@ -312,6 +319,38 @@
 {% endblock %}
 {% block application_javascript %}
     <script type="application/javascript">
+            document.getElementById("id_tipo_recibo").addEventListener("change",function() {
+                if ($(this).val() == "True") {
+                    $("#NroPedido").attr('disabled',true);
+                    /*$.ajax({
+                        url: "/facturacion/get_venta/",
+                        type: "GET",
+                        dataType: "json",
+                        async: true,
+                        success: function (j) {
+                            $("#NroFacturacion").val(j.nro);
+                        },
+                        error: function (xhr, errmsg, err) {
+                            alert("Existe algun problema con el servidor, intente denuevo.")
+                        }
+                    });*/
+                }
+                else if ($(this).val() == "False") {
+                    $("#NroPedido").attr('disabled',false);
+                    /*$.ajax({
+                        url: "/facturacion/get_nota_pedido",
+                        type: "GET",
+                        dataType: "json",
+                        async: true,
+                        success: function (j) {
+                            $("#NroFacturacion").val(j.nro);
+                        },
+                        error: function (xhr, errmsg, err) {
+                            alert("Existe algun problema con el servidor, intente denuevo.")
+                        }
+                    });*/
+                }
+            });
             document.getElementById("calcular").addEventListener("click", function(event){
                 var numero_productos = parseFloat($("#id_formset_producto-TOTAL_FORMS").val());
                 var total = 0;

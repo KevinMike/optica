@@ -31,9 +31,9 @@ class Index(LoginRequiredMixin,View):
         suma_dia = Decimal(0)
         for item in ventas:
             if item.fecha == datetime.date.today():
-                suma_dia = suma_dia + Decimal(item.importe)
+                suma_dia += Decimal(item.importe)
             if item.fecha.month == datetime.date.today().month:
-                suma_mes = suma_mes + Decimal(item.importe)
+                suma_mes += Decimal(item.importe)
         clientes = Cliente.objects.filter(fecha_nacimiento__month=datetime.date.today().month, fecha_nacimiento__day=datetime.date.today().day)
         return render(request,self.template_name,locals())
 
@@ -75,5 +75,5 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def ObtenerProducto(request,nro):
     item = Producto.objects.get(pk=nro)
-    return HttpResponse(json.dumps({"precio":item.precio_sugerido,"max_value":item.stock_actual}),content_type='application/json')
+    return HttpResponse(json.dumps({"precio":float(item.precio_sugerido),"max_value":item.stock_actual}),content_type='application/json')
 

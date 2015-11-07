@@ -8,6 +8,6 @@ urlpatterns = patterns('',
     url(r'^historial/$',HistorialView.as_view(),name="historial"),
     url(r'^notas/$',NotaPedidoView.as_view(),name="nota"),
     url(r'^nota_pedido/(\d+)/$',NotaPedidoPayment.as_view(),name='cancelar_nota_pedido'),
-    #url(r'^login$','',name='reporte'),
-    #url(r'^estadisticas$','apps.facturacion.views.estadisticas',name='estadisticas'),
+    url(r'^get_nota_pedido$','apps.facturacion.views.get_nota_pedido',name='get_nota_pedido'),
+    url(r'^get_venta','apps.facturacion.views.get_venta',name='get_venta'),
 )

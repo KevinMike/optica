@@ -9,7 +9,7 @@ class IngresoProductosForm(forms.ModelForm):
     proveedor = forms.ModelChoiceField(queryset=Proveedor.objects.all(),
                                         widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),
                                         label="Producto",empty_label="Seleccione un Proveedor")
-    cantidad = forms.IntegerField(initial=0,label="Cantidad",widget=forms.NumberInput(attrs={'class':'form-control','min':'0','required':'true',}))
+    cantidad = forms.IntegerField(initial=0,label="Cantidad",widget=forms.NumberInput(attrs={'class':'form-control','min':'1','required':'true',}))
     class Meta:
         model = IngresoProductos
         fields = ('producto','proveedor','cantidad',)
@@ -20,10 +20,10 @@ class ProductoForm(forms.ModelForm):
     marca = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Marca',}),label="Marca",required=False,)
     color = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Color',}),label="Color",required=False,)
     categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(),
-                                        widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),
-                                        label="Categoría",empty_label="Seleccione una Categoria")
+                                       widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),
+                                       label="Categoría",empty_label="Seleccione una Categoria")
     longitud = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Longitud',}),label="Longitud",required=False,)
-    precio_sugerido = forms.IntegerField(label="Precio Sugerido",widget=forms.NumberInput(attrs={'class':'form-control','min':'0','required':'true'}))
+    precio_sugerido = forms.DecimalField(label="Precio Sugerido",widget=forms.NumberInput(attrs={'class':'form-control','min':'0.1','required':'true','step': '0.1'}))
     stock_minimo = forms.IntegerField(label="Stock Mínimo",widget=forms.NumberInput(attrs={'class':'form-control','min':'0','required':'true'}))
 
     class Meta:
