@@ -4220,7 +4220,7 @@ padding: 6px 10px;
     display: none;
 }
 
-#NroFacturacion{
+.facturacion{
   font-weight: bold;
   text-align: center;
 }

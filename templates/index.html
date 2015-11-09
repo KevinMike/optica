@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row" style="margin-bottom:5px;">
-                      {% if request.user.is_staff %}
+                {% if request.user.is_staff %}
                         <div class="col-md-4">
                             <div class="sm-st clearfix">
                                 <span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
@@ -34,7 +34,7 @@
                 <section class="content">
                     <div class="row">
 
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <!--earning graph start-->
                             <section class="panel">
                                 <header class="panel-heading">
@@ -43,11 +43,11 @@
                                 <div class="panel-body">
                                     <canvas id="linechart" width="600" height="330"></canvas>
                                 </div>
-                                        </section>
+                            </section>
                                         <!--earning graph end-->
 
-                                    </div>
-                        <div class="col-lg-4">
+                        </div>
+                  {% comment %}      <div class="col-lg-4">
 
                             <!--chat start-->
                             <section class="panel panel-warning">
@@ -65,7 +65,7 @@
                                         {% endfor %}
                                     </div>
                             </section>
-                        </div>
+                        </div>{% endcomment %}
                   </div>
                 </section><!-- /.content -->
 
@@ -82,7 +82,7 @@
                             <ul class="list-group teammates">
                                {% for cliente in clientes %}
                                 <li class="list-group-item">
-                                    <a href=""><img src="/media/{{ cliente.foto }}"  width="50" height="50"></a>
+                                    <a href=""><img src="/media/{{ cliente.foto }}"  width="100" height="100"></a>
                                     <span class="pull-right label label-danger inline m-t-15">{{ cliente.email }}</span>
                                     <a href="">{{ cliente.nombre }} {{ cliente.apellido }}</a>
                                 </li>
@@ -99,7 +99,7 @@
                            <ul class="list-group teammates">
                                {% for item in receta %}
                                 <li class="list-group-item">
-                                    <a href=""><img src="/media/{{ item.cliente.foto }}"  width="50" height="50"></a>
+                                    <a href=""><img src="/media/{{ item.cliente.foto }}"  width="100" height="100"></a>
                                     <span class="pull-right label label-danger inline m-t-15">{{ item.cliente.email }}</span>
                                     <a href="">{{ item.cliente.nombre }} {{ item.cliente.apellido }}</a>
                                 </li>
@@ -144,31 +144,59 @@
         }
 
         $(function() {
+            var meses = JSON.parse(("{{meses}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                return {
+                    l   : '<',
+                    g   : '>',
+                    quo : '"'
+                }[b];
+            }));
+            var totales = JSON.parse(("{{totales}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                return {
+                    l   : '<',
+                    g   : '>',
+                    quo : '"'
+                }[b];
+            }));
+            var contador = JSON.parse(("{{contador}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                return {
+                    l   : '<',
+                    g   : '>',
+                    quo : '"'
+                }[b];
+            }));
                 "use strict";
                     //BAR CHART
                     var data = {
-                        labels: ["January", "February", "March", "April", "May", "June", "July"],
+                        //labels: ["January", "February", "March", "April", "May", "June", "July"],
+                        labels: meses,
                         datasets: [
                             {
-                                label: "My First dataset",
+                                label: "Número de Ventas",
                                 fillColor: "rgba(220,220,220,0.2)",
                                 strokeColor: "rgba(220,220,220,1)",
                                 pointColor: "rgba(220,220,220,1)",
                                 pointStrokeColor: "#fff",
                                 pointHighlightFill: "#fff",
                                 pointHighlightStroke: "rgba(220,220,220,1)",
-                                data: [65, 59, 80, 81, 56, 55, 40]
-                            },
+                                //data: [89, 59, 80, 81, 56, 55, 40]
+                                data : contador
+                            }
+                            {% if request.user.is_staff %}
+                            ,
                             {
-                                label: "My Second dataset",
+
+                                label: "Total Recaudado",
                                 fillColor: "rgba(151,187,205,0.2)",
                                 strokeColor: "rgba(151,187,205,1)",
                                 pointColor: "rgba(151,187,205,1)",
                                 pointStrokeColor: "#fff",
                                 pointHighlightFill: "#fff",
                                 pointHighlightStroke: "rgba(151,187,205,1)",
-                                data: [28, 48, 40, 19, 86, 27, 90]
+                                //data: [28, 48, 40, 19, 86, 27, 90]
+                                data: totales
                             }
+                            {% endif %}
                         ]
                     };
                 new Chart(document.getElementById("linechart").getContext("2d")).Line(data,{

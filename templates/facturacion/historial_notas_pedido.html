@@ -18,28 +18,31 @@
                         <table id="tabla1" class="display" cellspacing="0" width="100%">
                             <thead>
                                 <th>Nota de Pedido</th>
+                                <th>Boleta de Venta</th>
                                 <th>DNI</th>
                                 <th>Nombre</th>
                                 <th>Fecha</th>
                                 <th>Importe</th>
                                 <th>Saldo</th>
                                 <th>Cancelado</th>
-                                <th>Venta</th>
+                                <th>Reporte de Venta</th>
                             </thead>
                             <tfoot>
-                               <th>Nota de Pedido</th>
+                                <th>Nota de Pedido</th>
+                                <th>Boleta de Venta</th>
                                 <th>DNI</th>
                                 <th>Nombre</th>
                                 <th>Fecha</th>
                                 <th>Importe</th>
                                 <th>Saldo</th>
                                 <th>Cancelado</th>
-                                <th>Venta</th>
+                                <th>Reporte de Venta</th>
                             </tfoot>
                             <tbody>
                             {% for item in notas %}
                                 <tr>
-                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.nro }}</td>
+                                    <td>{{ item.venta.nro }}</td>
                                     <td>{{ item.venta.dni_cliente.dni }}</td>
                                     <td>{{ item.venta.dni_cliente.nombre_completo }}</td>
                                     <td>{{ item.venta.fecha }}</td>
@@ -47,12 +50,12 @@
                                     <td>{{ item.saldo}}</td>
                                     <td>
                                         {% if item.venta.cancelado %}
-                                            <img src="{% static 'images/check.png' %}" width="25" height="25" data-toggle="tooltip" title="Venta Cancelada">
+                                            <img src="{% static 'images/check.png' %}" width="25" height="25" data-toggle="tooltip" title="Venta Cancelada"> Pagado
                                         {% else %}
-                                            <a href="{% url 'facturacion:cancelar_nota_pedido' item.id %}" target="_blank"><img src="{% static 'images/pay.png' %}" width="25" height="25" data-toggle="tooltip" title="Pagar"></a>
+                                            <a href="{% url 'facturacion:cancelar_nota_pedido' item.id %}" target="_blank"><img src="{% static 'images/pay.png' %}" width="25" height="25" data-toggle="tooltip" title="Pagar"> Por Pagar</a>
                                         {% endif %}
                                     </td>
-                                    <td><a href="{% url 'facturacion:reporte' item.venta.nro %}" target="_blank"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el reporte"></a></td>
+                                    <td><a href="{% url 'facturacion:reporte' item.venta.id %}" target="_blank"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el reporte"></a></td>
                                 </tr>
                             {% endfor %}
                             </tbody>

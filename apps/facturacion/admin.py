@@ -17,7 +17,7 @@ class DetalleLenteInline(admin.TabularInline):
     extra = 1
 
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ('nro','dni_cliente','fecha','importe','total','cancelado','observaciones',)
+    list_display = ('id','nro','dni_cliente','fecha','importe','total','cancelado','observaciones',)
     fieldsets = (
         ('Cliente', {'fields': ('dni_cliente',)}),
         ('Venta', {'fields': ('nro','importe','total','saldo','cancelado','observaciones' )}),
@@ -36,7 +36,7 @@ class VentaAdmin(admin.ModelAdmin):
 
 class NotaPeridoAdmin(admin.ModelAdmin):
     model = NotaPedido
-    list_display = ('venta','fecha','importe','saldo',)
+    list_display = ('id','venta','fecha','importe','saldo',)
     search_fields = ('venta','fecha',)
     # def save_model(self, request, obj, form, change):
     #     if change:

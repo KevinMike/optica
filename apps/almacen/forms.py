@@ -7,8 +7,8 @@ class IngresoProductosForm(forms.ModelForm):
                                         widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),
                                         label="Producto",empty_label="Seleccione un Producto")
     proveedor = forms.ModelChoiceField(queryset=Proveedor.objects.all(),
-                                        widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),
-                                        label="Producto",empty_label="Seleccione un Proveedor")
+                                        widget=forms.Select(attrs={'class':'form-control chosen-select',}),
+                                        label="Producto",empty_label="Seleccione un Proveedor",required=False)
     cantidad = forms.IntegerField(initial=0,label="Cantidad",widget=forms.NumberInput(attrs={'class':'form-control','min':'1','required':'true',}))
     class Meta:
         model = IngresoProductos

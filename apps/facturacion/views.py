@@ -29,7 +29,7 @@ class IndexView(LoginRequiredMixin, View):
                         venta.dni_cliente = cliente
                         venta.bloque = 1
                 venta.save()
-                total = 0.00 #variable para calcular el total
+                total = Decimal(0) #variable para calcular el total
                 for item in DetalleFormSet: #Guardar Detalles Productos
                     detalle = item.save(commit=False)
                     producto = Producto.objects.get(pk=detalle.producto.id)
@@ -37,22 +37,22 @@ class IndexView(LoginRequiredMixin, View):
                     producto.save()
                     detalle.nro_venta = venta
                     detalle.save()
-                    total = Decimal(total) + Decimal(detalle.precio)*Decimal(detalle.cantidad)
+                    total = total + Decimal(detalle.precio)*Decimal(detalle.cantidad)
                 for item in LenteFormSet: #Guardar Detalles Lentes
                     detalle = item.save(commit=False)
                     if(detalle.lente != "Ninguno"):
                         detalle.nro_venta = venta
                         detalle.save()
-                        total = Decimal(total) + Decimal(detalle.precio)
+                        total = total + Decimal(detalle.precio)
                         item.save_m2m()
                 venta = Venta.objects.get(pk=venta.id) #Actualizar venta
                 venta.nro = request.POST['nro']
                 flag = str(request.POST['tipo_recibo'])
                 if flag == "True": #Boleta de Venta
-                    if ( Decimal(request.POST['importe']) >= Decimal(total) ):#importe correcto
+                    if ( Decimal(request.POST['importe']) >= total ):#importe correcto
                         venta.cancelado = True
                         venta.importe = Decimal(request.POST['importe'])
-                        venta.total = total
+                        venta.total = Decimal(total)
                         venta.saldo = total-venta.importe
                         venta.save()
                     else: #Importe incorrecto, eliminar datos
@@ -62,18 +62,18 @@ class IndexView(LoginRequiredMixin, View):
                         return render(request,self.template_name,locals())
                 else:   #Nota de Pedido
                     nota = NotaPedido()
-                    nota.nro = request.POST['nro_pedido']
+                    nota.nro = request.POST['nro_nota']
                     nota.venta = venta
                     nota.importe = Decimal(request.POST['importe'])
-                    nota.saldo = Decimal(total) - Decimal(request.POST['importe'])
+                    nota.saldo = total - Decimal(request.POST['importe'])
                     nota.save()
                     venta.cancelado = False
                     venta.importe = Decimal(request.POST['importe'])
                     venta.total = total
-                    venta.saldo = total-venta.importe
+                    venta.saldo = total - venta.importe
                     venta.save()
                 messages.success(request, 'La venta número '+ str(venta.nro) +' se registro con éxito')
-                return  redirect('reporte/'+str(venta.nro))
+                return  redirect('reporte/'+str(venta.id))
             else:
                 messages.error(request, 'No se pudo registrar la venta, ocurrio un error en el formulario detalles de venta.')
                 cliente_form = ClienteForm()
@@ -100,30 +100,29 @@ class NotaPedidoView(LoginRequiredMixin,View):
 
 class NotaPedidoPayment(View):
     template_name = 'facturacion/nota_pedido.html'
-    def get(self,request,nro):
-        nota = NotaPedido.objects.get(pk=nro)
-        venta = Venta.objects.get(pk=nota.venta.nro)
-        detalles = DetalleVenta.objects.filter(nro_venta=nota.venta.nro)
-        lentes = DetalleLente.objects.filter(nro_venta=nota.venta.nro)
+    def get(self,request,id):
+        nota = NotaPedido.objects.get(pk=id)
+        venta = Venta.objects.get(pk=nota.venta.id)
+        detalles = DetalleVenta.objects.filter(nro_venta=nota.venta.id)
+        lentes = DetalleLente.objects.filter(nro_venta=nota.venta.id)
         form = PagarNota()
         return render(request,self.template_name,locals())
-    def post(self,request,nro):
-        nota = NotaPedido.objects.get(pk=nro)
+    def post(self,request,id):
+        nota = NotaPedido.objects.get(pk=id)
         nota.importe = nota.importe + nota.saldo
         nota.saldo = 0
         nota.save()
-        venta = Venta.objects.get(pk=nota.venta.nro)
+        venta = Venta.objects.get(pk=nota.venta.id)
         venta.importe = venta.total
         venta.saldo = 0
         venta.cancelado = True
         venta.save()
-        return redirect('/')
-
-def reporte(request,nro):
+        return redirect('/facturacion/notas')
+def reporte(request,id):
     template_name = 'facturacion/reporte.html'
-    venta = Venta.objects.get(pk=nro)
-    detalles = DetalleVenta.objects.filter(nro_venta=nro)
-    lentes = DetalleLente.objects.filter(nro_venta=nro)
+    venta = Venta.objects.get(pk=id)
+    detalles = DetalleVenta.objects.filter(nro_venta=id)
+    lentes = DetalleLente.objects.filter(nro_venta=id)
     return render(request,template_name,locals())
 
 import json

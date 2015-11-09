@@ -16,9 +16,9 @@ class Index(LoginRequiredMixin,View):
     template_name = 'index.html'
     def get(self,request):
         import datetime
-        datetime.date.today()
-        proveedores = Proveedor.objects.all()
-        #receta = Receta.objects.all().order_by('-fecha').distinct("cliente")
+        nombre_meses = { 1:"Enero",2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"Agosto",9:"Setiembre",10:"Octubre", 11:"Noviembre",12:"Diciembre" }
+        contador = [0,0,0,0,0,0]
+        totales = [Decimal(0),Decimal(0),Decimal(0),Decimal(0),Decimal(0),Decimal(0)]
         receta = Receta.objects.all().order_by('-fecha')
         lista = []
         for item in receta:
@@ -29,11 +29,73 @@ class Index(LoginRequiredMixin,View):
         ventas = Venta.objects.all()
         suma_mes = Decimal(0)
         suma_dia = Decimal(0)
-        for item in ventas:
+        flag = False
+        meses = [[datetime.date.today().month,datetime.date.today().year],]
+        #Obtener los ultimos 6 meses
+        if (datetime.date.today().month - 1 >0 and flag == False):
+            meses.append([datetime.date.today().month-1,datetime.date.today().year])
+        else:
+            meses.append([12,datetime.date.today().year-1])
+            flag = True
+        if (datetime.date.today().month - 2 >0  and flag == False):
+            meses.append([datetime.date.today().month-2,datetime.date.today().year])
+        else:
+            meses.append([11,datetime.date.today().year-1])
+            flag = True
+        if (datetime.date.today().month - 3 >0  and flag == False):
+            meses.append([datetime.date.today().month-3,datetime.date.today().year])
+        else:
+            meses.append([10,datetime.date.today().year-1])
+            flag = True
+        if (datetime.date.today().month - 4 >0  and flag == False):
+            meses.append([datetime.date.today().month-4,datetime.date.today().year])
+        else:
+            meses.append([9,datetime.date.today().year-1])
+            flag = True
+        if (datetime.date.today().month - 5 >0  and flag == False):
+            meses.append([datetime.date.today().month-5,datetime.date.today().year])
+        else:
+            meses.append([8,datetime.date.today().year-1])
+            flag = True
+
+        for item in ventas:#Calcular totales
             if item.fecha == datetime.date.today():
-                suma_dia += Decimal(item.importe)
-            if item.fecha.month == datetime.date.today().month:
-                suma_mes += Decimal(item.importe)
+                suma_dia += Decimal(item.total)
+            if (item.fecha.month == datetime.date.today().month) and (item.fecha.year == datetime.date.today().year):
+                suma_mes += Decimal(item.total)
+            #Cacular totales
+            if (item.fecha.month == meses[0][0]) and (item.fecha.year == meses[0][1]):
+                totales[0] += Decimal(item.total)
+                contador[0] += 1
+            if (item.fecha.month == meses[1][0]) and (item.fecha.year == meses[1][1]):
+                totales[1] += Decimal(item.total)
+                contador[1] += 1
+            if (item.fecha.month == meses[2][0]) and (item.fecha.year == meses[2][1]):
+                totales[2] += Decimal(item.total)
+                contador[2] += 1
+            if (item.fecha.month == meses[3][0]) and (item.fecha.year == meses[3][1]):
+                totales[3] += Decimal(item.total)
+                contador[3] += 1
+            if (item.fecha.month == meses[4][0]) and (item.fecha.year == meses[4][1]):
+                totales[4] += Decimal(item.total)
+                contador[4] += 1
+            if (item.fecha.month == meses[5][0]) and (item.fecha.year == meses[5][1]):
+                totales[5] += Decimal(item.total)
+                contador[5] += 1
+
+        #Renderizando datos a json
+        import json
+        index = 0
+        for item in meses:
+            meses[index] = "%s - %s" %(str(nombre_meses[item[0]]),str(item[1]))
+            index +=1
+        meses = json.dumps(meses)
+        contador = json.dumps(contador)
+        index = 0
+        for item in totales:
+            totales[index] = float(totales[index])
+            index+=1
+        totales = json.dumps(totales)
         clientes = Cliente.objects.filter(fecha_nacimiento__month=datetime.date.today().month, fecha_nacimiento__day=datetime.date.today().day)
         return render(request,self.template_name,locals())
 

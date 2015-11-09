@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'apps.facturacion',
     'apps.receta',
     'apps.usuarios',
+    'report_builder',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -71,7 +72,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 "django.core.context_processors.request",
+                'django.core.context_processors.static',
                 'django.core.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.media',
                 'apps.almacen.context_processors.stock_minimo',
             ],
         },
@@ -85,16 +89,16 @@ WSGI_APPLICATION = 'optica.wsgi.application'
 # Database LOCAL
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'latyna',
-        'USER': 'postgres',
-        'PASSWORD': '745522',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'latyna',
+#         'USER': 'postgres',
+#         'PASSWORD': '745522',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -108,16 +112,16 @@ DATABASES = {
 # import dj_database_url
 # DATABASES['default'] =  dj_database_url.config()
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd6rssviaog0un9',
-#         'USER': 'zklcgclmwjfmrg',
-#         'PASSWORD': '12wmPryGDxFT_pCNu8q3yfC8Nj',
-#         'HOST': 'ec2-107-21-219-235.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd6rssviaog0un9',
+        'USER': 'zklcgclmwjfmrg',
+        'PASSWORD': '12wmPryGDxFT_pCNu8q3yfC8Nj',
+        'HOST': 'ec2-107-21-219-235.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 
 

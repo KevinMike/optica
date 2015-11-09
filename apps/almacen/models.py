@@ -68,7 +68,7 @@ class Lente(models.Model):
 
 class IngresoProductos(models.Model):
     producto = models.ForeignKey(Producto)
-    proveedor = models.ForeignKey(Proveedor)
+    proveedor = models.ForeignKey(Proveedor,null=True,blank=True)
     fecha = models.DateField(default=timezone.now())
     cantidad = models.IntegerField()
 

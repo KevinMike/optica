@@ -16,7 +16,7 @@ class LoginRequiredMixin(object):
 class Login(View):
 
     form_class = LoginForm
-    template_name = 'login/login.html'
+    template_name = 'login/index.html'
     user_check_failure_path = '/login'
 
     def get(self, request):

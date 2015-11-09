@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Sistema de Administracion</title>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<!-- contact-form -->
+<div class="message warning">
+<div class="inset">
+	<div class="login-head">
+		<h1>Optica Latyna</h1>
+	</div>
+		<form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+{#			<li>#}
+{#				{{ form.username.errors }}#}
+{#                {{ form.username }}#}
+{#                <!--<input type="text" class="text" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}"><a href="#" class=" icon user"></a>-->#}
+{#			</li>#}
+{#				<div class="clear"> </div>#}
+{#			<li>#}
+{#				{{ form.password.errors }}#}
+{#                {{ form.password }}#}
+{#                <!--<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"> <a href="#" class="icon lock"></a>-->#}
+{#			</li>#}
+			<div class="clear"> </div>
+			<div class="submit">
+                <input type="submit" value="Entrar" >
+            <div class="clear">  </div>
+			</div>
+
+		</form>
+		</div>
+	</div>
+	<div class="clear"> </div>
+    <div class="footer">
+    </div>
+</body>
+</html>
