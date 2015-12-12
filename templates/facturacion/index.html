@@ -73,7 +73,7 @@
                                           </div>
                                       </div>
                             </fieldset>
-                          <div class="form-group">
+  {% comment %}                        <div class="form-group">
                               <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.nro.label }}</strong></div>
                               <div class="col-lg-8">
                                   {{ venta_form.nro.errors }}
@@ -85,6 +85,18 @@
                               <div class="col-lg-8">
                                   {{ venta_form.nro_nota.errors }}
                                   {{ venta_form.nro_nota }}
+                              </div>
+                          </div>{% endcomment %}
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>Venta</strong></div>
+                              <div class="col-lg-8">
+                                    {{ nro_venta }}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>Nota de Pedido</strong></div>
+                              <div class="col-lg-8">
+                                    {{ nro_pedido }}
                               </div>
                           </div>
                           <div class="form-group">
@@ -188,7 +200,7 @@
                                     <div class="no-padding-top form-field col-sm-11">
                                         {{ form.lente.errors }}
                                         <div class="input-group">
-                                            <span class="input-group-addon " >Producto</span>
+                                            <span class="input-group-addon " >Lente</span>
                                             {{ form.lente}}
                                         </div>
                                     </div>
@@ -199,7 +211,7 @@
                                     <div class="no-padding-top form-field col-sm-11">
                                         {{ form.complementos.errors }}
                                         <div class="input-group">
-                                            <span class="input-group-addon " >Aditivos</span>
+                                            <span class="input-group-addon " >Tratamiento</span>
                                             {{ form.complementos}}
                                         </div>
                                     </div>
@@ -319,38 +331,6 @@
 {% endblock %}
 {% block application_javascript %}
     <script type="application/javascript">
-{#            document.getElementById("id_tipo_recibo").addEventListener("change",function() {#}
-{#                if ($(this).val() == "True") {#}
-{#                    $("#NroPedido").attr('disabled',true);#}
-{#                    /*$.ajax({#}
-{#                        url: "/facturacion/get_venta/",#}
-{#                        type: "GET",#}
-{#                        dataType: "json",#}
-{#                        async: true,#}
-{#                        success: function (j) {#}
-{#                            $("#NroFacturacion").val(j.nro);#}
-{#                        },#}
-{#                        error: function (xhr, errmsg, err) {#}
-{#                            alert("Existe algun problema con el servidor, intente denuevo.")#}
-{#                        }#}
-{#                    });*/#}
-{#                }#}
-{#                else if ($(this).val() == "False") {#}
-{#                    $("#NroPedido").attr('disabled',false);#}
-{#                    /*$.ajax({#}
-{#                        url: "/facturacion/get_nota_pedido",#}
-{#                        type: "GET",#}
-{#                        dataType: "json",#}
-{#                        async: true,#}
-{#                        success: function (j) {#}
-{#                            $("#NroFacturacion").val(j.nro);#}
-{#                        },#}
-{#                        error: function (xhr, errmsg, err) {#}
-{#                            alert("Existe algun problema con el servidor, intente denuevo.")#}
-{#                        }#}
-{#                    });*/#}
-{#                }#}
-{#            });#}
             document.getElementById("calcular").addEventListener("click", function(event){
                 var numero_productos = parseFloat($("#id_formset_producto-TOTAL_FORMS").val());
                 var total = 0;
@@ -370,13 +350,13 @@
                 var numero_lentes = parseInt( $("#id_formset_lente-TOTAL_FORMS").val() );
                 for(var i = 0 ; i< numero_lentes; i++)
                 {
-                    if(parseFloat($("#id_formset_lente-"+i+"-precio").val())>=0)
+                    if(parseFloat($("#id_formset_lente-"+i+"-precio").val())>0)
                     {
                         total = total + parseFloat($("#id_formset_lente-"+i+"-precio").val());
                     }
                     else
                     {
-                        total = "ERROR";
+                        total = "Lente con precio 0";
                         break
                     }
                 }
@@ -489,12 +469,12 @@
                     event.preventDefault();
                     registrar_cliente();
                 });
-                $("#id_fecha_nacimiento").datepicker({
+                /*$("#id_fecha_nacimiento").datepicker({
                   changeMonth: true,
                   changeYear: true,
                   yearRange: '-100:+0',
                   dateFormat: 'yy-mm-dd'
-                });
+                });*/
             });
     </script>
 {% endblock %}

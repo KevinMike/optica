@@ -34,7 +34,7 @@ class VentaAdmin(admin.ModelAdmin):
     #         obj.save()
 
 
-class NotaPeridoAdmin(admin.ModelAdmin):
+class NotaPedidoAdmin(admin.ModelAdmin):
     model = NotaPedido
     list_display = ('id','venta','fecha','importe','saldo',)
     search_fields = ('venta','fecha',)
@@ -48,5 +48,5 @@ class NotaPeridoAdmin(admin.ModelAdmin):
     #         obj.save()
 
 admin.site.register(Venta,VentaAdmin)
-admin.site.register(NotaPedido,NotaPeridoAdmin)
+admin.site.register(NotaPedido,NotaPedidoAdmin)
 

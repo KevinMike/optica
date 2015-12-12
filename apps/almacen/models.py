@@ -28,7 +28,7 @@ class Categoria(models.Model):
         verbose_name_plural = 'Categorías'
 
 class Producto(models.Model):
-    codigo = models.CharField(max_length=5,blank=True, null=True)
+    codigo = models.CharField(max_length=10,blank=True, null=True)
     descripcion = models.CharField(max_length=30)
     marca = models.CharField(max_length=30, blank=True, null=True)
     color = models.CharField(max_length=20, blank=True, null=True)
@@ -39,7 +39,7 @@ class Producto(models.Model):
     stock_actual = models.IntegerField(default=0)
 
     def __unicode__(self):
-        return "%s (%s)" %(self.descripcion,self.codigo )
+        return "%s (%s %s %s %s)" %(self.descripcion,self.codigo,self.marca,self.color,self.longitud )
 
     class Meta:
         verbose_name = 'Producto'
@@ -51,8 +51,8 @@ class Aditivos(models.Model):
         return self.componente
 
     class Meta:
-        verbose_name = 'Aditivo'
-        verbose_name_plural = 'Aditivos'
+        verbose_name = 'Tratamiento'
+        verbose_name_plural = 'Tratamientos'
 
 class Lente(models.Model):
     tipo_lente = models.CharField(max_length=30)
@@ -61,8 +61,8 @@ class Lente(models.Model):
         return self.tipo_lente
 
     class Meta:
-        verbose_name = 'Lente'
-        verbose_name_plural = 'Lentes'
+        verbose_name = 'Tipo de Lente'
+        verbose_name_plural = 'Tipo de Lentes'
 
 
 

@@ -5,10 +5,23 @@ from apps.almacen.models import Producto,Lente,Aditivos
 from apps.receta.models import *
 from django.utils import timezone
 # Create your models here
+class BloqueVenta(models.Model):
+    fecha = models.DateField(default=timezone.now())
+    current = models.BooleanField(default=True)
+    def __unicode__(self):
+        return str(self.id)
+
+
+class BloquePedido(models.Model):
+    fecha = models.DateField(default=timezone.now())
+    current = models.BooleanField(default=True)
+    def __unicode__(self):
+        return str(self.id)
+
 
 class Venta(models.Model):
-    nro = models.IntegerField(unique=True)
-    bloque = models.IntegerField(blank=True, null=True)
+    nro = models.IntegerField(blank=True,null=True)
+    bloque = models.ForeignKey(BloqueVenta,blank=True,null=True)
     dni_cliente = models.ForeignKey(Cliente,blank=True, null=True)
     fecha = models.DateField(default = timezone.now())
     importe = models.DecimalField(max_digits=10,decimal_places=2,blank=True, null=True)
@@ -39,8 +52,8 @@ class DetalleLente(models.Model):
     precio = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 
 class NotaPedido(models.Model):
-    nro = models.IntegerField(unique=True)
-    bloque = models.IntegerField(blank=True, null=True)
+    nro = models.IntegerField()
+    bloque = models.ForeignKey(BloquePedido)
     venta = models.ForeignKey(Venta)
     fecha = models.DateField(default=timezone.now())
     importe = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)

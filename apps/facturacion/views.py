@@ -2,12 +2,63 @@
 from django.shortcuts import render,redirect,HttpResponse
 from django.views.generic import View, ListView, DeleteView
 from apps.cliente.forms import ClienteForm
-from .forms import VentaForm,DetalleVentaFormSet,DetalleLenteFormSet,PagarNota
+from .forms import VentaForm,DetalleVentaFormSet,DetalleLenteFormSet,PagarNota,BloqueVentaForm,BloquePedidoForm
 from .models import *
 from django.contrib import messages
 from apps.usuarios.views import LoginRequiredMixin
 from decimal import Decimal
 # Create your views here.
+def BloqueVenta_last_id():
+    try:
+        nro = BloqueVenta.objects.get(current=True)
+        return nro
+    except BloqueVenta.DoesNotExist:
+        nro = BloqueVenta.objects.create()
+        nro.save()
+        return nro
+
+def BloquePedido_last_id():
+    try:
+        nro = BloquePedido.objects.get(current=True)
+        return nro
+    except BloquePedido.DoesNotExist:
+        nro = BloquePedido.objects.create()
+        nro.save()
+        return nro
+
+import json
+from django.views.decorators.csrf import csrf_exempt
+
+#Obtiene el ultimo numero de pedido
+def get_nota_pedido():
+    bloque = BloquePedido_last_id()
+    print bloque.current
+    try:
+        ultima_venta = NotaPedido.objects.filter(bloque=bloque.id).order_by('-nro')[0]
+        nro = ultima_venta.nro + 1
+        return nro
+        #return HttpResponse(json.dumps({"nro":nro}),content_type='application/json')
+    #except NotaPedido.DoesNotExist:
+    except IndexError:
+        return 1
+        #return HttpResponse(json.dumps({"nro":1}),content_type='application/json')
+
+#Obtiene el ultimo numero de venta
+def get_venta():
+    bloque = BloqueVenta_last_id()
+    print bloque.current
+    try:
+        ultima_venta = Venta.objects.filter(bloque=bloque.id).order_by('-nro')[0]
+        nro = ultima_venta.nro + 1
+        return nro
+        #return HttpResponse(json.dumps({"nro":nro}),content_type='application/json')
+    except IndexError:
+        return 1
+        #return HttpResponse(json.dumps({"nro":1}),content_type='application/json')
+
+
+
+
 class IndexView(LoginRequiredMixin, View):
     template_name= "facturacion/index.html"
     def get(self,request):
@@ -15,6 +66,9 @@ class IndexView(LoginRequiredMixin, View):
         venta_form = VentaForm()
         DetalleFormSet = DetalleVentaFormSet(prefix='formset_producto')
         LenteFormSet = DetalleLenteFormSet(prefix='formset_lente')
+        nro_venta = get_venta()
+        nro_pedido = get_nota_pedido()
+
         return render(request,self.template_name,locals())
     def post(self,request):
         venta_form = VentaForm(request.POST)
@@ -27,7 +81,6 @@ class IndexView(LoginRequiredMixin, View):
                     cliente = Cliente.objects.get(pk=request.POST['BuscarCliente'])
                     if cliente:
                         venta.dni_cliente = cliente
-                        venta.bloque = 1
                 venta.save()
                 total = Decimal(0) #variable para calcular el total
                 for item in DetalleFormSet: #Guardar Detalles Productos
@@ -46,7 +99,8 @@ class IndexView(LoginRequiredMixin, View):
                         total = total + Decimal(detalle.precio)
                         item.save_m2m()
                 venta = Venta.objects.get(pk=venta.id) #Actualizar venta
-                venta.nro = request.POST['nro']
+                venta.nro = get_venta()
+                venta.bloque = BloqueVenta_last_id()
                 flag = str(request.POST['tipo_recibo'])
                 if flag == "True": #Boleta de Venta
                     if ( Decimal(request.POST['importe']) >= total ):#importe correcto
@@ -62,7 +116,8 @@ class IndexView(LoginRequiredMixin, View):
                         return render(request,self.template_name,locals())
                 else:   #Nota de Pedido
                     nota = NotaPedido()
-                    nota.nro = request.POST['nro_nota']
+                    nota.nro = get_nota_pedido()
+                    nota.bloque = BloquePedido_last_id()
                     nota.venta = venta
                     nota.importe = Decimal(request.POST['importe'])
                     nota.saldo = total - Decimal(request.POST['importe'])
@@ -88,13 +143,17 @@ class IndexView(LoginRequiredMixin, View):
 class HistorialView(LoginRequiredMixin,View):
     template_name = 'facturacion/historial_ventas.html'
     def get(self,request):
-        ventas = Venta.objects.order_by('-total')
+        bloque_form = BloqueVentaForm()
+        ventas = Venta.objects.all()
+        bloque = BloqueVenta_last_id
         return render(request,self.template_name,locals())
 
 class NotaPedidoView(LoginRequiredMixin,View):
     template_name = 'facturacion/historial_notas_pedido.html'
     def get(self,request):
         notas = NotaPedido.objects.order_by('id')
+        bloque_form = BloquePedidoForm()
+        bloque = BloquePedido_last_id()
         return render(request,self.template_name,locals())
 
 
@@ -125,25 +184,36 @@ def reporte(request,id):
     lentes = DetalleLente.objects.filter(nro_venta=id)
     return render(request,template_name,locals())
 
-import json
-from django.views.decorators.csrf import csrf_exempt
+def new_BloqueVenta(request):
+    g = BloqueVenta.objects.get(current=True)
+    g.current = False
+    g.save()
+    g = BloqueVenta.objects.create()
+    g.save()
+    return redirect('/facturacion/historial')
 
-#Obtiene el ultimo numero de pedido
-def get_nota_pedido(request):
-    try:
-        ultima_venta = NotaPedido.objects.latest('nro')
-        nro = ultima_venta.nro + 1
-        return HttpResponse(json.dumps({"nro":nro}),content_type='application/json')
-    except NotaPedido.DoesNotExist:
-        return HttpResponse(json.dumps({"nro":1}),content_type='application/json')
+def change_BloqueVenta(request):
+    g = BloqueVenta.objects.get(current=True)
+    g.current = False
+    g.save()
+    g = BloqueVenta.objects.get(pk=request.POST['bloque'])
+    g.current = True
+    g.save()
+    return redirect('/facturacion/historial')
 
-#Obtiene el ultimo numero de venta
-def get_venta(request):
-    try:
-        ultima_venta = Venta.objects.latest('nro')
-        nro = ultima_venta.nro + 1
-        return HttpResponse(json.dumps({"nro":nro}),content_type='application/json')
-    except Venta.DoesNotExist:
-        return HttpResponse(json.dumps({"nro":1}),content_type='application/json')
+def new_BloquePedido(request):
+    g = BloquePedido.objects.get(current=True)
+    g.current = False
+    g.save()
+    g = BloquePedido.objects.create()
+    g.save()
+    return redirect('/facturacion/notas')
 
-
+def change_BloquePedido(request):
+    g = BloquePedido.objects.get(current=True)
+    g.current = False
+    g.save()
+    g = BloquePedido.objects.get(pk=request.POST['bloque'])
+    g.current = True
+    g.save()
+    return redirect('/facturacion/notas')

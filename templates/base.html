@@ -24,7 +24,7 @@
 <body class="skin-black">
     <!-- header logo: style can be found in header.less -->
     <header class="header">
-        <a href="index.html" class="logo">
+        <a href="#" class="logo">
             Optica Latyna
         </a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -139,6 +139,7 @@
                                 <i class="fa fa-home "></i> <span>Menú Principal</span>
                             </a>
                         </li>
+                        {% if request.user.is_seller %}
                         <li>
                             <a href="{% url 'facturacion:index' %}">
                                 <i class="fa fa-credit-card"></i> <span>Registrar Venta</span>
@@ -155,6 +156,8 @@
                                 <i class="fa fa-credit-card"></i> <span>Notas de Pedido</span>
                             </a>
                         </li>
+                        {% endif %}
+                        {% if request.user.is_doctor %}
                         <li>
                             <a href="{% url 'cliente:index' %}">
                                 <i class="fa fa-user-md"></i> <span>Historial de Clientes</span>
@@ -166,19 +169,21 @@
                                 <i class="fa fa-medkit"></i> <span>Exámen Médico</span>
                             </a>
                         </li>
-
+                        {% endif %}
+                        {% if request.user.is_seller %}
                         <li>
                             <a href="{% url 'almacen:producto' %}">
                                 <i class="fa fa-folder "></i> <span>Productos</span>
                             </a>
                         </li>
-
+                        {% endif %}
+                        {% if request.user.is_staff %}
                         <li>
                             <a  target="_blank" href="{% url 'admin:index' %}">
                                 <i class="fa fa-archive"></i> <span>Panel de Administracion</span>
                             </a>
                         </li>
-
+                        {% endif %}
                     </ul>
                 </section>
                 <!-- /.sidebar -->

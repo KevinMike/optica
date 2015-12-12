@@ -13,54 +13,81 @@
         <div class="col-lg-12">
             <section class="panel general">
                     <header class="panel-heading">
-                        <strong>Registro de Ventas</strong>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#lista_ventas">BOLETAS DE VENTA</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#bloque">BLOQUE DE VENTA</a>
+                            </li>
+                        </ul>
                     </header>
                     <div class="panel-body">
-                        <table id="tabla1" class="display" cellspacing="0" width="100%">
-                            <thead>
-                                <th>Boleta de Venta</th>
-                                <th>DNI</th>
-                                <th>Nombre</th>
-                                <th>Fecha</th>
-                                <th>Total</th>
-                                <th>Abono</th>
-                                <th>Saldo</th>
-                                <th>Cancelado</th>
-                                <th>Reporte</th>
-                            </thead>
-                            <tfoot>
-                                <th>Boleta de Venta</th>
-                                <th>DNI</th>
-                                <th>Nombre</th>
-                                <th>Fecha</th>
-                                <th>Total</th>
-                                <th>Abono</th>
-                                <th>Saldo</th>
-                                <th>Cancelado</th>
-                                <th>Reporte</th>
-                            </tfoot>
-                            <tbody>
-                                {% for venta in ventas %}
-                                <tr>
-                                    <td>{{ venta.nro }}</td>
-                                    <td>{{ venta.dni_cliente.dni }}</td>
-                                    <td>{{ venta.dni_cliente.nombre_completo }}</td>
-                                    <td>{{ venta.fecha }}</td>
-                                    <td>{{ venta.total }}</td>
-                                    <td>{{ venta.importe }}</td>
-                                    <td>{{ venta.saldo }}</td>
-                                    <td>
-                                        {% if venta.cancelado %}
-                                            <img src="{% static 'images/check.png' %}" width="25" height="25" data-toggle="tooltip" title="Venta Cancelada"> Pagado
-                                        {% else %}
-                                            <img src="{% static 'images/pay.png' %}" width="25" height="25" data-toggle="tooltip" title="Falta Pagar"> Por Pagar</a>
-                                        {% endif %}
-                                    </td>
-                                    <td><a href="{% url 'facturacion:reporte' venta.id %}" target="_blank"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el reporte"></a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="tab-content">
+                            <div id="lista_ventas" class="tab-pane active">
+                                 <table id="tabla1" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                        <th>Boleta de Venta</th>
+                                        <th>DNI</th>
+                                        <th>Nombre</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                        <th>Abono</th>
+                                        <th>Saldo</th>
+                                        <th>Cancelado</th>
+                                        <th>Reporte</th>
+                                    </thead>
+                                    <tfoot>
+                                        <th>Boleta de Venta</th>
+                                        <th>DNI</th>
+                                        <th>Nombre</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                        <th>Abono</th>
+                                        <th>Saldo</th>
+                                        <th>Cancelado</th>
+                                        <th>Reporte</th>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for venta in ventas %}
+                                        <tr>
+                                            <td>{{ venta.nro }}</td>
+                                            <td>{{ venta.dni_cliente.dni }}</td>
+                                            <td>{{ venta.dni_cliente.nombre_completo }}</td>
+                                            <td>{{ venta.fecha }}</td>
+                                            <td>{{ venta.total }}</td>
+                                            <td>{{ venta.importe }}</td>
+                                            <td>{{ venta.saldo }}</td>
+                                            <td>
+                                                {% if venta.cancelado %}
+                                                    <img src="{% static 'images/check.png' %}" width="25" height="25" data-toggle="tooltip" title="Venta Cancelada"> Pagado
+                                                {% else %}
+                                                    <img src="{% static 'images/pay.png' %}" width="25" height="25" data-toggle="tooltip" title="Falta Pagar"> Por Pagar</a>
+                                                {% endif %}
+                                            </td>
+                                            <td><a href="{% url 'facturacion:reporte' venta.id %}" target="_blank"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el reporte">Ver Reporte</a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="bloque" class="tab-pane">
+                                 <h3>Bloque Actual {{ bloque }}</h3>
+                                <form method="POST" ACTION="{% url  'facturacion:change_BloqueVenta'%}"> {% csrf_token  %}
+                                    <div class="form-group">
+                                        {{ bloque_form }}
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Seleccionar Bloque</button>
+                                    </div>
+                                </form>
+                                <form action="{% url 'facturacion:new_BloqueVenta' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success">Nuevo Bloque</button>
+                                </form>
+                            </div>
+                        </div>
+
                      </div>
             </section>
         </div>
