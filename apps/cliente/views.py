@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import HttpResponseBadRequest
+from django.db.models import Max
 from apps.usuarios.views import LoginRequiredMixin
 from apps.receta.models import Receta
 from apps.facturacion.models import Venta
@@ -13,27 +14,27 @@ import json
 class Index(LoginRequiredMixin, View):
     template_name = 'clientes/index.html'
     def get(self,request):
-        ventas = Venta.objects.all()
-        recetas = Receta.objects.all()
+        clientes = Cliente.objects.all()
+        for item in clientes:
+            try:
+                auxiliar = item.receta_set.all().order_by('-fecha')[0]
+                item.receta_actual = auxiliar.id
+            except IndexError:
+                item.receta_actual = 0
         return render(self.request,self.template_name,locals())
-
 
 @csrf_exempt
 def SaveClient(request):
     template_name = 'facturacion/index.html'
     if request.method == 'POST':
         if request.is_ajax():
-            #data = json.loads(request.body)
-            #cliente_form = ClienteForm(data)
             cliente_form = ClienteForm(request.POST,request.FILES)
             if (cliente_form.is_valid()):
                 print "formulario valido  :D"
                 print request.POST
                 print request.FILES
                 cliente = cliente_form.save(commit=False)
-                #cliente.foto = request.FILES['foto']
                 cliente.save()
-                #mensaje = {'mensaje':'El cliente ' + str(data['nombre']) + ' '+ str(data['apellido']) +' fue registrado con exito','datos': data }
                 mensaje = {'mensaje':'El cliente ' + request.POST['nombre'] + ' '+ request.POST['apellido'] +' fue registrado con exito','datos':{'dni':request.POST['dni']}}
                 return  HttpResponse(json.dumps(mensaje),content_type='application/json')
             else:
@@ -57,20 +58,18 @@ def SaveClient(request):
     else:
         return redirect('/facturacion/')
 
-def SearchClient(request,cliente_id):
-    lista = []
+def SearchClient(request):
+    cliente_id = request.GET['dni']
     cliente = Cliente.objects.get(pk=cliente_id)
     if cliente.dni==cliente_id:
-        lista.append(
-            {
-                'foto':cliente.fotografia(),
-                'nombre':cliente.nombre + ' '+cliente.apellido,
-                'telefono':cliente.telefono,
-                'email':cliente.email,
-             })
+        lista = {
+                    'foto':cliente.fotografia(),
+                    'nombre':cliente.nombre + ' '+cliente.apellido,
+                    'telefono':cliente.telefono,
+                    'email':cliente.email,
+                }
     else:
-        lista.append(
-            {
-                'Mensaje':'Cliente no encontrado',
-             })
+        lista = {
+                    'Mensaje':'Cliente no encontrado',
+                }
     return HttpResponse(json.dumps(lista),content_type='application/json')

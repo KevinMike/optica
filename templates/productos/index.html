@@ -33,30 +33,30 @@
                     <header class="panel-heading tab-bg-dark-navy-blue">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a data-toggle="tab" href="#home">INGRESAR PRODUCTOS</a>
+                                <a data-toggle="tab" href="#registrar_productos">INGRESAR PRODUCTOS</a>
                             </li>
                             <li class="">
-                                <a data-toggle="tab" href="#register">LISTA DE PRODUCTOS</a>
+                                <a data-toggle="tab" href="#lista_productos">LISTA DE PRODUCTOS</a>
                             </li>
                         </ul>
                     </header>
                     <div class="panel-body">
                         <div class="tab-content">
-                            <div id="home" class="tab-pane active">
-                         <div class="col-md-6">
-                                <form action="{% url 'almacen:producto' %}" method="POST">{% csrf_token %}
-                                    <div class="panel panel-primary">
+                            <div id="registrar_productos" class="tab-pane active">
+                                <div class="col-md-6">
+                                    <form action="{% url 'almacen:producto' %}" method="POST">{% csrf_token %}
+                                        <div class="panel panel-primary">
 
-                                            <div class="panel-heading">Nuevo Producto</div>
-                                            <div class="panel-body">
-                                                {{ producto_form.as_p }}
-                                            </div>
-                                          <div class="panel-footer">
-                                                    <button class="btn btn-success" type="submit" value="Submit">Registrar Producto</button>
-                                                    <button class="btn btn-danger" type="reset" value="Reset">Limpiar</button>
-                                          </div>
-                                    </div>
-                                </form>
+                                                <div class="panel-heading">Nuevo Producto</div>
+                                                <div class="panel-body">
+                                                    {{ producto_form.as_p }}
+                                                </div>
+                                              <div class="panel-footer">
+                                                        <button class="btn btn-success" type="submit" value="Submit">Registrar Producto</button>
+                                                        <button class="btn btn-danger" type="reset" value="Reset">Limpiar</button>
+                                              </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="col-md-6">
                                    {% if request.user.is_staff %}
@@ -75,7 +75,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div id="register" class="tab-pane">
+                            <div id="lista_productos" class="tab-pane">
                                 <table id="tabla1" class="display" cellspacing="0" width="100%">
                                     <thead>
                                         <th>Código</th>

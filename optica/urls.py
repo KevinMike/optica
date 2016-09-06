@@ -32,7 +32,6 @@ urlpatterns = [
     url(r'^cliente/',include('apps.cliente.urls',namespace='cliente')),
     url(r'^facturacion/',include('apps.facturacion.urls',namespace='facturacion')),
     url(r'^receta/',include('apps.receta.urls',namespace='receta')),
-    url(r'^report_builder/', include('report_builder.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

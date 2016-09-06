@@ -5,10 +5,23 @@ from apps.almacen.models import Producto,Lente,Aditivos
 from apps.receta.models import *
 from django.utils import timezone
 # Create your models here
+class BloqueVenta(models.Model):
+    fecha = models.DateField(default=timezone.now())
+    current = models.BooleanField(default=True)
+    def __unicode__(self):
+        return str(self.id)
+
+
+class BloquePedido(models.Model):
+    fecha = models.DateField(default=timezone.now())
+    current = models.BooleanField(default=True)
+    def __unicode__(self):
+        return str(self.id)
+
 
 class Venta(models.Model):
-    nro = models.IntegerField(unique=True)
-    bloque = models.IntegerField(blank=True, null=True)
+    nro = models.IntegerField(blank=True,null=True)
+    bloque = models.ForeignKey(BloqueVenta,blank=True,null=True)
     dni_cliente = models.ForeignKey(Cliente,blank=True, null=True)
     fecha = models.DateField(default = timezone.now())
     importe = models.DecimalField(max_digits=10,decimal_places=2,blank=True, null=True)
@@ -18,7 +31,7 @@ class Venta(models.Model):
     observaciones = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
-        return "Venta nro. %i" %(self.nro)
+        return "Venta nro. %s, talonario %s" %(self.nro or 'Venta Fallida',self.bloque or 'No tiene')
 
     class Meta:
         verbose_name = 'Venta'
@@ -33,14 +46,14 @@ class DetalleVenta(models.Model):
         return "%s - %s" %(self.producto,self.cantidad)
 
 class DetalleLente(models.Model):
-    nro_venta = models.OneToOneField(Venta, blank=True)
+    nro_venta = models.ForeignKey(Venta, blank=True)
     lente = models.ForeignKey(Lente)
     complementos = models.ManyToManyField(Aditivos)
     precio = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
 
 class NotaPedido(models.Model):
-    nro = models.IntegerField(unique=True)
-    bloque = models.IntegerField(blank=True, null=True)
+    nro = models.IntegerField()
+    bloque = models.ForeignKey(BloquePedido)
     venta = models.ForeignKey(Venta)
     fecha = models.DateField(default=timezone.now())
     importe = models.DecimalField(max_digits=10,decimal_places=2,default=0.00)

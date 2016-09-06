@@ -14,3 +14,21 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "optica.settings")
 
 application = get_wsgi_application()
+
+
+
+# print "hola joven"
+# import os
+# import sys
+# import site
+#
+# # Add the site-packages of the chosen virtualenv to work with
+# site.addsitedir('C:/Users/usurio/optica-latyna/Lib/site-packages')
+# # Add the app's directory to the PYTHONPATH
+# sys.path.append('c:/xampp/htdocs/optica')
+# os.environ['DJANGO_SETTINGS_MODULE'] = 'optica.settings'
+# # Activate your virtual env
+# activate_env=os.path.expanduser("C:/Users/usurio/optica-latyna/Scripts/activate_this.py")
+# execfile(activate_env, dict(__file__=activate_env))
+#from django.core.wsgi import get_wsgi_application
+#application = get_wsgi_application()

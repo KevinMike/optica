@@ -42,6 +42,9 @@ class IngresoProductosAdmin(admin.ModelAdmin):
             obj.save()
         else:
             obj.save()
+            product = Producto.objects.get(pk=obj.producto.id)
+            product.stock_actual += obj.cantidad
+            product.save()
 
     model = IngresoProductos
     list_display = ('fecha','producto','proveedor','cantidad')

@@ -1,0 +1,6 @@
+.DS_Store
+.Trashes
+Thumbs.db
+*.pyc
+.idea/*
+.idea/

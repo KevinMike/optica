@@ -1,210 +1,284 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row" style="margin-bottom:5px;">
-                {% if request.user.is_staff %}
-                        <div class="col-md-4">
-                            <div class="sm-st clearfix">
-                                <span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
-                                <div class="sm-st-info">
-                                    <span>{{ numero_mensaje }}</span>
-                                    Total de Mensajes
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="sm-st clearfix">
-                                <span class="sm-st-icon st-blue"><i class="fa fa-dollar"></i></span>
-                                <div class="sm-st-info">
-                                    <span>{{ suma_mes }} soles</span>
-                                    Total en Caja Mensual
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="sm-st clearfix">
-                                <span class="sm-st-icon st-green"><i class="fa fa-dollar"></i></span>
-                                <div class="sm-st-info">
-                                    <span>{{ suma_dia }} soles</span>
-                                    Total en caja Diario
-                                </div>
-                            </div>
-                        </div>
-
-                    {% endif %}
-                <section class="content">
-                    <div class="row">
-
-                        <div class="col-md-12">
-                            <!--earning graph start-->
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    Ventas y Ganancias
-                                </header>
-                                <div class="panel-body">
-                                    <canvas id="linechart" width="600" height="330"></canvas>
-                                </div>
-                            </section>
-                                        <!--earning graph end-->
-
-                        </div>
-                  {% comment %}      <div class="col-lg-4">
-
-                            <!--chat start-->
-                            <section class="panel panel-warning">
-                                <header class="panel-heading">
-                                    Notificaciones
-                                </header>
-                                    <div class="panel-body" id="noti-box">
-                                        {% for proveedor in proveedores %}
-                                            <div class= "alert alert-block alert-info">
-                                                <button data-dismiss="alert" class="close close-sm" type="button">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                                <strong>{{ proveedor.nombre }}</strong> Telefono: {{ proveedor.telefono }}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                            </section>
-                        </div>{% endcomment %}
-                  </div>
-                </section><!-- /.content -->
-
-
-
- <section class="content">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-success">
-                            <header class="panel-heading">
-                                Clientes que estan de cumpleaños
-                            </header>
-
-                            <ul class="list-group teammates">
-                               {% for cliente in clientes %}
-                                <li class="list-group-item">
-                                    <a href=""><img src="/media/{{ cliente.foto }}"  width="100" height="100"></a>
-                                    <span class="pull-right label label-danger inline m-t-15">{{ cliente.email }}</span>
-                                    <a href="">{{ cliente.nombre }} {{ cliente.apellido }}</a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                      <section class="panel panel-info tasks-widget">
-                          <header class="panel-heading">
-                              Recordatorios de Meciciones
+    <div class="row" style="margin-bottom:5px;">
+    {% if request.user.is_staff %}
+        <div class="col-md-4">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
+                <div class="sm-st-info">
+                    <span>{{ numero_mensaje }}</span>
+                    Total de Mensajes
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-blue"><i class="fa fa-dollar"></i></span>
+                <div class="sm-st-info">
+                    <span>{{ suma_mes }} soles</span>
+                    Total Mensual de las Boletas de Venta
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-green"><i class="fa fa-dollar"></i></span>
+                <div class="sm-st-info">
+                    <span>{{ suma_dia }} soles</span>
+                    Total Diario de las Boletas de Venta
+                </div>
+            </div>
+        </div>
+        <section class="content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--earning graph start-->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <i class="fa fa-map-o"></i>    Ventas y Ganancias
                         </header>
                         <div class="panel-body">
-                           <ul class="list-group teammates">
-                               {% for item in receta %}
-                                <li class="list-group-item">
-                                    <a href=""><img src="/media/{{ item.cliente.foto }}"  width="100" height="100"></a>
-                                    <span class="pull-right label label-danger inline m-t-15">{{ item.cliente.email }}</span>
-                                    <a href="">{{ item.cliente.nombre }} {{ item.cliente.apellido }}</a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-
-                      </div>
+                            <!--<canvas id="linechart" width="100%" height="330"></canvas>
+                            <div class="row" style="margin: 0 3em">
+                                <div class="col-lg-6" style="background-color: rgba(151,187,205,0.2);" >Total Recaudado en Soles</div>
+                                <div class="col-lg-6" style="background-color: rgba(220,220,220,0.2);">Número de Ventas</div>
+                            </div>-->
+                            <div class="col-lg-12">
+                              <p class="text-center">
+                                <strong id="rango"></strong>
+                              </p>
+                              <div class="chart">
+                                <!-- Sales Chart Canvas -->
+                                <canvas id="salesChart" style="height: 180px;"></canvas>
+                              </div><!-- /.chart-responsive -->
+                                <div class="row" style="margin: 0 3em">
+                                <div class="col-lg-6" style="color:white; background-color:rgba(60,141,188,0.9);" >Total Recaudado en Soles</div>
+                                <div class="col-lg-6" style="background-color:rgb(210, 214, 222);">Número de Ventas</div>
+                                </div>
+                            </div><!-- /.col -->
+                        </div>
                     </section>
-                  </div>
+
+                    <!--earning graph end-->
+                </div>
+          </div>
+        </section><!-- /.content -->
+    {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+          <div class="box box-info ">
+            <div class="box-header with-border">
+              <h3 class="box-title">Recordatorios de Mediciones</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               </div>
-              <!-- row end -->
-    </section>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                    <tr>
+                      <th>Fecha de Medición</th>
+                      <th>Cliente</th>
+                      <th>Correo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for item in receta %}
+                    <tr>
+                      <td>{{ item.fecha }}</td>
+                      <td>{{ item.cliente.nombre_completo }}</td>
+                      <td><span class="label label-success">{{ item.cliente.email }}</span></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div><!-- /.table-responsive -->
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </div>
+        <div class="col-lg-4">
+          <div class="box box-info ">
+            <div class="box-header with-border">
+              <h3 class="box-title">Cumpleaños</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Correo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for cliente in clientes %}
+                    <tr>
+                      <td>{{ cliente.nombre_completo }}</td>
+                      <td><span class="label label-success">{{ cliente.email }}</span></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div><!-- /.table-responsive -->
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </div>
+    </div>
+
+
 {% endblock %}
 
 {% block application_javascript %}
         <script type="text/javascript">
-        function ObtenerEstadistica()
-        {
-            $.ajax({
-                url: "/cliente/buscar-cliente/" +  $("#BuscarCliente").val(),
-                type: "GET",
-                dataType: "json",
-                async: true,
-                success: function (j) {
-                    for(var i = 0; i< j.length; i++)
-                    {
-                        $('#cliente_foto').html(j[i]['foto']);
-                        $('#cliente_nombre').html(j[i]['nombre']);
-                        $('#cliente_telefono').html(j[i]['telefono']);
-                        $('#cliente_email').html(j[i]['email']);
-                        $('#add_cliente').attr('disabled',true);
-                    }
-                },
-                error: function (xhr, errmsg, err) {
-                        $('#cliente_foto').html('No existe');
-                        $('#cliente_nombre').html('Cliente no encontrado');
-                        $('#cliente_telefono').html('No existe');
-                        $('#cliente_email').html('No existe');
-                        $('#add_cliente').attr('disabled',false);
-                }
-            });
-        }
+            $(function() {
+                var meses = JSON.parse(("{{meses}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                    return {
+                        l   : '<',
+                        g   : '>',
+                        quo : '"'
+                    }[b];
+                }));
+                var totales = JSON.parse(("{{totales}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                    return {
+                        l   : '<',
+                        g   : '>',
+                        quo : '"'
+                    }[b];
+                }));
+                var contador = JSON.parse(("{{contador}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                    return {
+                        l   : '<',
+                        g   : '>',
+                        quo : '"'
+                    }[b];
+                }));
+                var auxiliar = meses.pop()
+                meses.push(auxiliar)
+                var rango = auxiliar.toString()+ " hasta " +meses[0].toString();
+                document.querySelector("#rango").innerText = rango;
+                //BAR CHART
+                /*var data = {
+                    labels: meses,
+                    datasets: [
+                        {
+                            label: "Número de Ventas",
+                            fillColor: "rgba(220,220,220,0.2)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            //data: [89, 59, 80, 81, 56, 55, 40]
+                            data : contador
+                        }
+                        {% if request.user.is_staff %}
+                        ,
+                        {
 
-        $(function() {
-            var meses = JSON.parse(("{{meses}}").replace(/&(l|g|quo)t;/g, function(a,b){
-                return {
-                    l   : '<',
-                    g   : '>',
-                    quo : '"'
-                }[b];
-            }));
-            var totales = JSON.parse(("{{totales}}").replace(/&(l|g|quo)t;/g, function(a,b){
-                return {
-                    l   : '<',
-                    g   : '>',
-                    quo : '"'
-                }[b];
-            }));
-            var contador = JSON.parse(("{{contador}}").replace(/&(l|g|quo)t;/g, function(a,b){
-                return {
-                    l   : '<',
-                    g   : '>',
-                    quo : '"'
-                }[b];
-            }));
-                "use strict";
-                    //BAR CHART
-                    var data = {
-                        //labels: ["January", "February", "March", "April", "May", "June", "July"],
-                        labels: meses,
-                        datasets: [
-                            {
-                                label: "Número de Ventas",
-                                fillColor: "rgba(220,220,220,0.2)",
-                                strokeColor: "rgba(220,220,220,1)",
-                                pointColor: "rgba(220,220,220,1)",
-                                pointStrokeColor: "#fff",
-                                pointHighlightFill: "#fff",
-                                pointHighlightStroke: "rgba(220,220,220,1)",
-                                //data: [89, 59, 80, 81, 56, 55, 40]
-                                data : contador
-                            }
-                            {% if request.user.is_staff %}
-                            ,
-                            {
-
-                                label: "Total Recaudado",
-                                fillColor: "rgba(151,187,205,0.2)",
-                                strokeColor: "rgba(151,187,205,1)",
-                                pointColor: "rgba(151,187,205,1)",
-                                pointStrokeColor: "#fff",
-                                pointHighlightFill: "#fff",
-                                pointHighlightStroke: "rgba(151,187,205,1)",
-                                //data: [28, 48, 40, 19, 86, 27, 90]
-                                data: totales
-                            }
-                            {% endif %}
-                        ]
-                    };
+                            label: "Total Recaudado",
+                            fillColor: "rgba(151,187,205,0.2)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            //data: [28, 48, 40, 19, 86, 27, 90]
+                            data: totales
+                        }
+                        {% endif %}
+                    ]
+                };
                 new Chart(document.getElementById("linechart").getContext("2d")).Line(data,{
                     responsive : true,
                     maintainAspectRatio: false,
-                });
+                });*/
 
-        });
-                // Chart.defaults.global.responsive = true;
+            //-----------------------
+  //- MONTHLY SALES CHART -
+  //-----------------------
+
+  // Get context with jQuery - using jQuery's .get() method.
+  var salesChartCanvas = $("#salesChart").get(0).getContext("2d");
+  // This will get the first returned node in the jQuery collection.
+  var salesChart = new Chart(salesChartCanvas);
+
+  var salesChartData = {
+    labels: meses,
+    datasets: [
+
+      {
+        label: "Digital Goods",
+        fillColor: "rgba(60,141,188,0.9)",
+        strokeColor: "rgba(60,141,188,0.8)",
+        pointColor: "#3b8bba",
+        pointStrokeColor: "rgba(60,141,188,1)",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(60,141,188,1)",
+        data: totales
+      },
+      {
+        label: "Electronics",
+        fillColor: "rgb(210, 214, 222)",
+        strokeColor: "rgb(210, 214, 222)",
+        pointColor: "rgb(210, 214, 222)",
+        pointStrokeColor: "#c1c7d1",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgb(220,220,220)",
+        data: contador
+      }
+    ]
+  };
+
+  var salesChartOptions = {
+    //Boolean - If we should show the scale at all
+    showScale: true,
+    //Boolean - Whether grid lines are shown across the chart
+    scaleShowGridLines: false,
+    //String - Colour of the grid lines
+    scaleGridLineColor: "rgba(0,0,0,.05)",
+    //Number - Width of the grid lines
+    scaleGridLineWidth: 1,
+    //Boolean - Whether to show horizontal lines (except X axis)
+    scaleShowHorizontalLines: true,
+    //Boolean - Whether to show vertical lines (except Y axis)
+    scaleShowVerticalLines: true,
+    //Boolean - Whether the line is curved between points
+    bezierCurve: true,
+    //Number - Tension of the bezier curve between points
+    bezierCurveTension: 0.3,
+    //Boolean - Whether to show a dot for each point
+    pointDot: false,
+    //Number - Radius of each point dot in pixels
+    pointDotRadius: 4,
+    //Number - Pixel width of point dot stroke
+    pointDotStrokeWidth: 1,
+    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+    pointHitDetectionRadius: 20,
+    //Boolean - Whether to show a stroke for datasets
+    datasetStroke: true,
+    //Number - Pixel width of dataset stroke
+    datasetStrokeWidth: 2,
+    //Boolean - Whether to fill the dataset with a color
+    datasetFill: true,
+    //String - A legend template
+    //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+    maintainAspectRatio: true,
+    //Boolean - whether to make the chart responsive to window resizing
+    responsive: true
+  };
+
+  //Create the line chart
+  salesChart.Line(salesChartData, salesChartOptions);
+
+  //---------------------------
+  //- END MONTHLY SALES CHART -
+  //---------------------------
+            });
+            Chart.defaults.global.responsive = true;
     </script>
 {% endblock %}

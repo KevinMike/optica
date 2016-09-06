@@ -9,12 +9,15 @@ from .forms import ProductoForm,IngresoProductosForm
 from django.contrib import messages
 from apps.usuarios.views import LoginRequiredMixin
 from decimal import Decimal
-
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 
 class Index(LoginRequiredMixin,View):
     template_name = 'index.html'
     def get(self,request):
+        # Calculando 6 meses anterior y sus totales
         import datetime
         nombre_meses = { 1:"Enero",2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"Agosto",9:"Setiembre",10:"Octubre", 11:"Noviembre",12:"Diciembre" }
         contador = [0,0,0,0,0,0]
@@ -58,29 +61,29 @@ class Index(LoginRequiredMixin,View):
             meses.append([8,datetime.date.today().year-1])
             flag = True
 
-        for item in ventas:#Calcular totales
+        for item in ventas:#Calcular totales del dia y del mes
             if item.fecha == datetime.date.today():
-                suma_dia += Decimal(item.total)
+                suma_dia += Decimal(item.total or 0)
             if (item.fecha.month == datetime.date.today().month) and (item.fecha.year == datetime.date.today().year):
-                suma_mes += Decimal(item.total)
-            #Cacular totales
+                suma_mes += Decimal(item.total or 0)
+            #Cacular totales para los 6 meses
             if (item.fecha.month == meses[0][0]) and (item.fecha.year == meses[0][1]):
-                totales[0] += Decimal(item.total)
+                totales[0] += Decimal(item.total or 0)
                 contador[0] += 1
             if (item.fecha.month == meses[1][0]) and (item.fecha.year == meses[1][1]):
-                totales[1] += Decimal(item.total)
+                totales[1] += Decimal(item.total or 0)
                 contador[1] += 1
             if (item.fecha.month == meses[2][0]) and (item.fecha.year == meses[2][1]):
-                totales[2] += Decimal(item.total)
+                totales[2] += Decimal(item.total or 0)
                 contador[2] += 1
             if (item.fecha.month == meses[3][0]) and (item.fecha.year == meses[3][1]):
-                totales[3] += Decimal(item.total)
+                totales[3] += Decimal(item.total or 0)
                 contador[3] += 1
             if (item.fecha.month == meses[4][0]) and (item.fecha.year == meses[4][1]):
-                totales[4] += Decimal(item.total)
+                totales[4] += Decimal(item.total or 0)
                 contador[4] += 1
             if (item.fecha.month == meses[5][0]) and (item.fecha.year == meses[5][1]):
-                totales[5] += Decimal(item.total)
+                totales[5] += Decimal(item.total or 0)
                 contador[5] += 1
 
         #Renderizando datos a json
@@ -96,6 +99,7 @@ class Index(LoginRequiredMixin,View):
             totales[index] = float(totales[index])
             index+=1
         totales = json.dumps(totales)
+        # Clientes de cumpleaños
         clientes = Cliente.objects.filter(fecha_nacimiento__month=datetime.date.today().month, fecha_nacimiento__day=datetime.date.today().day)
         return render(request,self.template_name,locals())
 
@@ -112,7 +116,7 @@ class Productos(LoginRequiredMixin,View):
         ingreso_form = IngresoProductosForm(request.POST)
         if producto_form.is_valid():
             producto = producto_form.save()
-            messages.success(request, 'El producto '+str(producto.descripcion)+' de código '+str(producto.codigo)+' fue registrado con exito')
+            messages.success(request, unicode('El producto '+unicode(producto.descripcion)+' de código '+unicode(producto.codigo)+' fue registrado con exito'))
             productos = Producto.objects.all()
             producto_form = ProductoForm()
             ingreso_form = IngresoProductosForm()

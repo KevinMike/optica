@@ -24,7 +24,7 @@
 <body class="skin-black">
     <!-- header logo: style can be found in header.less -->
     <header class="header">
-        <a href="index.html" class="logo">
+        <a href="#" class="logo">
             Optica Latyna
         </a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -38,6 +38,7 @@
             </a>
             <div class="navbar-right">
                 <ul class="nav navbar-nav">
+                    <li><a target="_blank" href="https://www.facebook.com/latyna.optica?fref=ts"><i class="fa fa-facebook-square"></i></a></li>
                     <!-- Messages: style can be found in dropdown.less-->
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -117,19 +118,6 @@
                     <div class="user-panel">
                         <!-- can use class img-circle -->
                         <img src="{% static 'images/logo.jpg' %}"  alt="logo" />
-                        <br>
-                        <div class="pull-left image">
-                            <img src="{% static 'images/default_user.png' %}" class="img-circle" alt="User Image" />
-                        </div>
-                        <div class="pull-left info">
-                            <p>Hola, {{ request.user }}</p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        </div>
-                    </div>
-
-                    <div class="user-panel">
-
                     </div>
 
                     <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -139,7 +127,8 @@
                                 <i class="fa fa-home "></i> <span>Menú Principal</span>
                             </a>
                         </li>
-                        <li>
+                        {% if request.user.is_seller %}
+                        {% comment %}<li>
                             <a href="{% url 'facturacion:index' %}">
                                 <i class="fa fa-credit-card"></i> <span>Registrar Venta</span>
                             </a>
@@ -154,7 +143,9 @@
                             <a href="{% url 'facturacion:nota' %}">
                                 <i class="fa fa-credit-card"></i> <span>Notas de Pedido</span>
                             </a>
-                        </li>
+                        </li>{% endcomment %}
+                        {% endif %}
+                        {% if request.user.is_doctor %}
                         <li>
                             <a href="{% url 'cliente:index' %}">
                                 <i class="fa fa-user-md"></i> <span>Historial de Clientes</span>
@@ -166,19 +157,21 @@
                                 <i class="fa fa-medkit"></i> <span>Exámen Médico</span>
                             </a>
                         </li>
-
-                        <li>
-                            <a href="{% url 'almacen:producto' %}">
-                                <i class="fa fa-folder "></i> <span>Productos</span>
-                            </a>
-                        </li>
-
+                        {% endif %}
+                        {% if request.user.is_seller %}
+{% comment %}                            <li>
+                                <a href="{% url 'almacen:producto' %}">
+                                    <i class="fa fa-folder "></i> <span>Productos</span>
+                                </a>
+                            </li>{% endcomment %}
+                        {% endif %}
+                        {% if request.user.is_staff %}
                         <li>
                             <a  target="_blank" href="{% url 'admin:index' %}">
                                 <i class="fa fa-archive"></i> <span>Panel de Administracion</span>
                             </a>
                         </li>
-
+                        {% endif %}
                     </ul>
                 </section>
                 <!-- /.sidebar -->

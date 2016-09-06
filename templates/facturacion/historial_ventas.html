@@ -13,54 +13,99 @@
         <div class="col-lg-12">
             <section class="panel general">
                     <header class="panel-heading">
-                        <strong>Registro de Ventas</strong>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#lista_ventas">BOLETAS DE VENTA</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#bloque">TALONARIO DE BOLETAS DE VENTA</a>
+                            </li>
+                        </ul>
                     </header>
                     <div class="panel-body">
-                        <table id="tabla1" class="display" cellspacing="0" width="100%">
-                            <thead>
-                                <th>Boleta de Venta</th>
-                                <th>DNI</th>
-                                <th>Nombre</th>
-                                <th>Fecha</th>
-                                <th>Total</th>
-                                <th>Abono</th>
-                                <th>Saldo</th>
-                                <th>Cancelado</th>
-                                <th>Reporte</th>
-                            </thead>
-                            <tfoot>
-                                <th>Boleta de Venta</th>
-                                <th>DNI</th>
-                                <th>Nombre</th>
-                                <th>Fecha</th>
-                                <th>Total</th>
-                                <th>Abono</th>
-                                <th>Saldo</th>
-                                <th>Cancelado</th>
-                                <th>Reporte</th>
-                            </tfoot>
-                            <tbody>
-                                {% for venta in ventas %}
-                                <tr>
-                                    <td>{{ venta.nro }}</td>
-                                    <td>{{ venta.dni_cliente.dni }}</td>
-                                    <td>{{ venta.dni_cliente.nombre_completo }}</td>
-                                    <td>{{ venta.fecha }}</td>
-                                    <td>{{ venta.total }}</td>
-                                    <td>{{ venta.importe }}</td>
-                                    <td>{{ venta.saldo }}</td>
-                                    <td>
-                                        {% if venta.cancelado %}
-                                            <img src="{% static 'images/check.png' %}" width="25" height="25" data-toggle="tooltip" title="Venta Cancelada"> Pagado
-                                        {% else %}
-                                            <img src="{% static 'images/pay.png' %}" width="25" height="25" data-toggle="tooltip" title="Falta Pagar"> Por Pagar</a>
-                                        {% endif %}
-                                    </td>
-                                    <td><a href="{% url 'facturacion:reporte' venta.id %}" target="_blank"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el reporte"></a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="tab-content">
+                            <div id="lista_ventas" class="tab-pane active">
+                                 <table id="tabla1" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                        <th>Boleta de Venta</th>
+                                        <th>Talonario</th>
+                                        <th>DNI</th>
+                                        <th>Nombre</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                        <th>Abono</th>
+                                        <th>Saldo</th>
+                                        <th>Cancelado</th>
+                                        <th>Reporte</th>
+                                    </thead>
+                                    <tfoot>
+                                        <th>Boleta de Venta</th>
+                                        <th>Talonario</th>
+                                        <th>DNI</th>
+                                        <th>Nombre</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                        <th>Abono</th>
+                                        <th>Saldo</th>
+                                        <th>Cancelado</th>
+                                        <th>Reporte</th>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for venta in ventas %}
+                                        <tr>
+                                            <td>{{ venta.nro }}</td>
+                                            <td>{{ venta.bloque}}</td>
+                                            <td>{{ venta.dni_cliente.dni }}</td>
+                                            <td>{{ venta.dni_cliente.nombre_completo }}</td>
+                                            <td>{{ venta.fecha }}</td>
+                                            <td>{{ venta.total }}</td>
+                                            <td>{{ venta.importe }}</td>
+                                            <td>{{ venta.saldo }}</td>
+                                            <td>
+                                                {% if venta.cancelado %}
+                                                    <img src="{% static 'images/check.png' %}" width="25" height="25" data-toggle="tooltip" title="Venta Cancelada"> Pagado
+                                                {% else %}
+                                                    <img src="{% static 'images/pay.png' %}" width="25" height="25" data-toggle="tooltip" title="Falta Pagar"> Por Pagar</a>
+                                                {% endif %}
+                                            </td>
+                                            <td><a href="{% url 'facturacion:reporte' venta.id %}" target="_blank"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el reporte">Ver Reporte</a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div id="bloque" class="tab-pane">
+                                <div class="row">
+                                    <div class="col-lg-6 ">
+                                        <legend>Talonarios de Boletas de Venta: {{ bloque }}</legend>
+                                        <form method="POST" ACTION="{% url  'facturacion:change_BloqueVenta'%}"> {% csrf_token  %}
+
+                                                <div class="form-group">
+                                                    {{ bloque_form }}
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary col-lg-12">Seleccionar Bloque</button>
+                                                </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <form action="{% url 'facturacion:new_BloqueVenta' %}">
+                                            {% csrf_token %}
+                                            <div class="alert alert-info" role="alert">
+                                                <strong>Importante:</strong> El Bloque de Ventas es equivalente a los talonarios de las Boletas de Ventas.
+                                                <br>
+                                                Si se selecciona un nuevo bloque de venta, la numeración de las Boletas de Venta se reinician a 1 y se van autoincrementado.
+                                            </div>
+                                            <div class="alert alert-success" role="alert"><strong>Nuevo Bloque: </strong>Crea un nuevo Bloque de Venta.</div>
+                                            <button type="submit" class="btn btn-success col-lg-12">Nuevo Bloque</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
                      </div>
             </section>
         </div>
@@ -68,35 +113,6 @@
 {% endblock %}
 {% block application_javascript %}
     <script>
-    var datatable = {
-        "orderable": false ,
-        "oLanguage": {
-            "oAria": {
-                "sSortAscending": " - ordenar de forma ascendente",
-                "sSortDescending": " - ordenar de forma descendente",
-                "sInfoEmpty": "No hay información para mostrar",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sSearch": "Buscar :",
-                "sZeroRecords": "No hay ningún registro",
-
-            },
-            "oPaginate": {
-                "sFirst": "Primera página",
-                "sLast": "Última página",
-                "sNext": "Página siguiente",
-                "sPrevious": "Página anterior"
-            },
-
-            "sEmptyTable": "Esta tabla no tiene datos",
-            "sInfo": "Mostrando  _START_ - _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 entradas",
-            "sInfoFiltered": "(filtrados de _MAX_  registros en total)",
-            "sLengthMenu": "Motrar _MENU_ registros",
-            "sSearch": "Buscar :",
-            "sZeroRecords": "No se encontraron coincidencias"
-
-        }
-    };
     $(document).ready(function() {
         $(".fancybox").fancybox({
             openEffect	: 'elastic',

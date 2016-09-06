@@ -20,7 +20,9 @@
     {% endif %}
 {% block content %}
     <div class="content" style="background-color: white; border-radius: 0.5em;">
-            <h1><strong>Reporte de Venta Número {{ venta.nro }}</strong></h1>
+            <h1><strong>Venta Número {{ venta.nro }}</strong></h1>
+            <strong class="text-right col-lg-12">{{ venta.fecha|date:"d M Y" }}</strong><br>
+            <strong class="text-right col-lg-12">Talonario de Boletas de Venta N° {{ venta.bloque }}</strong>
             <h3><legend>Datos del Cliente</legend></h3>
                 <table class="table-condensed" style="width: 100%">
                     <tr>
@@ -85,6 +87,13 @@
                         <td>{{ venta.total }} soles</td>
                     </tr>
                </table>
+    </div>
+    <div class="row">
+        <br>
+        <div class="col-lg-12">
+            <div class="alert alert-info" role="alert">Importante: <br>Si el Saldo es <strong>negativo</strong>, significa que ese valor es el cambio que se le devolvió al cliente.
+                <br>Si el Saldo es <strong>positivo</strong>, significa que es lo que el Cliente adeuda.</div>
+        </div>
     </div>
 
 

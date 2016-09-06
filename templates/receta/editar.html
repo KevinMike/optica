@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <style type="text/css">
+        .panel-heading a:after {
+            font-family:'Glyphicons Halflings';
+            content:"\e114";
+            float: right;
+            color: grey;
+        }
+        .panel-heading a.collapsed:after {
+            content:"\e080";
+        }
+    </style>
     {% if messages %}
         {% for message in messages %}
                 {% if message.tags == 'error' %}
@@ -24,7 +35,7 @@
         <form action="{% url 'receta:editar' receta.id  %}" method="post" role="form" class="form-horizontal" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="col-sm-12 col-lg-6">
-                <section class="panel panel-default col-lg-12">
+                <section class="panel panel-info col-lg-12">
                     <header class="panel-heading">
                         Cliente
                     </header>
@@ -47,7 +58,7 @@
                         </table>
                     </div>
                     </section>
-                <section class="panel panel-default col-lg-12">
+                <section class="panel panel-warning col-lg-12">
                         <header class="panel-heading">
                               Tipo de Lente
                         </header>
@@ -77,7 +88,7 @@
                     </section>
             </div>
             <div class="col-sm-12 col-lg-6">
-                <section class="panel panel-default col-lg-12">
+                <section class="panel panel-danger col-lg-12">
                         <header class="panel-heading">
                             <strong>REFRACCIÓN</strong>
                         </header>
@@ -85,38 +96,38 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <th></th>
-                                    <th>Ojo Izquierdo</th>
                                     <th>Ojo Derecho</th>
+                                    <th>Ojo Izquierdo</th>
                                 </tr>
                                 <tr>
                                     <td>ESF.</td>
-                                    <td>{{ form.oi_esf }}</td>
                                     <td>{{ form.od_esf }}</td>
+                                    <td>{{ form.oi_esf }}</td>
                                 </tr>
                                 <tr>
                                     <td>CIL.</td>
-                                    <td>{{ form.oi_cil }}</td>
                                     <td>{{ form.od_cil }}</td>
+                                    <td>{{ form.oi_cil }}</td>
                                 </tr>
                                 <tr>
                                     <td>EJE.</td>
-                                    <td>{{ form.oi_eje }}</td>
                                     <td>{{ form.od_eje }}</td>
+                                    <td>{{ form.oi_eje }}</td>
                                 </tr>
                                 <tr>
                                     <td>DIP.</td>
-                                    <td>{{ form.oi_dip }}</td>
                                     <td>{{ form.od_dip }}</td>
+                                    <td>{{ form.oi_dip }}</td>
                                 </tr>
                                 <tr>
                                     <td>AV. SC.</td>
-                                    <td>{{ form.oi_avsc }}</td>
                                     <td>{{ form.od_avsc }}</td>
+                                    <td>{{ form.oi_avsc }}</td>
                                 </tr>
                                 <tr>
                                     <td>AV. CC.</td>
-                                    <td>{{ form.oi_esf }}</td>
-                                    <td>{{ form.od_esf }}</td>
+                                    <td>{{ form.od_avcc }}</td>
+                                    <td>{{ form.oi_avcc }}</td>
                                 </tr>
                             </table>
                               <div class="form-group">
@@ -130,24 +141,33 @@
                         </div>
                     </section>
             </div>
-            <div class="col-lg-12">
-                <button type="submit" class="btn btn-success enviar_formulario">Registrar Medición</button>
-            </div>
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-success enviar_formulario">Editar Medición Número {{ receta.id }}, Fecha:  {{ receta.fecha }}</button>
+                </div>
         </form>
+
     </div>
 {% endblock %}
 {% block application_javascript %}
     <script type="application/javascript">
             $( document ).ready(function() {
                 $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
-                {% if request.user.is_staff %}
+               {% comment %} {% if request.user.is_staff %}
                     $("input").prop("disabled", false);
                     $("button").prop("disabled", false);
                 {% else %}
                     $("input").prop("disabled", true);
                     $("button").prop("disabled", true);
-                {% endif %}
-
+                {% endif %}{% endcomment %}
+                $(".fancybox").fancybox({
+                    openEffect	: 'elastic',
+                    closeEffect	: 'elastic',
+                    helpers : {
+                        title : {
+                            type : 'inside'
+                        }
+                    }
+                });
 
             });
     </script>

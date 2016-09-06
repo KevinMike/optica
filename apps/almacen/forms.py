@@ -15,7 +15,7 @@ class IngresoProductosForm(forms.ModelForm):
         fields = ('producto','proveedor','cantidad',)
 
 class ProductoForm(forms.ModelForm):
-    codigo = forms.CharField(max_length=5,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Código',}),label="Código",required=False,)
+    codigo = forms.CharField(max_length=10,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Código',}),label="Código",required=False,)
     descripcion = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Descripción','required':'true'}),label="Descripción")
     marca = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Marca',}),label="Marca",required=False,)
     color = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Color',}),label="Color",required=False,)

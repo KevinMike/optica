@@ -27,7 +27,6 @@ class Login(View):
 
     def post(self,request):
         form = self.form_class(request.POST)
-
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user:
             if user.is_active:
@@ -36,7 +35,6 @@ class Login(View):
                     return redirect(request.GET['next'])
                 return redirect('/')
             return render(request, self.template_name, {'form': form, 'error': 'La cuenta esta deshabilitada'})
-
         else:
             return render(request, self.template_name, {'form': form, 'error': 'Verifique los datos ingresados'})
 

@@ -42,7 +42,6 @@ INSTALLED_APPS = (
     'apps.facturacion',
     'apps.receta',
     'apps.usuarios',
-    'report_builder',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,16 +88,16 @@ WSGI_APPLICATION = 'optica.wsgi.application'
 # Database LOCAL
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'latyna',
-#         'USER': 'postgres',
-#         'PASSWORD': '745522',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'latyna',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -106,24 +105,6 @@ WSGI_APPLICATION = 'optica.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-
-
-# Parse database configuration from $DATABASE_URL
-# import dj_database_url
-# DATABASES['default'] =  dj_database_url.config()
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd6rssviaog0un9',
-        'USER': 'zklcgclmwjfmrg',
-        'PASSWORD': '12wmPryGDxFT_pCNu8q3yfC8Nj',
-        'HOST': 'ec2-107-21-219-235.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -162,13 +143,4 @@ LOGIN_URL = '/login'
 
 #LOGIN_REDIRECT_URL = '/'
 
-
-# from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-# TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-#     'apps.almacen.context_processors.stock_minimo',
-#
-# )
-
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-
+AUTH_USER_MODEL = 'usuarios.User'

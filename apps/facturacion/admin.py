@@ -34,10 +34,10 @@ class VentaAdmin(admin.ModelAdmin):
     #         obj.save()
 
 
-class NotaPeridoAdmin(admin.ModelAdmin):
+class NotaPedidoAdmin(admin.ModelAdmin):
     model = NotaPedido
-    list_display = ('id','venta','fecha','importe','saldo',)
-    search_fields = ('venta','fecha',)
+    list_display = ('id','nro','venta','fecha','importe','saldo',)
+    search_fields = ('nro','venta','fecha',)
     # def save_model(self, request, obj, form, change):
     #     if change:
     #         productos = DetalleVenta.objects.filter(venta=obj.nro)
@@ -48,5 +48,5 @@ class NotaPeridoAdmin(admin.ModelAdmin):
     #         obj.save()
 
 admin.site.register(Venta,VentaAdmin)
-admin.site.register(NotaPedido,NotaPeridoAdmin)
+admin.site.register(NotaPedido,NotaPedidoAdmin)
 

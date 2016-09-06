@@ -1,4 +1,5 @@
 from apps.almacen.models import Producto
+
 def stock_minimo(request):
     risk = []
     producto = Producto.objects.all()

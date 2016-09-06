@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block content %}
     {% if messages %}
         {% for message in messages %}
@@ -20,6 +20,11 @@
                 {% endif %}
         {% endfor %}
     {% endif %}
+    <style>
+    .borderless td, .borderless th {
+        border: none;
+    }
+    </style>
     <div class="row">
         <form action="{% url 'receta:index' %}" method="post" role="form" class="form-horizontal" enctype="multipart/form-data">
             {% csrf_token %}
@@ -33,12 +38,17 @@
                             <div class="form-group">
                                 <label for="BuscarCliente" class=" control-label col-sm-2">DNI</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" id="BuscarCliente" placeholder="D.N.I." maxlength="8" onkeyup="search_client()" name="BuscarCliente">
+                                    <div class="input-group col-lg-12">
+                                        <input type="text" class="form-control" id="BuscarCliente" name="Cliente" maxlength="8" onkeyup="search_client()"/>
+                                        <span class="input-group-addon" onclick="search_client()">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <button data-toggle="modal" data-target="#cliente-modal" class=" col-lg-4 btn btn-success btn-large" id="add_cliente">Añadir Cliente</button>
-                        <table class="table table-bordered">
+                        <table class="table borderless text-center">
                             <tr>
                                 <th id="cliente_foto" rowspan="3">No Especificado</th>
                                 <th>Nombre</th>
@@ -50,7 +60,7 @@
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td><span class="badge bg-red" id="cliente_email">No Especificado</span></td>
+                                <td id="cliente_email">No Especificado</td>
                             </tr>
                         </table>
                     </div>
@@ -93,38 +103,38 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <th></th>
-                                    <th>Ojo Izquierdo</th>
                                     <th>Ojo Derecho</th>
+                                    <th>Ojo Izquierdo</th>
                                 </tr>
                                 <tr>
                                     <td>ESF.</td>
-                                    <td>{{ form.oi_esf }}</td>
                                     <td>{{ form.od_esf }}</td>
+                                    <td>{{ form.oi_esf }}</td>
                                 </tr>
                                 <tr>
                                     <td>CIL.</td>
-                                    <td>{{ form.oi_cil }}</td>
                                     <td>{{ form.od_cil }}</td>
+                                    <td>{{ form.oi_cil }}</td>
                                 </tr>
                                 <tr>
                                     <td>EJE.</td>
-                                    <td>{{ form.oi_eje }}</td>
                                     <td>{{ form.od_eje }}</td>
+                                    <td>{{ form.oi_eje }}</td>
                                 </tr>
                                 <tr>
                                     <td>DIP.</td>
-                                    <td>{{ form.oi_dip }}</td>
                                     <td>{{ form.od_dip }}</td>
+                                    <td>{{ form.oi_dip }}</td>
                                 </tr>
                                 <tr>
                                     <td>AV. SC.</td>
-                                    <td>{{ form.oi_avsc }}</td>
                                     <td>{{ form.od_avsc }}</td>
+                                    <td>{{ form.oi_avsc }}</td>
                                 </tr>
                                 <tr>
                                     <td>AV. CC.</td>
-                                    <td>{{ form.oi_esf }}</td>
-                                    <td>{{ form.od_esf }}</td>
+                                    <td>{{ form.od_avcc }}</td>
+                                    <td>{{ form.oi_avcc }}</td>
                                 </tr>
                             </table>
                               <div class="form-group">
@@ -145,13 +155,15 @@
     </div>
 
 <!-- Modal -->
- <div id="cliente-modal" class="modal fade" role="dialog">
+    <div id="cliente-modal" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-              <div class="modal-header">
+              <div class="modal-header" style="background-color: blueviolet; color: white;">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Registrar Cliente</h4>
+                <h4 class="modal-title">
+                    <img src="{% static 'images/cliente.png' %}" width="50px" style="margin: 0 3em 0 1em">
+                    <strong>Registrar Nuevo Cliente</strong></h4>
               </div>
               <form id="client-form" class="form-horizontal" role="form" action="{% url 'cliente:GuardarCliente' %}" method="POST" enctype="multipart/form-data">
               <div class="modal-body">
@@ -223,9 +235,9 @@
                       </div>
 
                   </div>
-                  <div class="modal-footer">
-                    <input class="btn btn-success" type="submit" value="Añadir" id="submit_cliente">
-                    <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+                  <div class="modal-footer" style="background-color: blueviolet; color: white;">
+                    <input class="btn btn-success" type="submit" value="Registrar Nuevo Cliente" id="submit_cliente">
+                    <a href="#" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
                   </div>
               </form>
             </div>
@@ -235,9 +247,11 @@
 {% endblock %}
 {% block application_javascript %}
     <script type="application/javascript">
-            document.getElementById("BuscarCliente").addEventListener("onchange",search_client);
-                    //Buscar Cliente via ajax
-            function search_client(){
+        // Añadiendo al Evento Click de BuscarCliente la funcion search_client
+        document.getElementById("BuscarCliente").addEventListener("onchange",search_client);
+
+        //Buscar Cliente via ajax
+           /* function search_client(){
                 $.ajax({
                     url: "/cliente/buscar-cliente/" +  $("#BuscarCliente").val(),
                     type: "GET",
@@ -317,22 +331,14 @@
                         $("#error_id_foto").html(error.responseJSON.errores.foto );
                     }
                 });
-            }
+            }*/
             $( document ).ready(function() {
                 $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
                 $("#add_cliente").click(function(event)
                   {
                     event.preventDefault(); // cancel default behavior
 
-                    //... rest of add logic
                   });
-                $("#id_fecha_nacimiento").datepicker({
-                  changeMonth: true,
-                  changeYear: true,
-                  yearRange: '-100:+0',
-                  dateFormat: 'yy-mm-dd'
-                });
-
 
                 $('#client-form').on('submit', function(event){
                     event.preventDefault();
