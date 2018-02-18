@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.shortcuts import render, redirect, HttpResponse
 from django.http import HttpResponseBadRequest
+from django.db.models import Max
 from apps.usuarios.views import LoginRequiredMixin
 from apps.receta.models import Receta
 from apps.facturacion.models import Venta
@@ -13,10 +14,11 @@ import json
 class Index(LoginRequiredMixin, View):
     template_name = 'clientes/index.html'
     def get(self,request):
-        ventas = Venta.objects.all()
-        recetas = Receta.objects.all()
-        return render(self.request,self.template_name,locals())
+        clientes = Cliente.objects.all()
+        for item in clientes:
+            item.receta_actual = item.receta_set.all().order_by("fecha").last()
 
+        return render(self.request,self.template_name,locals())
 
 @csrf_exempt
 def SaveClient(request):

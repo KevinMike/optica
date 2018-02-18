@@ -140,7 +140,7 @@
                         <div id="form_detalles">
                                 {% for form in DetalleFormSet %}
                                 <div class="formset">
-                                    <div class=" col-sm-4 col-xs-12">
+                                    <div class=" col-sm-8 col-xs-12">
                                         <div class="form-group ">
                                             <div class="no-padding-top form-field col-sm-11">
                                                 {{ form.producto.errors }}
@@ -152,26 +152,26 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-4 col-xs-12">
+                                    <div class="col-sm-2 col-xs-12">
 
                                         <div class="form-group ">
                                             <div class="no-padding-top form-field col-sm-11">
                                                 {{ form.precio.errors }}
                                                 <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon3">Precio</span>
+                                                    <span class="input-group-addon" id="basic-addon3">$</span>
                                                     {{ form.precio}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                   <div class="col-sm-4 col-xs-12">
+                                   <div class="col-sm-2 col-xs-12">
 
                                        <div class="form-group ">
                                             <div class="no-padding-top form-field col-sm-11">
                                                 {{ form.cantidad.errors }}
                                                 <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon3">Cantidad</span>
+                                                    <span class="input-group-addon" id="basic-addon3">*</span>
                                                     {{ form.cantidad}}
                                                 </div>
                                             </div>
@@ -456,15 +456,19 @@
                 });
             }
             $( document ).ready(function() {
-                $('#form_detalles .formset').formset({
+
+                 $('#form_detalles .formset').formset({
                    prefix: '{{ DetalleFormSet.prefix }}',
                    formCssClass: 'dynamic-formset1'
-               });
+                });
+
+                $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true });
+
                 $('#form_lentes .formset').formset({
                    prefix: '{{ LenteFormSet.prefix }}',
                    formCssClass: 'dynamic-formset2'
                 });
-                $(".chosen-select").chosen({no_results_text: "No se encontró coincidencias con :", width: '100%' ,allow_single_deselect: true, });
+
                 $('#client-form').on('submit', function(event){
                     event.preventDefault();
                     registrar_cliente();

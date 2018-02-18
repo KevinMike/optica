@@ -91,7 +91,7 @@ class DetalleVentaForm(forms.ModelForm):
         fields = ('producto','precio','cantidad',)
 
 
-DetalleVentaFormSet =formset_factory(DetalleVentaForm, extra=1,can_delete=True)
+DetalleVentaFormSet =formset_factory(DetalleVentaForm, extra=2,can_delete=True)
 
 class DetalleLenteForm(forms.ModelForm):
     lente = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),

@@ -19,25 +19,37 @@
                         <thead>
                             <th>DNI</th>
                             <th>Nombre</th>
-                            <th>Fecha del Exámen</th>
-                            <th>Prueba</th>
-                            <th>Editar</th>
+                            <th>Apellido</th>
+                            <th>Dirección</th>
+                            <th>Telefono</th>
+                            <th>Correo Electronico</th>
+                            <th>Fecha de Nacimineot</th>
+                            <th>Ocupacion</th>
+                            <th>Foto</th>
                         </thead>
                         <tfoot>
                             <th>DNI</th>
                             <th>Nombre</th>
-                            <th>Fecha del Exámen</th>
-                            <th>Prueba</th>
-                            <th>Editar</th>
+                            <th>Apellido</th>
+                            <th>Dirección</th>
+                            <th>Telefono</th>
+                            <th>Correo Electronico</th>
+                            <th>Fecha de Nacimineot</th>
+                            <th>Ocupacion</th>
                         </tfoot>
                         <tbody>
-                            {% for receta in recetas %}
+                            {% for item in clientes %}
                             <tr>
-                                <td>{{ receta.cliente.dni }}</td>
-                                <td>{{ receta.cliente.nombre_completo }}</td>
-                                <td>{{ receta.fecha }}</td>
-                                <td> <a class="fancybox" rel="group" href="{{ receta.imagen.url }}" title="{{ receta.dni_cliente.nombre_completo }} - {{ receta.fecha }}"><img src="{% static 'images/ver.png' %}" width="25" height="25" data-toggle="tooltip" title="Click para ver el Examen">Ver Examen</a> </td>
-                                <td> <a href="{% url 'receta:editar' receta.id %}"><img src="{% static 'images/editar.ico' %}" width="25" height="25" data-toggle="tooltip" title="Editar">Editar</a> </td>
+                                <td><a href="{% url 'receta:editar' item.receta_actual.id %}">{{ item.dni }}</a></td>
+                                <td>{{ item.nombre }}</td>
+                                <td>{{ item.apellido }}</td>
+                                <td>{{ item.direccion }}</td>
+                                <td>{{ item.telefono }}</td>
+                                <td>{{ item.email }}</td>
+                                <td>{{ item.fecha_nacimiento }}</td>
+                                <td>{{ item.ocupacion }}</td>
+                                <th><img src="/media/{{ item.foto }}" width="50px"></th>
+                                <!--<td> <a href="{% url 'receta:editar' item.receta_actual.id %}"><img src="{% static 'images/editar.ico' %}" width="25" height="25" data-toggle="tooltip" title="Editar">Editar</a> </td>-->
                             </tr>
                             {% endfor %}
                         </tbody>

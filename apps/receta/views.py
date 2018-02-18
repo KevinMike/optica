@@ -44,6 +44,7 @@ class EditarView(View):
     def get(self,request,nro):
         receta = Receta.objects.get(pk=nro)
         form = RecetaForm(instance=receta)
+        historial = Receta.objects.filter(cliente=receta.cliente).exclude(pk=nro).order_by("-id")
         return render(request,self.template_name,locals())
     def post(self,request,nro):
         receta = Receta.objects.get(pk=nro)
