@@ -156,17 +156,4 @@ LOGIN_URL = '/login'
 
 #LOGIN_REDIRECT_URL = '/'
 
-<<<<<<< HEAD
-=======
-
-# from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-# TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-#     'apps.almacen.context_processors.stock_minimo',
-#
-# )
-
-#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-
->>>>>>> FETCH_HEAD
 AUTH_USER_MODEL = 'usuarios.User'
