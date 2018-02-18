@@ -40,7 +40,6 @@ class Producto(models.Model):
 
     def __unicode__(self):
         return u'{a} ({b} {c} {d} {e})'.format(a=self.descripcion,b=self.codigo,c=self.marca,d=self.color,e=self.longitud )
-        #return "%s (%s %s %s %s)" %(self.descripcion,self.codigo,self.marca,self.color,self.longitud )
 
     class Meta:
         verbose_name = 'Producto'
@@ -65,8 +64,6 @@ class Lente(models.Model):
         verbose_name = 'Tipo de Lente'
         verbose_name_plural = 'Tipo de Lentes'
 
-
-
 class IngresoProductos(models.Model):
     producto = models.ForeignKey(Producto)
     proveedor = models.ForeignKey(Proveedor,null=True,blank=True)
@@ -79,4 +76,3 @@ class IngresoProductos(models.Model):
     class Meta:
         verbose_name = 'Ingreso de Producto'
         verbose_name_plural = 'Ingresos de Productos'
-

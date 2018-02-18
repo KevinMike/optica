@@ -15,15 +15,15 @@
                     <strong><i class="fa fa-users"></i>    Historial de Clientes</strong>
                 </header>
                 <div class="panel-body">
-                    <table id="tabla1" class="table table-hover display">
+                    <table id="clientes" class="table table-hover display">
                         <thead>
                             <th>DNI</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Dirección</th>
                             <th>Telefono</th>
-                            <th>Correo Electronico</th>
-                            <th>Fecha de Nacimineot</th>
+                            <th>Correo Electrónico</th>
+                            <th>Fecha de Nacimiento</th>
                             <th>Ocupacion</th>
                             <th>Foto</th>
                         </thead>
@@ -33,7 +33,7 @@
                             <th>Apellido</th>
                             <th>Dirección</th>
                             <th>Telefono</th>
-                            <th>Correo Electronico</th>
+                            <th>Correo Electrónico</th>
                             <th>Fecha de Nacimineto</th>
                             <th>Ocupacion</th>
                             <th>Foto</th>
@@ -65,10 +65,10 @@
 
     $(document).ready(function() {
         // DataTable
-        var table = $('#tabla1').DataTable(datatable);
+        var table = $('#clientes').DataTable(datatable);
 
-        $('#tabla1 tfoot th').each( function () {
-            var title = $('#tabla1 thead th').eq( $(this).index() ).text();
+        $('#clientes tfoot th').each( function () {
+            var title = $('#clientes thead th').eq( $(this).index() ).text();
             $(this).html( '<input type="text" placeholder="'+title+'" />' );
         } );
 

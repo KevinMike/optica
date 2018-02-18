@@ -11,13 +11,11 @@ class BloqueVenta(models.Model):
     def __unicode__(self):
         return str(self.id)
 
-
 class BloquePedido(models.Model):
     fecha = models.DateField(default=timezone.now())
     current = models.BooleanField(default=True)
     def __unicode__(self):
         return str(self.id)
-
 
 class Venta(models.Model):
     nro = models.IntegerField(blank=True,null=True)
@@ -65,4 +63,3 @@ class NotaPedido(models.Model):
     class Meta:
         verbose_name = 'Nota de Pedido'
         verbose_name_plural = 'Notas de Pedido'
-

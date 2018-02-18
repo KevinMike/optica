@@ -47,6 +47,6 @@ class NotaPedidoAdmin(admin.ModelAdmin):
     #     else:
     #         obj.save()
 
-admin.site.register(Venta,VentaAdmin)
-admin.site.register(NotaPedido,NotaPedidoAdmin)
+#admin.site.register(Venta,VentaAdmin)
+#admin.site.register(NotaPedido,NotaPedidoAdmin)
 

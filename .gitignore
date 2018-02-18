@@ -2,5 +2,6 @@
 .Trashes
 Thumbs.db
 *.pyc
-.idea/*
 .idea/
+opticaenv/
+staticfiles/

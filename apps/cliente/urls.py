@@ -6,5 +6,4 @@ urlpatterns = patterns('',
     url(r'^$',Index.as_view(),name="index"),
     url(r'^buscar-cliente$','apps.cliente.views.SearchClient',),
     url(r'^guardar-cliente/$','apps.cliente.views.SaveClient',name="GuardarCliente"),
-
 )

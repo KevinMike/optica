@@ -8,6 +8,7 @@ from django.contrib import messages
 from apps.usuarios.views import LoginRequiredMixin
 from decimal import Decimal
 # Create your views here.
+
 def BloqueVenta_last_id():
     try:
         nro = BloqueVenta.objects.get(current=True)
@@ -50,9 +51,6 @@ def get_venta():
     except IndexError:
         return 1
         #return HttpResponse(json.dumps({"nro":1}),content_type='application/json')
-
-
-
 
 class IndexView(LoginRequiredMixin, View):
     template_name= "facturacion/index.html"
@@ -216,18 +214,18 @@ def change_BloqueVenta(request):
     return redirect('/facturacion/historial')
 
 def new_BloquePedido(request):
-    g = BloquePedido.objects.get(current=True)
-    g.current = False
-    g.save()
-    g = BloquePedido.objects.create()
-    g.save()
+    bloqueActual = BloquePedido.objects.get(current=True)
+    bloqueActual.current = False
+    bloqueActual.save()
+    nuevoBloque = BloquePedido.objects.create()
+    nuevoBloque.save()
     return redirect('/facturacion/notas')
 
 def change_BloquePedido(request):
-    g = BloquePedido.objects.get(current=True)
-    g.current = False
-    g.save()
-    g = BloquePedido.objects.get(pk=request.POST['bloque'])
-    g.current = True
-    g.save()
+    bloqueActual = BloquePedido.objects.get(current=True)
+    bloqueActual.current = False
+    bloqueActual.save()
+    nuevoBloque = BloquePedido.objects.get(pk=request.POST['bloque'])
+    nuevoBloque.current = True
+    nuevoBloque.save()
     return redirect('/facturacion/notas')

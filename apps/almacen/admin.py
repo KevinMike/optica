@@ -2,17 +2,17 @@ from django.contrib import admin
 from .forms import *
 # Register your models here.
 
-@admin.register(Categoria)
+#@admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
     model = Categoria
     list_display = ('nombre','descripcion',)
     search_fields = ('nombre',)
-@admin.register(Proveedor)
+#@admin.register(Proveedor)
 class ProveedorAdmin(admin.ModelAdmin):
     model = Proveedor
     list_display = ('nombre','telefono','observaciones')
 
-@admin.register(Producto)
+#@admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
     model = Producto
     list_display = ('codigo','descripcion','marca','color','categoria','longitud','stock_actual')
@@ -29,7 +29,7 @@ class LenteAdmin(admin.ModelAdmin):
 class AditivoAdmin(admin.ModelAdmin):
     model=Aditivos
     list_display = ('componente',)
-@admin.register(IngresoProductos)
+#@admin.register(IngresoProductos)
 class IngresoProductosAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if change:
