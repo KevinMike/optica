@@ -50,3 +50,4 @@ class NotaPedidoAdmin(admin.ModelAdmin):
 #admin.site.register(Venta,VentaAdmin)
 #admin.site.register(NotaPedido,NotaPedidoAdmin)
 
+

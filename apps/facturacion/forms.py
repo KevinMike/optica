@@ -4,6 +4,7 @@ from apps.almacen.models import Categoria
 from .models import Venta,DetalleVenta,DetalleLente,Aditivos,Lente,NotaPedido,BloquePedido,BloqueVenta
 
 
+
 def BloqueVenta_last_id():
     try:
         nro = BloqueVenta.objects.get(current=True)
@@ -44,7 +45,6 @@ def BloquePedido_last_id():
 #         #return HttpResponse(json.dumps({"nro":nro}),content_type='application/json')
 #     except IndexError:
 #         return 1
-
 class VentaForm(forms.ModelForm):
     tipo_pagos = (
         ('True','Boleta de Venta'),
@@ -56,6 +56,7 @@ class VentaForm(forms.ModelForm):
     class Meta:
         model = Venta
         fields = ('observaciones',)
+
 
 
 def producto_as_choices():
@@ -102,6 +103,7 @@ class DetalleVentaForm(forms.ModelForm):
 
 
 #DetalleVentaFormSet =formset_factory(DetalleVentaForm, extra=2,can_delete=True)
+
 
 class DetalleLenteForm(forms.ModelForm):
     lente = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control chosen-select','required':'true',}),

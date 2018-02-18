@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.views.generic import View, ListView, DeleteView
 from apps.cliente.forms import ClienteForm
 from .forms import VentaForm,DetalleVentaForm,DetalleLenteForm,PagarNota,BloqueVentaForm,BloquePedidoForm
+
 from .models import *
 from django.contrib import messages
 from apps.usuarios.views import LoginRequiredMixin
@@ -30,6 +31,7 @@ def BloquePedido_last_id():
 #Obtiene el ultimo numero de pedido
 def get_nota_pedido():
     bloque = BloquePedido_last_id()
+
     try:
         ultima_venta = NotaPedido.objects.filter(bloque=bloque.id).order_by('-nro')[0]
         nro = ultima_venta.nro + 1
@@ -43,6 +45,7 @@ def get_nota_pedido():
 #Obtiene el ultimo numero de venta
 def get_venta():
     bloque = BloqueVenta_last_id()
+
     try:
         ultima_venta = Venta.objects.filter(bloque=bloque.id).order_by('-nro')[0]
         nro = ultima_venta.nro + 1
@@ -162,6 +165,7 @@ class NotaPedidoView(LoginRequiredMixin,View):
     template_name = 'facturacion/historial_notas_pedido.html'
     def get(self,request):
         notas = NotaPedido.objects.all()
+
         bloque_form = BloquePedidoForm()
         bloque = BloquePedido_last_id()
         return render(request,self.template_name,locals())
@@ -228,4 +232,5 @@ def change_BloquePedido(request):
     nuevoBloque = BloquePedido.objects.get(pk=request.POST['bloque'])
     nuevoBloque.current = True
     nuevoBloque.save()
+
     return redirect('/facturacion/notas')

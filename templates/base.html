@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{% static 'css/plugins/jquery.dataTables.min.css' %}">
     <!-- Fancyapp -->
     <link rel="stylesheet" href=" {% static 'fancyapps/source/jquery.fancybox.css' %}" type="text/css" media="screen" />
+    <!--Selectize-->
+
 </head>
 <body class="skin-black">
     <!-- header logo: style can be found in header.less -->
@@ -128,6 +130,7 @@
                             </a>
                         </li>
                         {% comment %}{% if request.user.is_seller %}
+
                         <li>
                             <a href="{% url 'facturacion:index' %}">
                                 <i class="fa fa-credit-card"></i> <span>Registrar Venta</span>
@@ -145,6 +148,7 @@
                             </a>
                         </li>
                         {% endif %}{% endcomment %}
+
                         <li>
                             <a href="{% url 'cliente:index' %}">
                                 <i class="fa fa-user-md"></i> <span>Historial de Clientes</span>
@@ -206,6 +210,8 @@
     <script src="{% static 'fancyapps/source/jquery.fancybox.js' %}"></script>
     <!-- LeanModal -->
     <script src="{% static 'js/plugins/jquery.leanModal.min.js' %}"></script>
+    <!--selectize-->
+
 {% block application_javascript %}
 
 {% endblock %}

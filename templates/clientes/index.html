@@ -50,7 +50,8 @@
                                 <td>{{ item.fecha_nacimiento }}</td>
                                 <td>{{ item.ocupacion }}</td>
                                 <th><img src="/media/{{ item.foto }}" width="50px"></th>
-                                
+
+
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -67,6 +68,7 @@
         // DataTable
         var table = $('#clientes').DataTable(datatable);
 
+
         $('#clientes tfoot th').each( function () {
             var title = $('#clientes thead th').eq( $(this).index() ).text();
             $(this).html( '<input type="text" placeholder="'+title+'" />' );
@@ -75,6 +77,7 @@
         // Apply the search
         table.columns().every( function () {
             var that = this;
+
 
             $( 'input', this.footer() ).on( 'keyup change', function () {
                 if ( that.search() !== this.value ) {

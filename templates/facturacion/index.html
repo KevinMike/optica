@@ -401,11 +401,78 @@
                         <div class="col-sm-2">
                             <button type="submit" class="btn btn-app"><i class="fa fa-truck"></i> Añadir Producto</button>
                         </div>
+<<<<<<< HEAD
                     </form>
                 </div>
                 <strong style="margin: 1em 2em;">Lentes Oftalmicos</strong>
                 <div class="row">
                     <form id="LentesForm" class="form-horizontal" role="form" method="post">
+=======
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                            <fieldset>
+                                    <legend>Modalidades de Pago</legend>
+                                      <div class="form-group">
+                                          <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.tipo_recibo.label }}</strong></div>
+                                          <div class="col-lg-8">
+                                              {{ venta_form.tipo_recibo.errors }}
+                                              {{ venta_form.tipo_recibo }}
+                                          </div>
+                                      </div>
+                            </fieldset>
+  {% comment %}                        <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.nro.label }}</strong></div>
+                              <div class="col-lg-8">
+                                  {{ venta_form.nro.errors }}
+                                  {{ venta_form.nro }}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.nro_nota.label }}</strong></div>
+                              <div class="col-lg-8">
+                                  {{ venta_form.nro_nota.errors }}
+                                  {{ venta_form.nro_nota }}
+                              </div>
+                          </div>{% endcomment %}
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>Venta</strong></div>
+                              <div class="col-lg-8">
+                                    {{ nro_venta }}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>Nota de Pedido</strong></div>
+                              <div class="col-lg-8">
+                                    {{ nro_pedido }}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.importe.label }}</strong></div>
+                              <div class="col-lg-8">
+                                  {{ venta_form.importe.errors }}
+                                  {{ venta_form.importe }}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>{{ venta_form.observaciones.label }}</strong></div>
+                              <div class="col-lg-8">
+                                {{ venta_form.observaciones.errors }}
+                                {{ venta_form.observaciones }}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-lg-4 col-sm-2 control-label"><strong>Total</strong></div>
+                              <div class="col-lg-8">
+                                    <button type="button" class="float-left btn btn-default" id="calcular">Calcular el Total</button>
+                              </div>
+                          </div>
+                          <fieldset>
+                              <table class="DetailTable">
+                                  <tr>
+                                      <td id="Total">No Calculado</td>
+                                  </tr>
+                              </table>
+>>>>>>> FETCH_HEAD
 
                         <div class="col-sm-12">
                             <div class="col-sm-4">
@@ -711,6 +778,7 @@
         // Funcion javascript para calcular el total
         /*document.getElementById("calcular").addEventListener("click", function(event){
 
+
                 var numero_productos = parseFloat($("#id_formset_producto-TOTAL_FORMS").val());
                 var total = 0;
                 for(var x = 0;x<numero_productos;x++)
@@ -736,6 +804,7 @@
                     else
                     {
                         total = "Lente Sin Precio";
+
                         break
                     }
                 }
@@ -923,5 +992,6 @@
                 document.querySelector('#venta_form').submit();
             }
         });
+
     </script>
 {% endblock %}
