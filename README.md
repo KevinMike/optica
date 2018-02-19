@@ -39,7 +39,7 @@ DATABASES = {
 
 ## Deploy application using apache and mod_wsgi
 1. Considerar que se utilizará una versión de mod_wsgi de 32 bits, por lo que la versión de python también debe ser de 32 bits.
-2. Instalar xampp usando en instalador de la carpeta _adicionales\xampp-win32-1.8.2-6-VC9-installer_
+2. Instalar xampp usando en instalador _xampp-win32-1.8.2-6-VC9-installer_, lo puede desvargar de https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/1.8.2/xampp-win32-1.8.2-6-VC9-installer.exe/download
 3. Instalar virtualenv usando el comando
 > pip  install virtualenv
 4. Crear un entorno virtual para instalar los paquetes requeridos de python para el funcionamiento del sistema. Para esta guia, crearemos el entorno virtual dentro de la carpeta del proyecto con nombre *opticaenv*, para esto usamos el comando
