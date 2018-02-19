@@ -148,91 +148,7 @@
                 </div>
         </form>
 
-<<<<<<< HEAD
-=======
 
-
-        <div class="panel-group" id="accordion">
-            <h1 style="text-align: center;">Historial</h1>
-            {% for item in historial %}
-            <div class="panel panel-default" id="panel{{ forloop.counter }}">
-                <div class="panel-heading">
-                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-target="#collapse{{ forloop.counter }}"
-                           href="#collapse{{ forloop.counter }}">
-                          Fecha : {{ item.fecha }} Exámen número {{ item.id }}
-                        </a>
-                     </h4>
-                </div>
-                <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <div class="col-lg-3">
-                              <div class="form-group">
-                                  <label for="patologia">Imagen</label>
-                                  <a class="fancybox" rel="group" href="{{ item.imagen.url }}" title="{{ item.cliente.nombre_completo }} - {{ item.fecha }}"><img src="/media/{{ item.imagen }}" width="25" height="25" data-toggle="tooltip" title="Click para ver el Examen"></a>
-                              </div>
-                              <div class="form-group">
-                                  <label for="add">ADD</label>
-                                    {{ item.add }}
-                              </div>
-                              <div class="form-group">
-                                  <label for="patologia">Patología</label>
-                                {{ item.patologia }}
-                              </div>
-                              <div class="form-group">
-                                  <label for="patologia">Lente y Tratamientos</label>
-                                      {{ item.lente }} [
-                                        {% for tag in item.complementos.all %}
-                                            {{ tag.componente }},
-                                        {% endfor %}
-                                        ]
-                              </div>
-                              <div class="form-group">
-                                  <label for="patologia">Fecha</label>
-                                {{ item.fecha }}
-                              </div>
-                              <div class="form-group">
-                                  <a class="btn btn-danger" href="{% url 'receta:editar' item.id %}">Editar</a>
-                              </div>
-                        </div>
-                        <div class="col-lg-9">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th></th>
-                                    <td>ESF.</td>
-                                    <td>CIL.</td>
-                                    <td>EJE.</td>
-                                    <td>DIP.</td>
-                                    <td>AV. SC.</td>
-                                    <td>AV. CC.</td>
-                                </tr>
-                                <tr>
-                                    <th>Ojo Derecho</th>
-                                    <td>{{ item.od_esf }}</td>
-                                    <td>{{ item.od_cil }}</td>
-                                    <td>{{ item.od_eje }}</td>
-                                    <td>{{ item.od_dip }}</td>
-                                    <td>{{ item.od_avsc }}</td>
-                                    <td>{{ item.od_avcc }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Ojo Izquierdo</th>
-                                    <td>{{ item.oi_esf }}</td>
-                                    <td>{{ item.oi_cil }}</td>
-                                    <td>{{ item.oi_eje }}</td>
-                                    <td>{{ item.oi_dip }}</td>
-                                    <td>{{ item.oi_avsc }}</td>
-                                    <td>{{ item.oi_avcc }}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
->>>>>>> FETCH_HEAD
     </div>
 {% endblock %}
 {% block application_javascript %}
@@ -245,11 +161,8 @@
                 {% else %}
                     $("input").prop("disabled", true);
                     $("button").prop("disabled", true);
-<<<<<<< HEAD
                 {% endif %}{% endcomment %}
-=======
-                {% endif %}
->>>>>>> FETCH_HEAD
+
                 $(".fancybox").fancybox({
                     openEffect	: 'elastic',
                     closeEffect	: 'elastic',
