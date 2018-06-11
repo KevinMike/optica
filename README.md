@@ -17,7 +17,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'latyna',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '0ptic4',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -31,7 +31,7 @@ DATABASES = {
 > python manage.py createsuperuser
 * username: administrator
 * email: admin@latyna.com
-* password: l4t1n4
+* password: 0pt1c4
 5. Correr el siguiente comando para recolectar todos los archivos estaticos requeridos
 > python manage.py collectstatic
 6. Para hechar a andar el sistema, use el comando

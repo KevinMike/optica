@@ -15,12 +15,12 @@ class Index(LoginRequiredMixin, View):
     template_name = 'clientes/index.html'
     def get(self,request):
         clientes = Cliente.objects.all()
-        for item in clientes:
-            try:
-                auxiliar = item.receta_set.all().order_by('-fecha')[0]
-                item.receta_actual = auxiliar.id
-            except IndexError:
-                item.receta_actual = 0
+        # for item in clientes:
+        #     try:
+        #         auxiliar = item.receta_set.all().order_by('-fecha')[0]
+        #         item.receta_actual = auxiliar.id
+        #     except IndexError:
+        #         item.receta_actual = 0
         return render(self.request,self.template_name,locals())
 
 @csrf_exempt
@@ -73,3 +73,10 @@ def SearchClient(request):
                     'Mensaje':'Cliente no encontrado',
                 }
     return HttpResponse(json.dumps(lista),content_type='application/json')
+
+from django.core import serializers
+
+def ClientesSerializados(request):
+    clientes = Cliente.objects.all()
+    json_data = serializers.serialize('json', clientes)
+    return HttpResponse(json_data,content_type='application/json')
